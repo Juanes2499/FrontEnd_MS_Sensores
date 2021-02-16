@@ -7,7 +7,6 @@ import '../../../App.css';
 import imageHome from '../../../Imagenes/Home/Home.jpg'
 
 class Home extends Component{
-  //<img src={Home_img} className='portadaImagen'  alt="Portada"/>
   render() {
     return (
       <div>

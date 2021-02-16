@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import Login from '../../Modals/Login/Login';
 //import { Icon } from 'rsuite';
 //import 'rsuite/dist/styles/rsuite-default.min.css'
 
@@ -9,6 +10,7 @@ function Navbar() {
     const [click, setClick] = useState(false); //State para cambiar entre el botón hamburguesa y el botón de cerrar
     const [button, setButton] = useState(true); //State para fijar el boton hamburguesa o no
     const [navbar, setNavbar] = useState(false); //State para cambiar el navbar de transparente a color sólido
+    const [loginOpen, setLoginOpen] = useState(true); //Estado para abrir el modal
 
     const handleClick = () => setClick(!click); //Función para cambiar el icono de menu, si esta cerrado es el icono de hamburgesa y si esta abierto es el icono de cerrar
     const closeMobileMenu = () => setClick(false); //Función para cuando se de clic en una de las opciones del menú, el menú se cierre
@@ -38,6 +40,15 @@ function Navbar() {
     }
 
     window.addEventListener('scroll', changeBackground) //Listener para detectar cuando hay movimiento del scrolly
+
+    //Funcion para abrir el modal de login 
+    const showModalLogin = () => {
+        setLoginOpen(false);
+        closeMobileMenu();
+        console.log(loginOpen);
+    } 
+
+    
 
     return (
         <>
@@ -79,16 +90,17 @@ function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link to='/sign-up' className='nav-links-mobile' onClick={closeMobileMenu}>
+                            <Link className='nav-links-mobile' onClick={showModalLogin}>
                                 Iniciar sesión
                             </Link>
                         </li>
                     </ul>
                     {button && 
-                        <Button buttonStyle='btn--outline' to='/loginAdmin'>Iniciar sesión</Button>
+                        <Button buttonStyle='btn--outline' onClick={showModalLogin}>Iniciar sesión</Button>
                     }
                 </div>
             </nav>
+            <Login isActivate={loginOpen} handleClose={()=>{setLoginOpen(!loginOpen)}} size={'sm'}/>
         </>
     );
 }

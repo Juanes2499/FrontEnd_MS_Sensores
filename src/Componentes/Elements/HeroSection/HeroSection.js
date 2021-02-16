@@ -14,7 +14,6 @@ const  HeroSection = ({
     buttonsStyles,
     buttonsSize
 }) => {
-    console.log(type)
     return (
         <div className='hero-container'>
             {

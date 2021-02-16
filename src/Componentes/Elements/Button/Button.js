@@ -13,17 +13,29 @@ const Button =({to, children, type, onClick, buttonStyle, buttonSize}) => {
     //Revisa si cuando se emplea este componte se una usa alguno de los tamaños establecidos en SIZES, de lo contrario se usa el primer tamaño del arreglo SIZES
     const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize: SIZES[0];
 
-    return (
-        <Link to={to} className = 'btn-mobile'>
+    if(to){
+        return (
+            <Link to={to ? to : null} className = 'btn-mobile'>
+                <button 
+                    className = {`btn ${checkButtonStyle} ${checkButtonSize}`}
+                    onClick = {onClick}
+                    type = {type}
+                >
+                    {children}
+                </button>
+            </Link>
+        )
+    }else {
+        return (
             <button 
-                className = {`btn ${checkButtonStyle} ${checkButtonSize}`}
+                className = {`btn btn-mobile ${checkButtonStyle} ${checkButtonSize}`}
                 onClick = {onClick}
                 type = {type}
             >
                 {children}
             </button>
-        </Link>
-    );
+        )
+    }
 };
 
 export default Button;
