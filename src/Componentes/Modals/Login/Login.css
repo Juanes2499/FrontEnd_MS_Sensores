@@ -25,14 +25,12 @@
     width: 90%;
     margin-left: 5%;
     margin-bottom: 2%;
-    position: static;
     display: grid;
+    justify-content: center;
+    align-items: center;
     grid-template-columns: repeat(2, auto);
     grid-gap: 50%;
-    list-style: none;
-    text-align: center;
-    justify-content: center;
-    margin-top: 5%;
+    margin-top: 3%;
     z-index: 2;
 }
 
@@ -65,11 +63,32 @@
 .label-field{
     color: grey;
     font-family: "Roboto", sans-serif;
-    font-size: 100%;
+    font-size: 120%;
 }
 
 .field{
-    width: 100%;
+    width: 100;
+}
+
+.button-login{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 5%;
+}
+
+.button-login-container{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 10%;
+}
+
+.button-label{
+    font-family: "Roboto", sans-serif;
+    font-size: 110%;
 }
 
 @media screen and (max-width: 1600px) {
@@ -86,15 +105,13 @@
         height: 10%;
         width: 90%;
         margin-left: 5%;
-        margin-bottom: 5%;
-        position: static;
+        margin-bottom: 2%;
         display: grid;
+        justify-content: center;
+        align-items: center;
         grid-template-columns: repeat(2, auto);
         grid-gap: 50%;
-        list-style: none;
-        text-align: center;
-        justify-content: center;
-        margin-top: 5%;
+        margin-top: 3%;
         z-index: 2;
     }
 
@@ -132,14 +149,12 @@
         width: 90%;
         margin-left: 5%;
         margin-bottom: 2%;
-        position: static;
         display: grid;
+        justify-content: center;
+        align-items: center;
         grid-template-columns: repeat(2, auto);
         grid-gap: 50%;
-        list-style: none;
-        text-align: center;
-        justify-content: center;
-        margin-top: 5%;
+        margin-top: 3%;
         z-index: 2;
     }
 
@@ -175,15 +190,14 @@
     .login-modal-header{
         height: 10%;
         width: 90%;
-        margin-left: 2%;
+        margin-left: 5%;
         margin-bottom: 2%;
-        position: static;
         display: grid;
+        justify-content: center;
+        align-items: center;
         grid-template-columns: repeat(1, auto);
         grid-gap: 50%;
-        text-align: center;
-        justify-content: center;
-        margin-top: 5%;
+        margin-top: 3%;
         z-index: 2;
     }
 
@@ -217,13 +231,12 @@
         width: 90%;
         margin-left: 5%;
         margin-bottom: 2%;
-        position: static;
         display: grid;
+        justify-content: center;
+        align-items: center;
         grid-template-columns: repeat(1, auto);
         grid-gap: 50%;
-        text-align: center;
-        justify-content: center;
-        margin-top: 5%;
+        margin-top: 3%;
         z-index: 2;
     }
 

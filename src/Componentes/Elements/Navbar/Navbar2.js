@@ -3,8 +3,9 @@ import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Login from '../../Modals/Login/Login';
-//import { Icon } from 'rsuite';
-//import 'rsuite/dist/styles/rsuite-default.min.css'
+
+//Acciones
+
 
 function Navbar() {
     const [click, setClick] = useState(false); //State para cambiar entre el botón hamburguesa y el botón de cerrar
@@ -45,10 +46,7 @@ function Navbar() {
     const showModalLogin = () => {
         setLoginOpen(false);
         closeMobileMenu();
-        console.log(loginOpen);
     } 
-
-    
 
     return (
         <>
@@ -90,9 +88,7 @@ function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link className='nav-links-mobile' onClick={showModalLogin}>
-                                Iniciar sesión
-                            </Link>
+                            <button className='nav-links-mobile' onClick={showModalLogin}>Iniciar sesión</button>
                         </li>
                     </ul>
                     {button && 
@@ -100,7 +96,7 @@ function Navbar() {
                     }
                 </div>
             </nav>
-            <Login isActivate={loginOpen} handleClose={()=>{setLoginOpen(!loginOpen)}} size={'sm'}/>
+            <Login isActivate={loginOpen} handleClose={()=>{setLoginOpen(!loginOpen)}} />
         </>
     );
 }
