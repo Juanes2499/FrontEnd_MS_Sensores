@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { withRouter } from "react-router-dom";
+import { Form, ButtonToolbar, Button, FormGroup, FormControl, Schema, Alert } from 'rsuite';
 import './Login.css';
-import { Form, ButtonToolbar, Button, FormGroup, Input, InputGroup, FormControl, Schema } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.min.css'
 
 //Aciones
 import { LoginAction_InicialSesion } from '../../../Acciones/Login/LoginAction';
 
+//Schema
 const { StringType } = Schema.Types;
 
 //Modal para validar la información que se esta escribiendo
@@ -27,8 +29,11 @@ const TextField = (props) => {
     );
 }
 
-const Login = ({isActivate, handleClose, handlerAction}) => {
+const Login = ({isActivate, handleClose, ...props}) => {
     
+    //Para redireccionar páginas
+    const {history, location, match} = props;
+
     const [email, setEmail] = useState(''); //State para almacenar el correo electrónico
     const [password, setPassword] = useState(''); //State para almacenar la contraseña
 
@@ -40,6 +45,23 @@ const Login = ({isActivate, handleClose, handlerAction}) => {
     //Función para actualizar el estado de la contraseña
     const passwordHandler = (data) =>{
         setPassword(data);
+    }
+
+    //Función para inicial sesión
+    const iniciaSesion = (email, pass, handleClosLogin) => {
+            
+        LoginAction_InicialSesion(email, pass, (authorized) => {
+            if (authorized) {
+                history.push('/Admintrator/Dashboard')
+            } else {
+                Alert.config({
+                    className: 'label-alert-error'
+                });
+                return (
+                    Alert.error('Email o Contraseña invalida')
+                );
+            }
+        });
     }
     
     return (
@@ -57,7 +79,7 @@ const Login = ({isActivate, handleClose, handlerAction}) => {
                             <TextField name="password" label="Constraseña" type="password" handlerValue={passwordHandler}/>
                             <ButtonToolbar>
                                 <div className='button-login'>
-                                    <Button color='green' style={{width:130}} onClick={() => {LoginAction_InicialSesion(email, password)}}>
+                                    <Button color='green' style={{width:130}} onClick={() => iniciaSesion(email, password, handleClose)}>
                                         <div className='button-login-container'>
                                             <i className="fas fa-sign-in-alt"/>
                                             <p className='button-label'> Iniciar Sesión</p>
@@ -79,4 +101,4 @@ const Login = ({isActivate, handleClose, handlerAction}) => {
     )
 }
 
-export default Login
+export default withRouter(Login);

@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import './Navbar.css';
+
+//Elementos
+import Button from '../Button/Button';
+
+//Modales
 import Login from '../../Modals/Login/Login';
 
-//Acciones
-
+//Cookies
+const cookies = new Cookies();
 
 function Navbar() {
     const [click, setClick] = useState(false); //State para cambiar entre el botón hamburguesa y el botón de cerrar
@@ -55,12 +60,12 @@ function Navbar() {
                     {   
                         click ?
                             <Link to='/Home' className='navbar-mobile-active' onClick={closeMobileMenu}>
-                                ResCity
+                                RS
                                 <i className="fas fa-city"></i>
                             </Link>
                         :
                             <Link to='/Home' className='navbar-logo' onClick={closeMobileMenu}>
-                                ResCity
+                                RS
                                 <i className="fas fa-city"></i>
                             </Link>
                     }
@@ -78,21 +83,24 @@ function Navbar() {
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to='/services' className='nav-links' onClick={closeMobileMenu}>
+                            <Link to='/AboutUs' className='nav-links' onClick={closeMobileMenu}>
                                 Acerca de nosotros
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to='/products' className='nav-links'  onClick={closeMobileMenu}>
+                            <Link to='/Platforms' className='nav-links'  onClick={closeMobileMenu}>
                                 Nuestras plataformas
                             </Link>
                         </li>
                         <li>
-                            <button className='nav-links-mobile' onClick={showModalLogin}>Iniciar sesión</button>
+                            {
+                                cookies.get('token') ? <Link to='/Admintrator/Dashboard'><button className='nav-links-mobile'>Dashboard</button></Link> : <button className='nav-links-mobile' onClick={showModalLogin}>Iniciar sesión</button>
+                            }
+                            
                         </li>
                     </ul>
-                    {button && 
-                        <Button buttonStyle='btn--outline' onClick={showModalLogin}>Iniciar sesión</Button>
+                    {
+                        cookies.get('token') ? button && <Button buttonStyle='btn--outline' to='/Admintrator/Dashboard'>Dashboard</Button> : button && <Button buttonStyle='btn--outline' onClick={showModalLogin}>Iniciar sesión</Button>
                     }
                 </div>
             </nav>

@@ -15,11 +15,11 @@ class Home extends Component{
           type = 'video'
           srcVideo={videoHome}
           srcImg = {imageHome}
-          tittle='Sensor Microservice ResCity'
+          tittle='ResCity Platform'
           subtitulo='ResCity, una plataforma inteligente para un ciudad inteligente'
           buttonPosition={[0,1]}
-          buttonsCaption={['Aceca de nosotros', 'Ir a Dashboard']}
-          buttonsTo={['/AboutUs', '/Dashboard']}
+          buttonsCaption={['Aceca de nosotros', 'Nuestras plataformas']}
+          buttonsTo={['/AboutUs', '/Platforms']}
           buttonsStyles={['btn--outline', 'btn--primary']}
           buttonsSize={['btn--large','btn--large']}
         />
