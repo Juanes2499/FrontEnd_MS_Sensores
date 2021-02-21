@@ -17,6 +17,7 @@ class Router extends Component {
           <Switch>
             <Route exact path="/Home" component={Home}/>
             <Route exact path="/Admintrator/Dashboard" component={validateAuth(AdminDashboard)}/>
+            <Redirect to ="/Home"/>
           </Switch>
         </BrowserRouter>
       </div>
