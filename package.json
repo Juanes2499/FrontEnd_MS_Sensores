@@ -11,10 +11,12 @@
     "jsonwebtoken": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "rsuite": "^4.8.9",
+    "styled-components": "^5.2.1",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.0.1"
   },

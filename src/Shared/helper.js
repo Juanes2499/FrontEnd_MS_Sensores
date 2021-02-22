@@ -4,6 +4,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import jwt from 'jsonwebtoken';
 import {LoginAction_CerrarSesion} from '../Acciones/Login/LoginAction';
+import history from './createHistory';
 
 const API_AUTH_HOST = window.API_AUTH_HOST;
 const TOKEN_KEY = window.TOKEN_KEY;
@@ -68,3 +69,16 @@ export const validarToken = (token) => {
 
     return true;
 }
+
+export const decodeToken = (token, result) => {
+
+    jwt.verify(token, TOKEN_KEY, (err, decoded) => {      
+        if (err) {
+            cookies.remove('token', { path: '/' });
+            history.push('/Home');
+        }
+        
+        return result(decoded)
+    })
+}
+

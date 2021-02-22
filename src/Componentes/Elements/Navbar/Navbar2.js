@@ -94,13 +94,13 @@ function Navbar() {
                         </li>
                         <li>
                             {
-                                cookies.get('token') ? <Link to='/Admintrator/Dashboard'><button className='nav-links-mobile'>Dashboard</button></Link> : <button className='nav-links-mobile' onClick={showModalLogin}>Iniciar sesión</button>
+                                cookies.get('token') ? <Link to='/Administrator'><button className='nav-links-mobile'>Dashboard</button></Link> : <button className='nav-links-mobile' onClick={showModalLogin}>Iniciar sesión</button>
                             }
                             
                         </li>
                     </ul>
                     {
-                        cookies.get('token') ? button && <Button buttonStyle='btn--outline' to='/Admintrator/Dashboard'>Dashboard</Button> : button && <Button buttonStyle='btn--outline' onClick={showModalLogin}>Iniciar sesión</Button>
+                        cookies.get('token') ? button && <Button buttonStyle='btn--outline' to='/Administrator'>Dashboard</Button> : button && <Button buttonStyle='btn--outline' onClick={showModalLogin}>Iniciar sesión</Button>
                     }
                 </div>
             </nav>

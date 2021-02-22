@@ -52,7 +52,7 @@ const Login = ({isActivate, handleClose, ...props}) => {
             
         LoginAction_InicialSesion(email, pass, (authorized) => {
             if (authorized) {
-                history.push('/Admintrator/Dashboard')
+                history.push('/Administrator')
             } else {
                 Alert.config({
                     className: 'label-alert-error'
