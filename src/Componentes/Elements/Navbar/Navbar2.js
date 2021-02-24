@@ -60,12 +60,12 @@ function Navbar() {
                     {   
                         click ?
                             <Link to='/Home' className='navbar-mobile-active' onClick={closeMobileMenu}>
-                                RS
+                                RC
                                 <i className="fas fa-city"></i>
                             </Link>
                         :
                             <Link to='/Home' className='navbar-logo' onClick={closeMobileMenu}>
-                                RS
+                                RC
                                 <i className="fas fa-city"></i>
                             </Link>
                     }

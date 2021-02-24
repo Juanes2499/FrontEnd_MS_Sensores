@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import { SidebarData } from './SidebarData';
+//import { SidebarData } from './SidebarData';
 import SubMenu from './Submenu';
 import { IconContext } from 'react-icons/lib';
 
@@ -48,8 +48,15 @@ const Sidebar = () => {
     const [sidebar, setSidebar] = useState(false);
 
     const showSidebar = () => setSidebar(!sidebar);
+    
+    let SidebarData = [];
+    
+    SidebarAction_ConsultarMenu()
+      .then(data =>{
+        return SidebarData.push(data);
+      });
 
-    SidebarAction_ConsultarMenu();
+    console.log(SidebarData)
 
     return (
         <>
