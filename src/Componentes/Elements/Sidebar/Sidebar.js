@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-//import { SidebarData } from './SidebarData';
+import { SidebarData } from './SidebarData';
 import SubMenu from './Submenu';
 import { IconContext } from 'react-icons/lib';
+import * as FaIcons from 'react-icons/fa';
+import * as AiIcons from 'react-icons/ai';
+import * as IoIcons from 'react-icons/io';
+import * as RiIcons from 'react-icons/ri';
+import * as SiIcons from 'react-icons/si';
+import * as GiIcons from 'react-icons/gi';
 
 //Actions
 import {SidebarAction_ConsultarMenu} from '../../../Acciones/Sidebar/SidebarAction';
@@ -46,16 +50,18 @@ const SidebarWrap = styled.div`
 
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(false);
+    const [SidebarData2, setSidebarData] = useState([]);
 
-    const showSidebar = () => setSidebar(!sidebar);
-    
-    let SidebarData = [];
-    
-    SidebarAction_ConsultarMenu()
-      .then(data =>{
-        return SidebarData.push(data);
+    const showSidebar = () => {
+      setSidebar(!sidebar)
+      SidebarAction_ConsultarMenu().then(data => {
+        setSidebarData(data)
       });
+    };
+    
+    
 
+    console.log(SidebarData2)
     console.log(SidebarData)
 
     return (
@@ -71,7 +77,7 @@ const Sidebar = () => {
                 <NavIcon to='#'>
                 <AiIcons.AiOutlineClose onClick={showSidebar} />
                 </NavIcon>
-                {SidebarData.map((item, index) => {
+                {SidebarData2.map((item, index) => {
                 return <SubMenu item={item} key={index} />;
                 })}
             </SidebarWrap>

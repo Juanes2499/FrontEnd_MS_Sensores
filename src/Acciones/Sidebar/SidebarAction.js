@@ -1,6 +1,13 @@
 import Cookies from 'universal-cookie'
 import { createAxiosInstance, decodeToken } from '../../Shared/helper';
 import history from '../../Shared/createHistory';
+import parse  from 'html-react-parser'
+import * as FaIcons from 'react-icons/fa';
+import * as AiIcons from 'react-icons/ai';
+import * as IoIcons from 'react-icons/io';
+import * as RiIcons from 'react-icons/ri';
+import * as SiIcons from 'react-icons/si';
+import * as GiIcons from 'react-icons/gi';
 
 const cookies = new Cookies();
 
@@ -107,7 +114,7 @@ export const SidebarAction_ConsultarMenu = () => {
                         let dataSubnavObject ={
                             title: aliasModulo,
                             path: urlModulo,
-                            icon: iconModulo
+                            icon: parse(iconModulo)
                         }
                         subNabArray.push(dataSubnavObject)
                     }
@@ -117,9 +124,9 @@ export const SidebarAction_ConsultarMenu = () => {
                 //Se forma el objeto de cada microservicio 
                 let dataSidebarObject = {
                     title: aliasMicroservicio,
-                    icon: iconMicroservicio,
-                    iconClosed: "<RiIcons.RiArrowDownSFill />",
-                    iconOpened: "<RiIcons.RiArrowUpSFill />",
+                    icon: parse(iconMicroservicio),
+                    iconClosed: <RiIcons.RiArrowDownSFill />,
+                    iconOpened: <RiIcons.RiArrowUpSFill />,
                     subNav: subNabArray
                 } 
 
