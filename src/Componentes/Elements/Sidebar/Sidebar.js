@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
 import SubMenu from './Submenu';
 import { IconContext } from 'react-icons/lib';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
-import * as RiIcons from 'react-icons/ri';
-import * as SiIcons from 'react-icons/si';
-import * as GiIcons from 'react-icons/gi';
+import { useHistory } from 'react-router-dom';
 
 //Actions
 import {SidebarAction_ConsultarMenu} from '../../../Acciones/Sidebar/SidebarAction';
@@ -33,7 +29,7 @@ const NavIcon = styled(Link)`
 
 const SidebarNav = styled.nav`
   background: #15171c;
-  width: 250px;
+  width: 340px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -59,32 +55,34 @@ const Sidebar = () => {
       });
     };
     
-    
-
-    console.log(SidebarData2)
-    console.log(SidebarData)
 
     return (
         <>
         <IconContext.Provider value={{ color: '#fff' }}>
             <Nav>
-            <NavIcon to='#'>
-                <FaIcons.FaBars onClick={showSidebar} />
-            </NavIcon>
+              <NavIcon to='#'>
+                  <FaIcons.FaBars onClick={showSidebar} />
+              </NavIcon>
             </Nav>
             <SidebarNav sidebar={sidebar}>
-            <SidebarWrap>
-                <NavIcon to='#'>
-                <AiIcons.AiOutlineClose onClick={showSidebar} />
-                </NavIcon>
-                {SidebarData2.map((item, index) => {
-                return <SubMenu item={item} key={index} />;
-                })}
-            </SidebarWrap>
+              <SidebarWrap>
+                  <NavIcon to='#'>
+                    <AiIcons.AiOutlineClose onClick={showSidebar} />
+                  </NavIcon>
+                  {SidebarData2.map((item, index) => {
+                    return <SubMenu item={item} key={index} />;
+                  })}
+                  
+              </SidebarWrap>
             </SidebarNav>
         </IconContext.Provider>
         </>
     );
 };
+
+{/* <button className='log-out' onClick={CerrarSesion}>
+                    <i class="fas fa-power-off"></i>
+                    Cerrar Sesión
+                  </button> */}
 
 export default Sidebar;
