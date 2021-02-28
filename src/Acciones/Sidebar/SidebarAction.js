@@ -41,19 +41,6 @@ export const SidebarAction_ConsultarMenu = () => {
                 })
             })
             
-            // let dataMicroservicios = {
-            //     "seleccionar":"NOMBRE_MICROSERVICIO, ALIAS_MICROSERIVICIO, ICON_MICROSERVICIO, ORDEN",
-            //     "condicion":{
-            //         "NOMBRE_MICROSERVICIO": {
-            //             "conector_logico":"",
-            //             "operador": "IN",
-            //             "valor_condicion": `${permisosArray.toString()}`
-            //         }
-            //     },
-            //     "agrupar":"",
-            //     "ordenar":""
-            // }
-
             //Se forma la data que se enevia para consultar la configuración de microservicios con módulos
             let dataConfiguracionMSM = {
                 "seleccionar":"NOMBRE_MICROSERVICIO, ALIAS_MICROSERIVICIO, ICON_MICROSERVICIO, ORDEN_MICROSERVICIO, NOMBRE_MODULO, ALIAS_MODULO, URL_ALIAS_MODULO, ICON_MODULO, ORDEN_MODULO",
@@ -88,6 +75,9 @@ export const SidebarAction_ConsultarMenu = () => {
                     //Obtenemos el incono del micoservicio: separando en arrays los microservicios, hacemos un distinc del icono del microservcio con map y filter y guarada el iconos en un array de 1x1 y se convierte a cadena
                     const iconMicroservicio = dataTemporal.filter(j => j.NOMBRE_MICROSERVICIO === x ).map(item => item.ICON_MICROSERVICIO).filter((value, index, self) => self.indexOf(value) === index).toString()
 
+                    //Obtenemos el orden del micoservicio: separando en arrays los microservicios, hacemos un distinc del icono del microservcio con map y filter y guarada el orden en un array de 1x1 y se convierte a cadena
+                    const ordenMicroservicio = dataTemporal.filter(j => j.NOMBRE_MICROSERVICIO === x ).map(item => item.ORDEN_MICROSERVICIO).filter((value, index, self) => self.indexOf(value) === index).toString()
+
                     let subNabArray = [];
 
                     const arrayPorMicroservicio = dataTemporal.filter(j => j.NOMBRE_MICROSERVICIO === x)
@@ -98,15 +88,18 @@ export const SidebarAction_ConsultarMenu = () => {
                             let aliasModulo = '';
                             let urlModulo = '' ;
                             let iconModulo = '';
+                            let ordenModulo = 0;
                             aliasModulo = arrayPorMicroservicio.filter(j => j.NOMBRE_MODULO === k)[0].ALIAS_MODULO;
                             urlModulo = arrayPorMicroservicio.filter(j => j.NOMBRE_MODULO === k)[0].URL_ALIAS_MODULO;
                             iconModulo = arrayPorMicroservicio.filter(j => j.NOMBRE_MODULO === k)[0].ICON_MODULO !== null ? arrayPorMicroservicio.filter(j => j.NOMBRE_MODULO === k)[0].ICON_MODULO : "fab fa-react";
-                            
+                            ordenModulo = arrayPorMicroservicio.filter(j => j.NOMBRE_MODULO === k)[0].ORDEN_MODULO;
+
                             //Se forma el objeto de cada modulo 
                             let dataSubnavObject ={
                                 title: aliasModulo,
                                 path: urlModulo,
-                                icon: iconModulo
+                                icon: iconModulo,
+                                orden: ordenModulo
                             }
                             subNabArray.push(dataSubnavObject)
                         }
@@ -119,11 +112,14 @@ export const SidebarAction_ConsultarMenu = () => {
                         icon: iconMicroservicio,
                         iconClosed: <RiIcons.RiArrowDownSFill />,
                         iconOpened: <RiIcons.RiArrowUpSFill />,
+                        orden: ordenMicroservicio,
                         subNav: subNabArray
                     } 
 
                     dataSidebarArray.push(dataSidebarObject);
                 })
+
+                console.log(dataSidebarArray)
 
                 return resolve(dataSidebarArray);
             }).catch(err => {

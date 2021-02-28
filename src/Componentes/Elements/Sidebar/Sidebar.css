@@ -1,5 +1,5 @@
 .SidebarLink{
-    background-color:#15171c;
+    background-color:rgb(15, 0, 83);
     display: flex;
     color: #e1e9fc;
     justify-content: space-between;
@@ -13,12 +13,12 @@
 }
 
 .SidebarLink:hover{
-    background: #252831;
+    background: rgb(63, 87, 160);
     cursor: pointer;
 }
 
 .DropdownLink{
-    background: #414757;
+    background: rgb(55, 43, 107);
     height: 50px;
     width: 100%;
     display: flex;
@@ -31,7 +31,7 @@
 }
 
 .DropdownLink:hover {
-    background: #632ce4;
+    background: #3045bb;
 }
 
 .log-out{
@@ -49,4 +49,9 @@
 
 .log-out:hover {
     background: rgb(243, 165, 165);
+}
+
+.label-subnav{
+    font-family: 'Arial';
+    color: rgb(252, 249, 249);
 }

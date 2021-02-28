@@ -1,0 +1,286 @@
+.modal-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-block{
+    width: 25%;
+    height: 35%;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1;
+    border-radius: 3%;
+    transition: all 0.3s ease-out;
+}
+
+.modal-header{
+    height: 10%;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 55%;
+    margin-top: 3%;
+    z-index: 2;
+}
+
+.titulo-header{
+    color: grey;
+    margin-top: 1%;
+    font-family: "Roboto", sans-serif;
+    font-size: 200%;
+}
+
+.cerrar-header{
+    margin-top: 70%;
+    color: grey;
+}
+
+.modal-linea{
+    background: rgba(229, 232, 232,0.5);
+    margin-left: 5%;
+    margin-bottom: 5%;
+    height: 2px;
+    width: 90%;
+}
+
+.modal-body{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-field{
+    color: grey;
+    font-family: "Roboto", sans-serif;
+    font-size: 100%;
+}
+
+.field{
+    width: 100;
+}
+
+.toggle-box{
+    display: grid;
+    justify-content: start;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 5%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.button-login{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 5%;
+}
+
+.button-login-container{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 10%;
+}
+
+.button-label{
+    font-family: "Roboto", sans-serif;
+    font-size: 110%;
+}
+
+.label-alert-error{
+    font-family: "Roboto", sans-serif;
+    font-size: 85%;
+}
+
+@media screen and (max-width: 1600px) {
+    .login-modal-block{
+        width: 40%;
+        height: 40%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 1;
+        border-radius: 3%;
+        transition: all 0.3s ease-out;
+    }
+
+    .login-modal-header{
+        height: 10%;
+        width: 90%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(2, auto);
+        grid-gap: 50%;
+        margin-top: 3%;
+        z-index: 2;
+    }
+
+    .titulo-header{
+        color: grey;
+        margin-top: 1%;
+        font-family: "Roboto", sans-serif;
+        font-size: 200%;
+    }
+
+    .cerrar-header{
+        margin-top: 50%;
+        color: grey;
+    }
+
+    .login-modal-body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .login-modal-block{
+        width: 40%;
+        height: 31%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 1;
+        border-radius: 3%;
+        transition: all 0.3s ease-out;
+    }
+
+    .login-modal-header{
+        height: 10%;
+        width: 90%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(2, auto);
+        grid-gap: 50%;
+        margin-top: 3%;
+        z-index: 2;
+    }
+
+    .titulo-header{
+        color: grey;
+        margin-top: 1%;
+        font-family: "Roboto", sans-serif;
+        font-size: 170%;
+    }
+
+    .cerrar-header{
+        margin-top: 50%;
+        color: grey;
+    }
+
+    .login-modal-body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .login-modal-block{
+        width: 50%;
+        height: 32%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 1;
+        border-radius: 3%;
+        transition: all 0.3s ease-out;
+    }
+
+    .login-modal-header{
+        height: 10%;
+        width: 90%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(1, auto);
+        grid-gap: 50%;
+        margin-top: 3%;
+        z-index: 2;
+    }
+
+    .titulo-header{
+        color: grey;
+        margin-top: 1%;
+        font-family: "Roboto", sans-serif;
+        font-size: 150%;
+    }
+
+    
+    .login-modal-body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .login-modal-block{
+        width: 80%;
+        height: 35%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 1;
+        border-radius: 3%;
+        transition: all 0.3s ease-out;
+    }
+
+    .login-modal-header{
+        height: 10%;
+        width: 90%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(1, auto);
+        grid-gap: 50%;
+        margin-top: 3%;
+        z-index: 2;
+    }
+
+    .titulo-header{
+        color: grey;
+        margin-top: 1%;
+        font-family: "Roboto", sans-serif;
+        font-size: 150%;
+    }
+
+    
+    .login-modal-body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+/* .login-modal-body{
+    left: 10%;
+    position: absolute;
+    z-index: 2;
+    text-align: center;
+    justify-content: center;
+} */

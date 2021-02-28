@@ -1,0 +1,10 @@
+.header-filter{
+    background-color: rgba(15, 0, 83, 0.863);
+}
+
+.header-label{
+    color: rgb(255,255,255);
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 150%;
+}

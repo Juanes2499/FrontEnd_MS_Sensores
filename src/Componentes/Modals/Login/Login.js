@@ -58,7 +58,7 @@ const Login = ({isActivate, handleClose, ...props}) => {
                     className: 'label-alert-error'
                 });
                 return (
-                    Alert.error('Email o Contraseña invalida')
+                    Alert.error(`Problemas para iniciar sesión`)
                 );
             }
         });

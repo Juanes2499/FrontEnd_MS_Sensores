@@ -18,7 +18,7 @@ export const columnasDataTable = [
     },
     {
         key: "NOMBRES",
-        text: "Nombres Usuario",
+        text: "Nombres",
         width: 200,
         align: "left",
         fixed: false,
@@ -27,7 +27,7 @@ export const columnasDataTable = [
     },
     {
         key: "APELLIDOS",
-        text: "Apellidos Usuarios",
+        text: "Apellidos",
         width: 200,
         align: "left",
         fixed: false,
@@ -36,9 +36,18 @@ export const columnasDataTable = [
     },
     {
         key: "TIPO_DOC_ID",
-        text: "Tipo Documento Usuario",
+        text: "Tipo Documento",
         width: 150,
         align: "center",
+        fixed: false,
+        resizable: true,
+        sortable: true
+    },
+    {
+        key: "NUMERO_DOC_ID",
+        text: "Número Documento",
+        width: 200,
+        align: "left",
         fixed: false,
         resizable: true,
         sortable: true
@@ -54,7 +63,7 @@ export const columnasDataTable = [
     },
     {
         key: "FECHA_CREACION",
-        text: "Fecha Creación Usuario",
+        text: "Fecha Creación",
         width: 200,
         align: "left",
         fixed: false,
@@ -63,7 +72,7 @@ export const columnasDataTable = [
     },
     {
         key: "HORA_CREACION",
-        text: "Hora Creación Usuario",
+        text: "Hora Creación",
         width: 200,
         align: "left",
         fixed: false,
@@ -72,7 +81,7 @@ export const columnasDataTable = [
     },
     {
         key: "FECHA_ACTUALIZACION",
-        text: "Fecha Actualización Usuario",
+        text: "Fecha Actualización",
         width: 200,
         align: "left",
         fixed: false,
@@ -81,7 +90,7 @@ export const columnasDataTable = [
     },
     {
         key: "HORA_ACTUALIZACION",
-        text: "Hora Actualización Usuario",
+        text: "Hora Actualización",
         width: 200,
         align: "left",
         fixed: false,
@@ -115,4 +124,8 @@ export const UsuariosAction_ConsultarUsuarios = () => {
             history.push('/Home');
         }
     })
+}
+
+export const UsuariosAction_actualizarUsuarios = (data) => {
+    console.log('entró a la acción: ', data)
 }
