@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import SubMenu from './Submenu';
@@ -44,8 +44,16 @@ const SidebarWrap = styled.div`
 `;
 
 const Sidebar = ({sideType}) => {
+    
     const [sidebar, setSidebar] = useState(false);
     const [SidebarData2, setSidebarData] = useState([]);
+
+
+    useEffect(() => {
+      SidebarAction_ConsultarMenu().then(data => {
+        setSidebarData(data)
+      })
+    }, [])
 
     const showSidebar = () => {
       setSidebar(!sidebar)

@@ -118,9 +118,6 @@ export const SidebarAction_ConsultarMenu = () => {
 
                     dataSidebarArray.push(dataSidebarObject);
                 })
-
-                console.log(dataSidebarArray)
-
                 return resolve(dataSidebarArray);
             }).catch(err => {
                 return reject(err)
