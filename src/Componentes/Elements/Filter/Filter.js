@@ -51,6 +51,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
           <p className='label-field'  key={key} >{label} </p>
           <DatePicker 
             key={key}
+            format='YYYY-MM-DD'
             style={{ width: 350, fontFamily: 'Arial',fontSize:15 }} 
             onChange={handlerValue} 
           />

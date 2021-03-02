@@ -3,7 +3,7 @@ import { Schema } from 'rsuite';
 import './Usuarios.css'
 
 //Action
-import {columnasDataTable, UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios} from '../../../../Acciones/Usuarios/UsuariosAction';
+import {columnasDataTable, UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios, UsuariosAction_FiltrarUsuarios} from '../../../../Acciones/Usuarios/UsuariosAction';
 
 //Elementos
 import Sidebar from '../../../Elements/Sidebar/Sidebar';
@@ -119,7 +119,7 @@ class Usuarios extends Component {
                 type: "text",
                 dataEntryType:'input',
                 readOnly: true,
-                valueState: this.hadlerValueState_nombresUsuarios,
+                valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
                     newFormModal[3].valueState = data;
@@ -208,7 +208,7 @@ class Usuarios extends Component {
                 label: "Tipo Documento",
                 type: "text",
                 dataEntryType:'input',
-                valueState: this.hadlerValueState_nombresUsuarios,
+                valueState: '',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[3].valueState = data;
@@ -317,27 +317,52 @@ class Usuarios extends Component {
 
     bottonsFooterFilter = [
         {
+            labelButton: "Limpiar campos",
+            color: "blue",
+            appearance: "subtle",
+            icon: true,
+            nameIcon: 'fas fa-eraser',
+            onClick: () => {
+
+                let newFormFilter = this.state.formFilter;
+                newFormFilter[0].valueState = '';
+                newFormFilter[1].valueState = '';
+                newFormFilter[2].valueState = '';
+                newFormFilter[3].valueState = '';
+                newFormFilter[4].valueState = '';
+                newFormFilter[5].valueState = '';
+                newFormFilter[6].valueState = '';
+                newFormFilter[7].valueState = '';
+                newFormFilter[8].valueState = '';
+                newFormFilter[9].valueState = '';
+                this.setState({formFilter: newFormFilter});               
+            },
+        },
+        {
             labelButton: "Consultar",
             color: "green",
             appearance: "subtle",
             icon: true,
             nameIcon: 'fas fa-search',
             onClick: () => {
-                
+        
                 let dataJson = {};
                 
-                let newFormModal = this.state.FormModal;
-                dataJson['ID_USUARIO'] = newFormModal[0].valueState;
-                dataJson['NOMBRES'] = newFormModal[1].valueState;
-                dataJson['APELLIDOS'] = newFormModal[2].valueState;
-                dataJson['TIPO_DOC_ID'] = newFormModal[3].valueState;
-                dataJson['NUMERO_DOC_ID'] = newFormModal[4].valueState;
-                dataJson['EMAIL'] = newFormModal[5].valueState;
-                dataJson['ACTIVO'] = newFormModal[6].valueState;
-
-                UsuariosAction_actualizarUsuarios(dataJson)
+                let newFormFilter = this.state.formFilter;
+                dataJson['ID_USUARIO'] = newFormFilter[0].valueState;
+                dataJson['NOMBRES'] = newFormFilter[1].valueState;
+                dataJson['APELLIDOS'] = newFormFilter[2].valueState;
+                dataJson['TIPO_DOC_ID'] = newFormFilter[3].valueState;
+                dataJson['NUMERO_DOC_ID'] = newFormFilter[4].valueState;
+                dataJson['EMAIL'] = newFormFilter[5].valueState;
+                dataJson['FECHA_CREACION'] = newFormFilter[6].valueState;
+                dataJson['HORA_CREACION'] = newFormFilter[7].valueState;
+                dataJson['FECHA_ACTUALIZACION'] = newFormFilter[8].valueState;
+                dataJson['HORA_ACTUALIZACION'] = newFormFilter[9].valueState;
+                
+                UsuariosAction_FiltrarUsuarios(dataJson)
             },
-        }
+        },
     ]
 
 

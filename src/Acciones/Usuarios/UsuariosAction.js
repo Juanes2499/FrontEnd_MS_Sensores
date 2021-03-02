@@ -129,3 +129,7 @@ export const UsuariosAction_ConsultarUsuarios = () => {
 export const UsuariosAction_actualizarUsuarios = (data) => {
     console.log('entró a la acción: ', data)
 }
+
+export const UsuariosAction_FiltrarUsuarios = (data) => {
+    console.log('entró a la acción: ', data)
+}
