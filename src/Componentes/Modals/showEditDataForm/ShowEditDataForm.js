@@ -1,6 +1,5 @@
-import React,{useState} from 'react'
-import { withRouter } from "react-router-dom";
-import { Form, ButtonToolbar, Button, FormGroup, FormControl, Toggle } from 'rsuite';
+import React from 'react'
+import { Form, Button, FormGroup, FormControl, Toggle } from 'rsuite';
 import { Modal} from 'rsuite';
 import './ShowEditDataForm.css';
 

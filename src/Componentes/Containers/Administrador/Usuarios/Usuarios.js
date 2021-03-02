@@ -16,7 +16,7 @@ import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm'
 //Configuration filter 
 const configFilter ={
     cellHeight:70,
-    cols:4,
+    cols:3,
     styleIconSummary:{
         color:'white'
     },
@@ -168,112 +168,166 @@ class Usuarios extends Component {
         ],
         formFilter:[
             {
-                name: "ID_USUARIO_FILTER",
+                name: "ID_USUARIO",
                 label: "ID Usuario",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[0].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "NOMBRES_FILTER",
+                name: "NOMBRES",
                 label: "Nombres",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[1].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "APELLIDOS_FILTER",
+                name: "APELLIDOS",
                 label: "Apellidos",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[2].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "TIPO_DOC_ID_FILTER",
+                name: "TIPO_DOC_ID",
                 label: "Tipo Documento",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[3].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "NUMERO_DOC_ID_FILTER",
+                name: "NUMERO_DOC_ID",
                 label: "Número Documento",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[4].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "EMAIL_FILTER",
+                name: "EMAIL",
                 label: "Email",
                 type: "email",
                 dataEntryType:'input',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[5].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "FECHA_CREACION_FILTER",
+                name: "FECHA_CREACION",
                 label: "Fecha Creación",
                 type: "date",
                 dataEntryType:'datePicker',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[6].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "HORA_CREACION_FILTER",
+                name: "HORA_CREACION",
                 label: "Hora Creación",
                 type: "time",
                 dataEntryType:'timepicker',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[7].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
-                name: "FECHA_ACTUALIZACION_FILTER",
+                name: "FECHA_ACTUALIZACION",
                 label: "Fecha Actualización",
                 type: "date",
                 dataEntryType:'datePicker',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[8].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             },
             {
                 name: "HORA_ACTUALIZACION_FILTER",
@@ -281,11 +335,17 @@ class Usuarios extends Component {
                 type: "time",
                 dataEntryType:'timepicker',
                 valueState: '',
+                operador: '=',
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[9].valueState = data;
                     this.setState({formFilter: newFilterModal});
                 },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[0].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
             }
         ]
     };
@@ -346,22 +406,24 @@ class Usuarios extends Component {
             nameIcon: 'fas fa-search',
             onClick: () => {
         
-                let dataJson = {};
+                let dataJsonObject = {}
                 
                 let newFormFilter = this.state.formFilter;
-                dataJson['ID_USUARIO'] = newFormFilter[0].valueState;
-                dataJson['NOMBRES'] = newFormFilter[1].valueState;
-                dataJson['APELLIDOS'] = newFormFilter[2].valueState;
-                dataJson['TIPO_DOC_ID'] = newFormFilter[3].valueState;
-                dataJson['NUMERO_DOC_ID'] = newFormFilter[4].valueState;
-                dataJson['EMAIL'] = newFormFilter[5].valueState;
-                dataJson['FECHA_CREACION'] = newFormFilter[6].valueState;
-                dataJson['HORA_CREACION'] = newFormFilter[7].valueState;
-                dataJson['FECHA_ACTUALIZACION'] = newFormFilter[8].valueState;
-                dataJson['HORA_ACTUALIZACION'] = newFormFilter[9].valueState;
                 
-                UsuariosAction_FiltrarUsuarios(dataJson)
-            },
+                let i = 0;
+                newFormFilter.forEach(x => {
+                    if(x.valueState !== ''){
+                        dataJsonObject[`${x.name}`] = {
+                            conector_logico: i >= 1 ? 'AND' : '',
+                            operador: x.operador,
+                            valor_condicion: x.valueState
+                        }
+                    }
+                    i += 1;
+                })
+            
+                UsuariosAction_FiltrarUsuarios(dataJsonObject)
+            }
         },
     ]
 

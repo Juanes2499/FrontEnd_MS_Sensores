@@ -4,8 +4,12 @@
 
 .container-filter{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+}
+
+.label-box{
+    width: 5rem;
 }
 
 .label-field{
@@ -20,4 +24,13 @@
     align-items: center;
     grid-template-columns: repeat(2, auto);
     grid-gap: 5%;
+}
+
+.label-maestra-field-box{
+    display: grid;
+    justify-content: start;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 3%;
+    width: 30vw;
 }

@@ -26,7 +26,7 @@ const Sidemenu2 = ({show, dataMenu}) => {
     const history = useHistory()
     
     return (
-        <div style={{ width: 400,zIndex:999, position:'absolute', backgroundColor:'white'}}>
+        <div style={{ width:400, zIndex:999, position:'absolute'}}>
             <Sidenav
                 expanded={show}
                 activeKey={activeKey}
