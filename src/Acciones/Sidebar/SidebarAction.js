@@ -11,14 +11,14 @@ export const SidebarAction_ConsultarMenu = () => {
 
         let token = '';
         let decodificado = {};
-
+        
         try {
+        
             token =  cookies.get('token');
-
+    
             decodeToken(token, (res) => {
                 decodificado['PERMISOS'] = res.PERMISOS;
             })
-        
         
             var permisosKeys = Object.keys(decodificado.PERMISOS).sort();
             let permisosArray = []
@@ -59,7 +59,7 @@ export const SidebarAction_ConsultarMenu = () => {
             //Se crea el array que va a contener toda la data para el sidebar
             let dataSidebarArray = []
 
-            const endpointMicroserviciosModulo = '/api/configuracion_microservicio_modulos/get'
+            const endpointMicroserviciosModulo = '/api/configuracion_microservicio_modulos_open'
             Promise.all([
                 createAxiosInstance().post(endpointMicroserviciosModulo, dataConfiguracionMSM),
             ])

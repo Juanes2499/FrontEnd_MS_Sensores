@@ -1,27 +1,51 @@
 import React from 'react'
-import { Form, Button, FormGroup, FormControl, Toggle, DatePicker, SelectPicker, Input } from 'rsuite';
+import { Form, Button, FormGroup, Toggle, DatePicker, SelectPicker, MultiCascader, Input } from 'rsuite';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { operadoresFiltro } from '../../../Shared/maestras';
+import { operadoresFiltro, operadoresConectoresFiltro } from '../../../Shared/maestras';
 import './Filter.css';
 
-const SelectPickerMaestra = ({data, handleOperator}) => {
+const SelectPickerMaestra = ({selectPickerType, data, handleOperator}) => {
   return (
-    <SelectPicker
+    <MultiCascader
       size="md"
-      placeholder="Operador"
+      placeholder="Select"
       data={data}
-      style={{ width: 100, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
+      searchable={false}
+      style={{ width: 100, height:35, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
       onChange={handleOperator}
     />
   )
+  // if(selectPickerType === 1){
+  //   console.log(selectPickerType)
+  //   return (
+  //     <SelectPicker
+  //       size="md"
+  //       placeholder="Select"
+  //       data={data}
+  //       style={{ width: 100, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
+  //       onChange={handleOperator}
+  //     />
+  //   )
+  // }else if(selectPickerType === 2){
+  //   console.log(selectPickerType)
+  //   return (
+  //     <MultiCascader
+  //       size="md"
+  //       placeholder="Select"
+  //       data={data}
+  //       style={{ width: 100, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
+  //       onChange={handleOperator}
+  //     />
+  //   )
+  // }
 }
 
-const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, handleOperator, value, ...rest }) => {
+const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, handleOperator, value, selectPickerType, valueSelectPicker, ...rest }) => {
     
   dataEntryType = dataEntryType.toLowerCase();
   
@@ -32,7 +56,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
               <div className='label-box'>
                 <p className='label-field'  key={key} >{label} </p>
               </div>
-              <SelectPickerMaestra key={key} data={operadoresFiltro} handleOperator={handleOperator}/>
+              <SelectPickerMaestra key={key}  selectPickerType={selectPickerType} data={valueSelectPicker} handleOperator={handleOperator}/>
               <Input
                   key={key}
                   name={name} 
@@ -53,7 +77,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                 <div className='label-box'>
                   <p className='label-field'  key={key} >{label} </p>
                 </div>
-                <SelectPickerMaestra key={key} data={operadoresFiltro} handleOperator={handleOperator}/>
+                <SelectPickerMaestra key={key} data={valueSelectPicker} handleOperator={handleOperator}/>
                 <Toggle 
                     key={key}
                     size="lg" 
@@ -72,7 +96,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
           <div className='label-box'>
             <p className='label-field'  key={key} >{label} </p>
           </div>
-          <SelectPickerMaestra key={key} data={operadoresFiltro} handleOperator={handleOperator}/>
+          <SelectPickerMaestra key={key} data={valueSelectPicker} handleOperator={handleOperator}/>
           <DatePicker 
             key={key}
             format='YYYY-MM-DD'
@@ -89,7 +113,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
           <div className='label-box'>
             <p className='label-field'  key={key} >{label} </p>
           </div>
-          <SelectPickerMaestra key={key} data={operadoresFiltro} handleOperator={handleOperator}/>
+          <SelectPickerMaestra key={key} data={valueSelectPicker}handleOperator={handleOperator}/>
           <DatePicker 
             key={key}
             format="HH:mm"
@@ -131,6 +155,8 @@ const Filter = ({formFilter, configuration, actions}) => {
                                 value={item.valueState}
                                 handlerValue={item.hadlerValueState} 
                                 handleOperator={item.handleOperator}
+                                selectPickerType={1}
+                                valueSelectPicker={operadoresConectoresFiltro}
                               />
                             </Form>
                             

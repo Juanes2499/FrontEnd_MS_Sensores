@@ -173,7 +173,7 @@ class Usuarios extends Component {
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[0].valueState = data;
@@ -191,7 +191,7 @@ class Usuarios extends Component {
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[1].valueState = data;
@@ -199,7 +199,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[1].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -209,7 +209,7 @@ class Usuarios extends Component {
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[2].valueState = data;
@@ -217,7 +217,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[2].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -227,7 +227,7 @@ class Usuarios extends Component {
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[3].valueState = data;
@@ -235,7 +235,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[3].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -245,7 +245,7 @@ class Usuarios extends Component {
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[4].valueState = data;
@@ -253,7 +253,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[4].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -263,7 +263,7 @@ class Usuarios extends Component {
                 type: "email",
                 dataEntryType:'input',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[5].valueState = data;
@@ -271,7 +271,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[5].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -281,7 +281,7 @@ class Usuarios extends Component {
                 type: "date",
                 dataEntryType:'datePicker',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[6].valueState = data;
@@ -289,7 +289,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[6].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -299,7 +299,7 @@ class Usuarios extends Component {
                 type: "time",
                 dataEntryType:'timepicker',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[7].valueState = data;
@@ -307,7 +307,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[7].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -317,7 +317,7 @@ class Usuarios extends Component {
                 type: "date",
                 dataEntryType:'datePicker',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[8].valueState = data;
@@ -325,7 +325,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[8].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -335,7 +335,7 @@ class Usuarios extends Component {
                 type: "time",
                 dataEntryType:'timepicker',
                 valueState: '',
-                operador: '=',
+                operador: [],
                 hadlerValueState: (data) => {
                     let newFilterModal = this.state.formFilter;
                     newFilterModal[9].valueState = data;
@@ -343,7 +343,7 @@ class Usuarios extends Component {
                 },
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
-                    newOperator[0].operador = operador;
+                    newOperator[9].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             }
@@ -395,7 +395,12 @@ class Usuarios extends Component {
                 newFormFilter[7].valueState = '';
                 newFormFilter[8].valueState = '';
                 newFormFilter[9].valueState = '';
-                this.setState({formFilter: newFormFilter});               
+                this.setState({formFilter: newFormFilter});    
+                
+                UsuariosAction_ConsultarUsuarios()
+                    .then(result => {
+                        this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    })
             },
         },
         {
@@ -414,15 +419,17 @@ class Usuarios extends Component {
                 newFormFilter.forEach(x => {
                     if(x.valueState !== ''){
                         dataJsonObject[`${x.name}`] = {
-                            conector_logico: i >= 1 ? 'AND' : '',
-                            operador: x.operador,
+                            conector_logico: i === 0 ? '' : x.operador.filter(i => i.includes('_'))[0].replace("_",""),
+                            operador: x.operador.filter(i => !i.includes('_'))[0],
                             valor_condicion: x.valueState
                         }
+                        i += 1;
                     }
-                    i += 1;
                 })
             
-                UsuariosAction_FiltrarUsuarios(dataJsonObject)
+                UsuariosAction_FiltrarUsuarios(dataJsonObject).then(result => {
+                    this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                })
             }
         },
     ]

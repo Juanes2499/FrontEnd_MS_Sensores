@@ -131,5 +131,28 @@ export const UsuariosAction_actualizarUsuarios = (data) => {
 }
 
 export const UsuariosAction_FiltrarUsuarios = (data) => {
-    console.log('entró a la acción: ', data)
+
+    
+    let dataUsuarios = {
+        "seleccionar":"",
+        "condicion": data,
+        "agrupar":"",
+        "ordenar":""
+    }
+    
+    const endpoint = '/api/usuarios/get'
+    
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, dataUsuarios)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    console.log(err.response)
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
 }
