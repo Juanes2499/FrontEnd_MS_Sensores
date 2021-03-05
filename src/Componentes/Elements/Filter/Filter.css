@@ -4,12 +4,12 @@
 
 .container-filter{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 }
 
 .label-box{
-    width: 5rem;
+    width: 10rem;
 }
 
 .label-field{
@@ -30,7 +30,13 @@
     display: grid;
     justify-content: start;
     align-items: center;
-    grid-template-columns: repeat(3, auto);
-    grid-gap: 3%;
-    width: 30vw;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 0%;
+    width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+    .label-box{
+        width: 7rem;
+    }    
 }

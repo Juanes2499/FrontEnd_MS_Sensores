@@ -55,3 +55,20 @@
     font-family: 'Arial';
     font-size: 120%;
 }
+
+@media screen and (max-width: 960px) {
+    .nombre-user{
+        color: white;
+        font-family: 'Arial';
+        font-size: 105%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .nombre-user{
+        color: white;
+        font-family: 'Arial';
+        font-size: 90%;
+    }
+}
+

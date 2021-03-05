@@ -118,11 +118,9 @@ const Sidebar = ({sideType}) => {
                     <FaIcons.FaBars onClick={showSidebar} />
                 </NavIcon>
                 <RightSide>
-                <ButtonToolbar>
                   <span className='nombre-user'>Bienvenido: {decodificado.USUARIO}</span>
-                  </ButtonToolbar>
-                    <Button buttonStyle='btn--outline' onClick={() => LoginAction_CerrarSesion()} to="/Home">Cerrar Sesión</Button>
-                  </RightSide>
+                  <Button buttonStyle='btn--outline' onClick={() => LoginAction_CerrarSesion()} to="/Home">Cerrar Sesión</Button>
+                </RightSide>
             </Nav>
             { 
               sideType === 1 ?

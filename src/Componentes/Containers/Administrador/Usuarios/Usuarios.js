@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Schema } from 'rsuite';
+import { Schema, Button } from 'rsuite';
 import './Usuarios.css'
 
 //Action
@@ -434,6 +434,38 @@ class Usuarios extends Component {
         },
     ]
 
+    bottonsHeaderFilter = [
+        {
+            labelButton: "Nuevo Usuario",
+            color: "green",
+            appearance: "subtle",
+            icon: true,
+            nameIcon: 'fas fa-plus',
+            onClick: () => {
+        
+                let dataJsonObject = {}
+                
+                let newFormFilter = this.state.formFilter;
+                
+                let i = 0;
+                newFormFilter.forEach(x => {
+                    if(x.valueState !== ''){
+                        dataJsonObject[`${x.name}`] = {
+                            conector_logico: i === 0 ? '' : x.operador.filter(i => i.includes('_'))[0].replace("_",""),
+                            operador: x.operador.filter(i => !i.includes('_'))[0],
+                            valor_condicion: x.valueState
+                        }
+                        i += 1;
+                    }
+                })
+            
+                UsuariosAction_FiltrarUsuarios(dataJsonObject).then(result => {
+                    this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                })
+            }
+        },
+    ]
+
 
     dataSeleccionado = (data) => {
         this.setState({activateModal: true})
@@ -468,6 +500,7 @@ class Usuarios extends Component {
                 <Sidebar sideType={2}/>
                 <div className='container-usuarios'>
                     <Filter
+                        bottonsHeader={this.bottonsHeaderFilter}
                         formFilter={this.state.formFilter}
                         configuration={configFilter}
                         actions={this.bottonsFooterFilter}

@@ -1,13 +1,21 @@
-import React from 'react'
+import React, {useState,useEffect, useContext} from 'react'
 import { Form, Button, FormGroup, Toggle, DatePicker, SelectPicker, MultiCascader, Input } from 'rsuite';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionActions from '@material-ui/core/AccordionActions';
+// import Accordion from '@material-ui/core/Accordion';
+// import AccordionDetails from '@material-ui/core/AccordionDetails';
+// import AccordionSummary from '@material-ui/core/AccordionSummary';
+// import AccordionActions from '@material-ui/core/AccordionActions';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { operadoresFiltro, operadoresConectoresFiltro } from '../../../Shared/maestras';
 import './Filter.css';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
+import userEvent from '@testing-library/user-event';
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import AccordionContext from 'react-bootstrap/AccordionContext';
+
+
 
 const SelectPickerMaestra = ({selectPickerType, data, handleOperator}) => {
   return (
@@ -45,7 +53,7 @@ const SelectPickerMaestra = ({selectPickerType, data, handleOperator}) => {
   // }
 }
 
-const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, handleOperator, value, selectPickerType, valueSelectPicker, ...rest }) => {
+const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, handleOperator, value, selectPickerType, valueSelectPicker, inputFieldStyle, ...rest }) => {
     
   dataEntryType = dataEntryType.toLowerCase();
   
@@ -63,10 +71,11 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                   accepter={accepter} 
                   type={type} 
                   onChange={handlerValue} 
-                  style={{width:270, height:35 ,fontFamily: 'Arial',  fontSize:15}} 
+                  style={inputFieldStyle.field} 
                   value={value}
                   {...rest}
               />
+              <div style={{width:'3%', color:'white'}}>hi</div>
             </div>
         </FormGroup>
     );
@@ -100,9 +109,10 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
           <DatePicker 
             key={key}
             format='YYYY-MM-DD'
-            style={{ width: 270, fontFamily: 'Arial',fontSize:15 }} 
+            style={inputFieldStyle.field} 
             onChange={handlerValue} 
           />
+          <div style={{width:'3%', color:'white'}}>hi</div>
         </div>
       </FormGroup>
     );
@@ -118,29 +128,103 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
             key={key}
             format="HH:mm"
             ranges={[]}
-            style={{ width: 270, fontFamily: 'Arial',fontSize:15 }} 
+            style={inputFieldStyle.field} 
             onChange={handlerValue} 
           />
+          <div style={{width:'3%', color:'white'}}>hi</div>
         </div>
       </FormGroup>
     );
   }
 }
 
-const Filter = ({formFilter, configuration, actions}) => {
+const lgStyle ={
+  field: {marginLeft:'1%', width: 230, fontFamily: 'Arial',fontSize:15, zIndex:999}
+}
 
-    return (
-        <div>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<i className="fas fa-chevron-down" style={configuration.styleIconSummary}></i>}
-                style={configuration.styleAccordionSummary}
-              >
-                <span style={configuration.styleLabelSummary}>Filtrar Información del usuario</span>
-              </AccordionSummary>
+const mdStyle ={
+  field: {marginLeft:'3%', width: 200, fontFamily: 'Arial',fontSize:15 }
+}
 
-              <AccordionDetails className='accordion-details'>
-                <GridList cellHeight={configuration.cellHeight}  cols={configuration.cols}>
+const smStyle ={
+  field: {marginLeft:'3%', width: 170, fontFamily: 'Arial',fontSize:15 }
+}
+
+const CustomToggle = ({ children, eventKey, callback }) => {
+  const currentEventKey = useContext(AccordionContext);
+
+  const decoratedOnClick = useAccordionToggle(
+    eventKey,
+    () => callback && callback(eventKey),
+  );
+
+  const isCurrentEventKey = currentEventKey === eventKey;
+
+  return (
+    <Button
+      appearance="subtle"
+      type="button"
+      style={{ backgroundColor: isCurrentEventKey ? 'rgba(15, 0, 83, 0.863)' : 'white', marginLeft:'1%'}}
+      onClick={decoratedOnClick}
+    >
+      <span style={{fontFamily: 'Arial', fontSize:15,color: isCurrentEventKey ? 'white' : 'grey' }}>{children}</span>
+    </Button>
+  );
+}
+
+const Filter = ({bottonsHeader, formFilter, configuration, actions, ...props}) => {
+  
+  const styleFields = (screenWidth) => {
+    if (isWidthUp('lg', screenWidth)) {
+      return lgStyle;
+    }
+    
+    if (isWidthUp('md', screenWidth)) {
+      return mdStyle;
+    } 
+    return smStyle;
+  };
+
+  window.addEventListener('resize', styleFields); //Es un listener para detectar cuando cambia el tamaño de la pantalla
+
+  function getCols(screenWidth) {
+    if (isWidthUp('lg', screenWidth)) {
+      return 3;
+    }
+
+    if (isWidthUp('md', screenWidth)) {
+      return 2;
+    }
+
+    return 1;
+  }
+
+  const cols = getCols(props.width); // width is associated when using withWidth()
+  const fieldStyle = styleFields(props.width);
+
+  return (
+    <div>
+      <Accordion>
+        <Card>
+          <Card.Header>
+            <div style={{display:'flex', justifyContent:'flex-end', alignItems:'center', alignContent:'flex-end'}}>
+            <CustomToggle eventKey="0">Click me!</CustomToggle>
+            {
+              bottonsHeader.map((item, index) => {
+                return(
+                    <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%'}}>
+                        {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
+                        <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
+                    </Button>
+                )
+              })
+            }
+            </div>
+          </Card.Header>
+          <Accordion.Collapse eventKey="0" >
+            <div>
+              <Card.Body className='accordion-details'>
+                <GridList cellHeight={configuration.cellHeight} cols={cols}>
                   {
                     formFilter.map((item, index)=>{
                       return(
@@ -156,6 +240,7 @@ const Filter = ({formFilter, configuration, actions}) => {
                                 handlerValue={item.hadlerValueState} 
                                 handleOperator={item.handleOperator}
                                 selectPickerType={1}
+                                inputFieldStyle={fieldStyle}
                                 valueSelectPicker={operadoresConectoresFiltro}
                               />
                             </Form>
@@ -165,23 +250,27 @@ const Filter = ({formFilter, configuration, actions}) => {
                     })
                   }
                 </GridList>
-              </AccordionDetails>
-
-              <AccordionActions>
+              </Card.Body>
+              <Card.Footer>
+                <div style={{display:'flex', justifyContent:'flex-end', alignItems:'center', alignContent:'flex-end'}}>
                   {
                     actions.map((item, index) => {
                         return(
-                            <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance}>
+                            <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%'}}> 
                                 {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                                {item.labelButton}
+                                <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
                             </Button>
                         )
                     })
                   }
-              </AccordionActions>
-            </Accordion>
-        </div>
-    )
+                </div>
+              </Card.Footer>
+            </div>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+    </div>
+  )
 }
 
-export default Filter
+export default withWidth()(Filter)
