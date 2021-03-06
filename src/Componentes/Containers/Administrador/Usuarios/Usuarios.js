@@ -3,24 +3,17 @@ import { Schema, Button, Notification} from 'rsuite';
 import './Usuarios.css'
 
 //Action
-import {columnasDataTable, UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios, UsuariosAction_FiltrarUsuarios, UsuariosAction_CrearUsuarios} from '../../../../Acciones/Usuarios/UsuariosAction';
+import {UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios, UsuariosAction_FiltrarUsuarios, UsuariosAction_CrearUsuarios, UsuariosAction_EliminarUsuarios} from '../../../../Acciones/Usuarios/UsuariosAction';
 
 //Elementos
 import Sidebar from '../../../Elements/Sidebar/Sidebar';
 import DataTables from '../../../Elements/DataTable/DataTable';
 import Filter from '../../../Elements/Filter/Filter';
+import {Notify} from '../../../Elements/Notify/Notify';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
 
-//Notificaiones
-const Notify = (funcName,titulo,descripcion) => {
-    Notification[funcName]({
-        
-        title: <span style={{fontFamily: 'Arial', fontSize:15}}>{titulo}</span>,
-        description: <span style={{fontFamily: 'Arial', fontSize:15}}>{descripcion}</span>,
-    });
-}
 
 //Configuration filter 
 const configFilter ={
@@ -96,6 +89,99 @@ class Usuarios extends Component {
         activateModal: false,
         activateModalNewUser: false,
         dataSeleccionado: {},
+        dataActualizada: false,
+        columnasDataTable: [
+            {
+                key: "ID_USUARIO",
+                text: "ID Usuario",
+                width: 300,
+                align: "left",
+                fixed: true,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "NOMBRES",
+                text: "Nombres",
+                width: 200,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "APELLIDOS",
+                text: "Apellidos",
+                width: 200,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "TIPO_DOC_ID",
+                text: "Tipo Documento",
+                width: 150,
+                align: "center",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "NUMERO_DOC_ID",
+                text: "Número Documento",
+                width: 200,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "EMAIL",
+                text: "Email",
+                width: 300,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "FECHA_CREACION",
+                text: "Fecha Creación",
+                width: 200,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "HORA_CREACION",
+                text: "Hora Creación",
+                width: 200,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "FECHA_ACTUALIZACION",
+                text: "Fecha Actualización",
+                width: 200,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+            {
+                key: "HORA_ACTUALIZACION",
+                text: "Hora Actualización",
+                width: 200,
+                align: "left",
+                fixed: false,
+                resizable: true,
+                sortable: true
+            },
+        ],
         FormModal : [
             {
                 name: "ID_USUARIO",
@@ -468,6 +554,28 @@ class Usuarios extends Component {
 
     bottonsFooterModal = [
         {
+            labelButton: "Eliminar",
+            color: "red",
+            appearance: "subtle",
+            icon: true,
+            nameIcon: 'fas fa-user-edit',
+            onClick: () => {
+                let dataJson = {};
+                let newFormModal = this.state.FormModal;
+                dataJson['id_usuario'] = newFormModal[0].valueState;
+                UsuariosAction_actualizarUsuarios(dataJson)
+
+                UsuariosAction_EliminarUsuarios(dataJson).then(() => {
+                    Notify('success','Usuario eliminado',`El usuario: ${newFormModal[1].valueState} ${newFormModal[2].valueState} con ID USUARIO: ${newFormModal[0].valueState} ha sido eliminado existosamente`)
+                    this.setState({dataActualizada: true})
+                    this.closeModal()
+                }).catch(() => {
+                    Notify('error','Usuario no creado',`El usuario: ${newFormModal[1].valueState} ${newFormModal[2].valueState} con ID USUARIO: ${newFormModal[0].valueState} no ha podido ser eliminado, comunicarse con el área de TI`)
+                })
+                
+            },
+        },
+        {
             labelButton: "Actualizar",
             color: "yellow",
             appearance: "subtle",
@@ -575,16 +683,41 @@ class Usuarios extends Component {
                 let dataJson = {};
                 
                 let newUserModalNewUser = this.state.newUserModal;
-                dataJson['NOMBRES'] = newUserModalNewUser[0].valueState;
-                dataJson['APELLIDOS'] = newUserModalNewUser[1].valueState;
-                dataJson['TIPO_DOC_ID'] = newUserModalNewUser[2].valueState;
-                dataJson['NUMERO_DOC_ID'] = newUserModalNewUser[3].valueState;
-                dataJson['EMAIL'] = newUserModalNewUser[4].valueState;
-                dataJson['PASSWORD'] = newUserModalNewUser[5].valueState;
-                dataJson['ACTIVO'] = newUserModalNewUser[6].valueState;
+                dataJson['nombres'] = newUserModalNewUser[0].valueState;
+                dataJson['apellidos'] = newUserModalNewUser[1].valueState;
+                dataJson['tipo_doc_id'] = newUserModalNewUser[2].valueState;
+                dataJson['numero_doc_id'] = newUserModalNewUser[3].valueState;
+                dataJson['email'] = newUserModalNewUser[4].valueState;
+                dataJson['password'] = newUserModalNewUser[5].valueState;
+                dataJson['activo'] = newUserModalNewUser[6].valueState;
 
-                UsuariosAction_CrearUsuarios(dataJson)
-                Notify('success','Usuario Creado',`El usuario: ${newUserModalNewUser[0].valueState} ${newUserModalNewUser[1].valueState} con correo electrónico: ${newUserModalNewUser[4].valueState} ha sido creado correctamente`)
+                let nullFields = [];
+
+                newUserModalNewUser.forEach(x => {
+                    if (x.valueState === ''){
+                        nullFields.push(x.label)
+                    }
+                    
+                })
+                
+                if(nullFields.length > 0){
+                    Notify('warning','Problema creando usuario',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                }else{
+                    UsuariosAction_CrearUsuarios(dataJson).then(() => {
+                        Notify('success','Usuario creado',`El usuario: ${newUserModalNewUser[0].valueState} ${newUserModalNewUser[1].valueState} con correo electrónico: ${newUserModalNewUser[4].valueState} ha sido creado existosamente`)
+                        this.setState({dataActualizada: true})
+                        newUserModalNewUser[0].valueState = '';
+                        newUserModalNewUser[1].valueState = '';
+                        newUserModalNewUser[2].valueState = '';
+                        newUserModalNewUser[3].valueState = '';
+                        newUserModalNewUser[4].valueState = '';
+                        newUserModalNewUser[5].valueState = '';
+                        newUserModalNewUser[6].valueState = '';
+                        this.setState({newUserModal: newUserModalNewUser});
+                    }).catch(() => {
+                        Notify('error','Usuario no creado',`El usuario: ${newUserModalNewUser[0].valueState} ${newUserModalNewUser[1].valueState} con correo electrónico: ${newUserModalNewUser[4].valueState} no ha podido ser creado correctamente, comunicarse con el área de TI`)
+                    })
+                }
             },
         }
     ]
@@ -617,9 +750,18 @@ class Usuarios extends Component {
         UsuariosAction_ConsultarUsuarios()
             .then(result => {
                 this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
-            })
+        })
     }
 
+    componentDidUpdate = () => {
+        if(this.state.dataActualizada === true){
+            UsuariosAction_ConsultarUsuarios()
+                .then(result => {
+                    this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                })
+            this.setState({dataActualizada: false})    
+        }
+    }
 
     render() {
         return (
@@ -638,7 +780,7 @@ class Usuarios extends Component {
                         key={this.state.dataUsuario.id} 
                         configuration={configTable} 
                         data={this.state.dataUsuario} 
-                        columns={columnasDataTable} 
+                        columns={this.state.columnasDataTable} 
                         handleOnRowClick={this.dataSeleccionado}
                     />
                 </div>
