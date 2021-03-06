@@ -76,14 +76,14 @@ const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelS
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose} appearance="subtle" color='blue'>
-                        Cancelar
+                        <span style={{fontFamily: 'Arial', fontSize:15}}>Cancelar</span>
                     </Button>
                     {
                         bottonFooter.map((item, index) => {
                             return(
                                 <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance}>
                                     {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                                    {item.labelButton}
+                                    <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
                                 </Button>
                             )
                         })

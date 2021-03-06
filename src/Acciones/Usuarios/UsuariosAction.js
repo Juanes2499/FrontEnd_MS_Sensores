@@ -156,3 +156,21 @@ export const UsuariosAction_FiltrarUsuarios = (data) => {
         }
     })
 }
+
+export const UsuariosAction_CrearUsuarios = (data) => {
+
+    console.log(data)
+    // return new Promise((resolve, reject) => {
+    //     try {
+    //         createAxiosInstance().post(endpoint, dataUsuarios)
+    //             .then(Response => {
+    //                 return resolve(Response.data)
+    //             }).catch(err => {
+    //                 console.log(err.response)
+    //                 return reject(err)
+    //             })
+    //     }catch{
+    //         history.push('/Home');
+    //     }
+    // })
+}

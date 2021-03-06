@@ -1,5 +1,5 @@
 import React, {useState,useEffect, useContext} from 'react'
-import { Form, Button, FormGroup, Toggle, DatePicker, SelectPicker, MultiCascader, Input } from 'rsuite';
+import { Form, Button, FormGroup, Toggle, DatePicker, SelectPicker, MultiCascader, Input, FormControl } from 'rsuite';
 // import Accordion from '@material-ui/core/Accordion';
 // import AccordionDetails from '@material-ui/core/AccordionDetails';
 // import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -21,7 +21,7 @@ const SelectPickerMaestra = ({selectPickerType, data, handleOperator}) => {
   return (
     <MultiCascader
       size="md"
-      placeholder="Select"
+      placeholder={<span style={{fontFamily: 'Arial', fontSize:12}}>Select</span>}
       data={data}
       searchable={false}
       style={{ width: 100, height:35, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
@@ -65,7 +65,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                 <p className='label-field'  key={key} >{label} </p>
               </div>
               <SelectPickerMaestra key={key}  selectPickerType={selectPickerType} data={valueSelectPicker} handleOperator={handleOperator}/>
-              <Input
+              <FormControl
                   key={key}
                   name={name} 
                   accepter={accepter} 
@@ -75,7 +75,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                   value={value}
                   {...rest}
               />
-              <div style={{width:'3%', color:'white'}}>hi</div>
+              <div style={{width:'3%', color:'white'}}>|   |</div>
             </div>
         </FormGroup>
     );
@@ -112,7 +112,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
             style={inputFieldStyle.field} 
             onChange={handlerValue} 
           />
-          <div style={{width:'3%', color:'white'}}>hi</div>
+          <div style={{width:'3%', color:'white'}}>|   |</div>
         </div>
       </FormGroup>
     );
@@ -131,7 +131,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
             style={inputFieldStyle.field} 
             onChange={handlerValue} 
           />
-          <div style={{width:'3%', color:'white'}}>hi</div>
+          <div style={{width:'3%', color:'white'}}>|   |</div>
         </div>
       </FormGroup>
     );
@@ -139,15 +139,15 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
 }
 
 const lgStyle ={
-  field: {marginLeft:'1%', width: 230, fontFamily: 'Arial',fontSize:15, zIndex:999}
+  field: {marginLeft:'1%', width: 230, height:35 , fontFamily: 'Arial',fontSize:15}
 }
 
 const mdStyle ={
-  field: {marginLeft:'3%', width: 200, fontFamily: 'Arial',fontSize:15 }
+  field: {marginLeft:'3%', width: 200, height:35, fontFamily: 'Arial',fontSize:15 }
 }
 
 const smStyle ={
-  field: {marginLeft:'3%', width: 170, fontFamily: 'Arial',fontSize:15 }
+  field: {marginLeft:'3%', width: 170, height:35, fontFamily: 'Arial',fontSize:15 }
 }
 
 const CustomToggle = ({ children, eventKey, callback }) => {
@@ -162,12 +162,12 @@ const CustomToggle = ({ children, eventKey, callback }) => {
 
   return (
     <Button
-      appearance="subtle"
       type="button"
-      style={{ backgroundColor: isCurrentEventKey ? 'rgba(15, 0, 83, 0.863)' : 'white', marginLeft:'1%'}}
+      appearance='subtle'
+      style={{display:'flex', justifyContent:'center', alignItems:'center', alignContent:'center', backgroundColor: isCurrentEventKey ? 'rgb(217, 219, 219)' : 'white', marginLeft:'0%', borderRadius:'100%'}}
       onClick={decoratedOnClick}
     >
-      <span style={{fontFamily: 'Arial', fontSize:15,color: isCurrentEventKey ? 'white' : 'grey' }}>{children}</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width='14.8' height='21' viewBox="0 0 16.7 15.49" style={{fill: 'white', stroke: '#2f286d', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth:'1.5px'}}><path className="a" d="M7.8,9.462H23L16.624,15.7v7.752l-2.49-2.435V15.7Z" transform="translate(-7.054 -8.712)"/></svg>
     </Button>
   );
 }
@@ -207,18 +207,18 @@ const Filter = ({bottonsHeader, formFilter, configuration, actions, ...props}) =
       <Accordion>
         <Card>
           <Card.Header>
-            <div style={{display:'flex', justifyContent:'flex-end', alignItems:'center', alignContent:'flex-end'}}>
-            <CustomToggle eventKey="0">Click me!</CustomToggle>
-            {
-              bottonsHeader.map((item, index) => {
-                return(
-                    <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%'}}>
-                        {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                        <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
-                    </Button>
-                )
-              })
-            }
+            <div style={{display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
+              <CustomToggle eventKey="0">Click me!</CustomToggle>
+              {
+                bottonsHeader.map((item, index) => {
+                  return(
+                      <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%', borderRadius:'100%'}}>
+                          {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'0%'}}></i> : ''}
+                          <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
+                      </Button>
+                  )
+                })
+              }
             </div>
           </Card.Header>
           <Accordion.Collapse eventKey="0" >

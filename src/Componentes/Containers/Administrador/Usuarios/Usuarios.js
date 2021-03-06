@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import { Schema, Button } from 'rsuite';
+import { Schema, Button, Notification} from 'rsuite';
 import './Usuarios.css'
 
 //Action
-import {columnasDataTable, UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios, UsuariosAction_FiltrarUsuarios} from '../../../../Acciones/Usuarios/UsuariosAction';
+import {columnasDataTable, UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios, UsuariosAction_FiltrarUsuarios, UsuariosAction_CrearUsuarios} from '../../../../Acciones/Usuarios/UsuariosAction';
 
 //Elementos
 import Sidebar from '../../../Elements/Sidebar/Sidebar';
@@ -12,6 +12,15 @@ import Filter from '../../../Elements/Filter/Filter';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
+
+//Notificaiones
+const Notify = (funcName,titulo,descripcion) => {
+    Notification[funcName]({
+        
+        title: <span style={{fontFamily: 'Arial', fontSize:15}}>{titulo}</span>,
+        description: <span style={{fontFamily: 'Arial', fontSize:15}}>{descripcion}</span>,
+    });
+}
 
 //Configuration filter 
 const configFilter ={
@@ -67,11 +76,25 @@ const modelSchemaModal = Schema.Model({
         .isRequired('Este campo es requerido'),
     password: StringType().isRequired('Este campo es requerido'),
 });
+
+const modelSchemaModalNewUsuario = Schema.Model({
+    NOMBRES: StringType().isRequired('Este campo es requerido'),
+    APELLIDOS: StringType().isRequired('Este campo es requerido'),
+    TIPO_DOC_ID: StringType().isRequired('Este campo es requerido'),
+    NUMERO_DOC_ID: StringType().isRequired('Este campo es requerido'),
+    EMAIL: StringType()
+        .isEmail('Por favor ingresar un dirección de correo valido')
+        .isRequired('Este campo es requerido'),
+    PASSWORD: StringType().isRequired('Este campo es requerido'),
+});
+
+
 class Usuarios extends Component {
 
     state = {
         dataUsuario: [],
         activateModal: false,
+        activateModalNewUser: false,
         dataSeleccionado: {},
         FormModal : [
             {
@@ -347,6 +370,99 @@ class Usuarios extends Component {
                     this.setState({formFilter: newOperator});
                 }
             }
+        ],
+        newUserModal:[
+            {
+                name: "NOMBRES",
+                label: "Nombres",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[0].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "APELLIDOS",
+                label: "Apellidos",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[1].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "TIPO_DOC_ID",
+                label: "Tipo Documento",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[2].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "NUMERO_DOC_ID",
+                label: "Número Documento",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[3].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "EMAIL",
+                label: "Email",
+                type: "email",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[4].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "PASSWORD",
+                label: "Contraseña",
+                type: "password",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[5].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "ACTIVO",
+                label: "Usuario Activo",
+                type: "toggle",
+                dataEntryType:'toggle',
+                readOnly: false,
+                valueState: false,
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[6].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            }
         ]
     };
 
@@ -436,34 +552,41 @@ class Usuarios extends Component {
 
     bottonsHeaderFilter = [
         {
-            labelButton: "Nuevo Usuario",
+            labelButton: "",
             color: "green",
             appearance: "subtle",
             icon: true,
             nameIcon: 'fas fa-plus',
             onClick: () => {
-        
-                let dataJsonObject = {}
-                
-                let newFormFilter = this.state.formFilter;
-                
-                let i = 0;
-                newFormFilter.forEach(x => {
-                    if(x.valueState !== ''){
-                        dataJsonObject[`${x.name}`] = {
-                            conector_logico: i === 0 ? '' : x.operador.filter(i => i.includes('_'))[0].replace("_",""),
-                            operador: x.operador.filter(i => !i.includes('_'))[0],
-                            valor_condicion: x.valueState
-                        }
-                        i += 1;
-                    }
-                })
-            
-                UsuariosAction_FiltrarUsuarios(dataJsonObject).then(result => {
-                    this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
-                })
+                this.setState({activateModalNewUser: true})
             }
         },
+    ]
+
+    bottonsFooterModalNewUser = [
+        {
+            labelButton: "Crear Usuario",
+            color: "green",
+            appearance: "subtle",
+            icon: true,
+            nameIcon: 'fas fa-plus',
+            onClick: () => {
+                
+                let dataJson = {};
+                
+                let newUserModalNewUser = this.state.newUserModal;
+                dataJson['NOMBRES'] = newUserModalNewUser[0].valueState;
+                dataJson['APELLIDOS'] = newUserModalNewUser[1].valueState;
+                dataJson['TIPO_DOC_ID'] = newUserModalNewUser[2].valueState;
+                dataJson['NUMERO_DOC_ID'] = newUserModalNewUser[3].valueState;
+                dataJson['EMAIL'] = newUserModalNewUser[4].valueState;
+                dataJson['PASSWORD'] = newUserModalNewUser[5].valueState;
+                dataJson['ACTIVO'] = newUserModalNewUser[6].valueState;
+
+                UsuariosAction_CrearUsuarios(dataJson)
+                Notify('success','Usuario Creado',`El usuario: ${newUserModalNewUser[0].valueState} ${newUserModalNewUser[1].valueState} con correo electrónico: ${newUserModalNewUser[4].valueState} ha sido creado correctamente`)
+            },
+        }
     ]
 
 
@@ -485,6 +608,10 @@ class Usuarios extends Component {
     closeModal = () => {
         this.setState({activateModal: false})
     }
+
+    closeModalNewUser = () => {
+        this.setState({activateModalNewUser: false})
+    }
     
     componentDidMount = () => {
         UsuariosAction_ConsultarUsuarios()
@@ -497,9 +624,10 @@ class Usuarios extends Component {
     render() {
         return (
             <div>
-                <Sidebar sideType={2}/>
+                <Sidebar key={1} sideType={2}/>
                 <div className='container-usuarios'>
                     <Filter
+                        key={2}
                         bottonsHeader={this.bottonsHeaderFilter}
                         formFilter={this.state.formFilter}
                         configuration={configFilter}
@@ -514,14 +642,25 @@ class Usuarios extends Component {
                         handleOnRowClick={this.dataSeleccionado}
                     />
                 </div>
-                <ShowEditDataForm 
+                <ShowEditDataForm
+                    key={3}
                     layaout = "vertical"
                     isActivate={this.state.activateModal}
-                    tittleModal={'Editar usuario'}
+                    tittleModal={'Editar Usuario'}
                     handleClose={this.closeModal}
                     modelSchema={modelSchemaModal}
                     fields={this.state.FormModal}
                     bottonFooter={this.bottonsFooterModal}
+                />
+                <ShowEditDataForm
+                    key={4}
+                    layaout = "vertical"
+                    isActivate={this.state.activateModalNewUser}
+                    tittleModal={'Nuevo Usuario'}
+                    handleClose={this.closeModalNewUser}
+                    modelSchema={modelSchemaModalNewUsuario}
+                    fields={this.state.newUserModal}
+                    bottonFooter={this.bottonsFooterModalNewUser}
                 />
             </div>
         )
