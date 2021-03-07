@@ -46,8 +46,8 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
 
 const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelSchema, fields, bottonFooter}) => {
     return (
-        <div className='modal-container'>
-            <Modal style={{marginTop:'3%'}} show={isActivate}>
+        <div>
+            <Modal style={{top:'5%'}} show={isActivate}>
                 <Modal.Header closeButton={false}>
                     <div className='modal-header'>
                         <p className='titulo-header'>{tittleModal}</p>

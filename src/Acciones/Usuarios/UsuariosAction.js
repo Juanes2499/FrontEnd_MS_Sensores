@@ -1,9 +1,5 @@
-import Cookies from 'universal-cookie'
 import { createAxiosInstance } from '../../Shared/helper';
-import { useHistory } from 'react-router-dom';
 import history from '../../Shared/createHistory';
-
-const API_AUTH_HOST = window.API_AUTH_HOST
 
 export const UsuariosAction_ConsultarUsuarios = () => {
 
@@ -33,7 +29,20 @@ export const UsuariosAction_ConsultarUsuarios = () => {
 }
 
 export const UsuariosAction_actualizarUsuarios = (data) => {
-    console.log('entró a la acción: ', data)
+    const endpoint = '/api/usuarios'
+    
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().put(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
 }
 
 export const UsuariosAction_FiltrarUsuarios = (data) => {

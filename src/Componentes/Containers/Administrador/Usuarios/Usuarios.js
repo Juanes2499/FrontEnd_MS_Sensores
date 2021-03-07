@@ -7,12 +7,14 @@ import {UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios, Usu
 
 //Elementos
 import Sidebar from '../../../Elements/Sidebar/Sidebar';
-import DataTables from '../../../Elements/DataTable/DataTable';
+import {DataTableColAction} from '../../../Elements/DataTable/DataTable';
 import Filter from '../../../Elements/Filter/Filter';
 import {Notify} from '../../../Elements/Notify/Notify';
+import {Confirmation} from '../../../Elements/Confirmation/Confirmation';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
+import { set } from 'lodash';
 
 
 //Configuration filter 
@@ -90,98 +92,12 @@ class Usuarios extends Component {
         activateModalNewUser: false,
         dataSeleccionado: {},
         dataActualizada: false,
-        columnasDataTable: [
-            {
-                key: "ID_USUARIO",
-                text: "ID Usuario",
-                width: 300,
-                align: "left",
-                fixed: true,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "NOMBRES",
-                text: "Nombres",
-                width: 200,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "APELLIDOS",
-                text: "Apellidos",
-                width: 200,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "TIPO_DOC_ID",
-                text: "Tipo Documento",
-                width: 150,
-                align: "center",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "NUMERO_DOC_ID",
-                text: "Número Documento",
-                width: 200,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "EMAIL",
-                text: "Email",
-                width: 300,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "FECHA_CREACION",
-                text: "Fecha Creación",
-                width: 200,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "HORA_CREACION",
-                text: "Hora Creación",
-                width: 200,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "FECHA_ACTUALIZACION",
-                text: "Fecha Actualización",
-                width: 200,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-            {
-                key: "HORA_ACTUALIZACION",
-                text: "Hora Actualización",
-                width: 200,
-                align: "left",
-                fixed: false,
-                resizable: true,
-                sortable: true
-            },
-        ],
+        showConfirmacion: false,
+        tituloConfirmacion:'', 
+        cuerpoConfirmacion:'',
+        handleAceptarConfirmacion:()=>{
+
+        },        
         FormModal : [
             {
                 name: "ID_USUARIO",
@@ -552,29 +468,149 @@ class Usuarios extends Component {
         ]
     };
 
-    bottonsFooterModal = [
+    columnasDataTable = [
         {
-            labelButton: "Eliminar",
-            color: "red",
-            appearance: "subtle",
-            icon: true,
-            nameIcon: 'fas fa-user-edit',
-            onClick: () => {
-                let dataJson = {};
-                let newFormModal = this.state.FormModal;
-                dataJson['id_usuario'] = newFormModal[0].valueState;
-                UsuariosAction_actualizarUsuarios(dataJson)
-
-                UsuariosAction_EliminarUsuarios(dataJson).then(() => {
-                    Notify('success','Usuario eliminado',`El usuario: ${newFormModal[1].valueState} ${newFormModal[2].valueState} con ID USUARIO: ${newFormModal[0].valueState} ha sido eliminado existosamente`)
-                    this.setState({dataActualizada: true})
-                    this.closeModal()
-                }).catch(() => {
-                    Notify('error','Usuario no creado',`El usuario: ${newFormModal[1].valueState} ${newFormModal[2].valueState} con ID USUARIO: ${newFormModal[0].valueState} no ha podido ser eliminado, comunicarse con el área de TI`)
-                })
-                
-            },
+            key: "ID_USUARIO",
+            text: "ID Usuario",
+            width: 300,
+            align: "left",
+            fixed: true,
+            resizable: true,
+            sortable: true
         },
+        {
+            key: "NOMBRES",
+            text: "Nombres",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "APELLIDOS",
+            text: "Apellidos",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "TIPO_DOC_ID",
+            text: "Tipo Documento",
+            width: 150,
+            align: "center",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "NUMERO_DOC_ID",
+            text: "Número Documento",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "EMAIL",
+            text: "Email",
+            width: 300,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "FECHA_CREACION",
+            text: "Fecha Creación",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "HORA_CREACION",
+            text: "Hora Creación",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "FECHA_ACTUALIZACION",
+            text: "Fecha Actualización",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "HORA_ACTUALIZACION",
+            text: "Hora Actualización",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+    ]
+
+    bottonsActionsTable = {
+        dataKey: 'ID_USUARIO',
+        actions: [
+            {
+                color: "",
+                appearance: "subtle",
+                nameIcon: 'fas fa-trash-alt',
+                onClick: (data, dataKey) => {
+                    let dataJson = {};
+                    dataJson['id_usuario'] = data.ID_USUARIO;
+                    this.setState({
+                        showConfirmacion: true,
+                        tituloConfirmacion: 'Eliminar usuario',
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el usaurio: ${data.NOMBRES} ${data.APELLIDOS} con ID USUARIO: ${data.ID_USUARIO} ?`,
+                        handleAceptarConfirmacion: () => {
+                            UsuariosAction_EliminarUsuarios(dataJson).then(() => {
+                                Notify('success','Usuario eliminado',`El usuario: ${data.NOMBRES} ${data.APELLIDOS} con ID USUARIO: ${data.ID_USUARIO} ha sido eliminado existosamente`)
+                                this.setState({dataActualizada: true})
+                                this.setState({showConfirmacion: false})
+                            }).catch(() => {
+                                Notify('error','Usuario no eliminado',`El usuario: ${data.NOMBRES} ${data.APELLIDOS} con ID USUARIO: ${data.ID_USUARIO} no ha podido ser eliminado, comunicarse con el área de TI`)
+                            })
+                        }
+                    }) 
+                },
+            },
+            {
+                color: "",
+                appearance: "subtle",
+                nameIcon: 'fas fa-edit',
+                onClick: (data, dataKey) => {
+                    this.setState({activateModal: true})
+                    this.setState({dataSeleccionado: data})
+
+                    let newFormModal = this.state.FormModal;
+                    newFormModal[0].valueState = data.ID_USUARIO
+                    newFormModal[1].valueState = data.NOMBRES
+                    newFormModal[2].valueState = data.APELLIDOS
+                    newFormModal[3].valueState = data.TIPO_DOC_ID
+                    newFormModal[4].valueState = data.NUMERO_DOC_ID
+                    newFormModal[5].valueState = data.EMAIL
+                    newFormModal[6].valueState = data.ACTIVO
+
+                    this.setState({FormModal: newFormModal});
+                },
+            }
+        ]
+    }
+
+    bottonsFooterModal = [
         {
             labelButton: "Actualizar",
             color: "yellow",
@@ -585,16 +621,44 @@ class Usuarios extends Component {
                 
                 let dataJson = {};
                 
-                let newFormModal = this.state.FormModal;
-                dataJson['ID_USUARIO'] = newFormModal[0].valueState;
-                dataJson['NOMBRES'] = newFormModal[1].valueState;
-                dataJson['APELLIDOS'] = newFormModal[2].valueState;
-                dataJson['TIPO_DOC_ID'] = newFormModal[3].valueState;
-                dataJson['NUMERO_DOC_ID'] = newFormModal[4].valueState;
-                dataJson['EMAIL'] = newFormModal[5].valueState;
-                dataJson['ACTIVO'] = newFormModal[6].valueState;
+                let updateFormModal = this.state.FormModal;
+                dataJson['id_usuario'] = updateFormModal[0].valueState;
+                dataJson['nombres'] = updateFormModal[1].valueState;
+                dataJson['apellidos'] = updateFormModal[2].valueState;
+                dataJson['tipo_doc_id'] = updateFormModal[3].valueState;
+                dataJson['numero_doc_id'] = updateFormModal[4].valueState;
+                dataJson['email'] = updateFormModal[5].valueState;
+                dataJson['activo'] = updateFormModal[6].valueState;
+                dataJson['password'] = '';
 
-                UsuariosAction_actualizarUsuarios(dataJson)
+                let nullFields = [];
+
+                updateFormModal.forEach(x => {
+                    if (x.valueState === ''){
+                        nullFields.push(x.label)
+                    }
+                    
+                })
+                
+                if(nullFields.length > 0){
+                    Notify('warning','Problema actualizando usuario',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                }else{
+                    UsuariosAction_actualizarUsuarios(dataJson).then(() => {
+                        Notify('success','Usuario creado',`El usuario: ${updateFormModal[1].valueState} ${updateFormModal[2].valueState} con correo electrónico: ${updateFormModal[5].valueState} ha sido actualizado existosamente`)
+                        this.setState({dataActualizada: true})
+                        updateFormModal[0].valueState = '';
+                        updateFormModal[1].valueState = '';
+                        updateFormModal[2].valueState = '';
+                        updateFormModal[3].valueState = '';
+                        updateFormModal[4].valueState = '';
+                        updateFormModal[5].valueState = '';
+                        updateFormModal[6].valueState = '';
+                        this.setState({FormModal: updateFormModal});
+                        this.closeModal();
+                    }).catch(() => {
+                        Notify('error','Usuario no creado',`El usuario: ${updateFormModal[1].valueState} ${updateFormModal[2].valueState} con correo electrónico: ${updateFormModal[5].valueState} no ha podido ser actualizado correctamente, comunicarse con el área de TI`)
+                    })
+                }
             },
         }
     ]
@@ -776,12 +840,13 @@ class Usuarios extends Component {
                         actions={this.bottonsFooterFilter}
                     />
                     <br/>
-                    <DataTables 
+                    <DataTableColAction 
                         key={this.state.dataUsuario.id} 
                         configuration={configTable} 
                         data={this.state.dataUsuario} 
-                        columns={this.state.columnasDataTable} 
+                        columns={this.columnasDataTable} 
                         handleOnRowClick={this.dataSeleccionado}
+                        buttonActions={this.bottonsActionsTable}
                     />
                 </div>
                 <ShowEditDataForm
@@ -803,6 +868,13 @@ class Usuarios extends Component {
                     modelSchema={modelSchemaModalNewUsuario}
                     fields={this.state.newUserModal}
                     bottonFooter={this.bottonsFooterModalNewUser}
+                />
+                <Confirmation 
+                    show={this.state.showConfirmacion}
+                    titulo={this.state.tituloConfirmacion} 
+                    cuerpo={this.state.cuerpoConfirmacion}  
+                    handleClose={() => this.setState({showConfirmacion:false}) }
+                    handleAceptar={this.state.handleAceptarConfirmacion}
                 />
             </div>
         )
