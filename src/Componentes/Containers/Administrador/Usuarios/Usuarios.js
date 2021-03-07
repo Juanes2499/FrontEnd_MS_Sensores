@@ -26,7 +26,7 @@ const configFilter ={
     },
     styleLabelSummary: {
         color: 'rgb(255,255,255)',
-        fontFamily: "Arial",
+        fontFamily: "Roboto",
         fontWeight: 'bold',
         fontSize: '150%',
     },
@@ -48,7 +48,7 @@ const configTable ={
     resizable: true,
     headerStyle: {
         display:'flex',
-        fontFamily:'Arial', 
+        fontFamily:'Roboto', 
         fontSize:'110%',
         //color:'rgb(255, 255, 255)',
         color:'rgb(0, 0, 0)',
@@ -56,7 +56,7 @@ const configTable ={
     },
     cellStyle: {
         display:'flex',
-        fontFamily:'Arial', 
+        fontFamily:'Roboto', 
         fontSize:'100%',
         color:'rgb(148, 148, 148)',
     }

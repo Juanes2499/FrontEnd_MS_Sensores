@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import './Sidebar.css'
 
 const SidebarLabel = styled.span`
-    font-family: 'Arial';
+    font-family: 'Roboto';
     font-size: 100%;
     color: rgb(85, 85, 85);
 `;
 
 const LabelSubNav = styled.span`
-    font-family: 'Arial';
+    font-family: 'Roboto';
     color: rgb(85, 85, 85);
 `;
 

@@ -24,7 +24,7 @@ const TextField = (props) => {
     return (
         <FormGroup>
             <p className='label-field'>{label} </p>
-            <FormControl name={name} accepter={accepter} type={type} onChange={handlerValue} style={{width:300, height:40 ,fontFamily: 'Arial',  fontSize:15}} {...rest}/>
+            <FormControl name={name} accepter={accepter} type={type} onChange={handlerValue} style={{width:300, height:40 ,fontFamily: 'Roboto',  fontSize:15}} {...rest}/>
         </FormGroup>
     );
 }

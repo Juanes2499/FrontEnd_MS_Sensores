@@ -36,13 +36,13 @@
 
 
 .label-subnav{
-    font-family: 'Arial';
+    font-family: 'Roboto';
     color: rgb(252, 249, 249);
 }
 
 .hover-dropdown{
     color: white;
-    font-family: 'Arial';
+    font-family: 'Roboto';
     font-size: 140;
 }
 
@@ -52,27 +52,27 @@
 
 .nombre-user{
     color: white;
-    font-family: 'Arial';
+    font-family: 'Roboto';
     font-size: 130%;
     font-weight: bold;
 }
 
 .email-user{
     color: white;
-    font-family: 'Arial';
+    font-family: 'Roboto';
     font-size: 100%;
 }
 
 @media screen and (max-width: 960px) {
     .nombre-user{
         color: white;
-        font-family: 'Arial';
+        font-family: 'Roboto';
         font-size: 105%;
         font-weight: bold;
     }
     .email-user{
         color: white;
-        font-family: 'Arial';
+        font-family: 'Roboto';
         font-size: 90%;
     }
 }
@@ -80,13 +80,13 @@
 @media screen and (max-width: 600px) {
     .nombre-user{
         color: white;
-        font-family: 'Arial';
+        font-family: 'Roboto';
         font-size: 90%;
         font-weight: bold;
     }
     .email-user{
         color: white;
-        font-family: 'Arial';
+        font-family: 'Roboto';
         font-size: 70%;
     }
 }

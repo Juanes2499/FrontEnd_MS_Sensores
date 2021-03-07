@@ -21,10 +21,10 @@ const SelectPickerMaestra = ({selectPickerType, data, handleOperator}) => {
   return (
     <MultiCascader
       size="md"
-      placeholder={<span style={{fontFamily: 'Arial', fontSize:12}}>Select</span>}
+      placeholder={<span style={{fontFamily: 'Roboto', fontSize:12}}>Select</span>}
       data={data}
       searchable={false}
-      style={{ width: 100, height:35, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
+      style={{ width: 100, height:35, display: 'block', marginBottom: 1, fontFamily:'Roboto'}}
       onChange={handleOperator}
     />
   )
@@ -35,7 +35,7 @@ const SelectPickerMaestra = ({selectPickerType, data, handleOperator}) => {
   //       size="md"
   //       placeholder="Select"
   //       data={data}
-  //       style={{ width: 100, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
+  //       style={{ width: 100, display: 'block', marginBottom: 1, fontFamily:'Roboto'}}
   //       onChange={handleOperator}
   //     />
   //   )
@@ -46,7 +46,7 @@ const SelectPickerMaestra = ({selectPickerType, data, handleOperator}) => {
   //       size="md"
   //       placeholder="Select"
   //       data={data}
-  //       style={{ width: 100, display: 'block', marginBottom: 1, fontFamily:'Arial'}}
+  //       style={{ width: 100, display: 'block', marginBottom: 1, fontFamily:'Roboto'}}
   //       onChange={handleOperator}
   //     />
   //   )
@@ -139,15 +139,15 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
 }
 
 const lgStyle ={
-  field: {marginLeft:'1%', width: 230, height:35 , fontFamily: 'Arial',fontSize:15}
+  field: {marginLeft:'1%', width: 230, height:35 , fontFamily: 'Roboto',fontSize:15}
 }
 
 const mdStyle ={
-  field: {marginLeft:'3%', width: 200, height:35, fontFamily: 'Arial',fontSize:15 }
+  field: {marginLeft:'3%', width: 200, height:35, fontFamily: 'Roboto',fontSize:15 }
 }
 
 const smStyle ={
-  field: {marginLeft:'3%', width: 170, height:35, fontFamily: 'Arial',fontSize:15 }
+  field: {marginLeft:'3%', width: 170, height:35, fontFamily: 'Roboto',fontSize:15 }
 }
 
 const CustomToggle = ({ children, eventKey, callback }) => {
@@ -214,7 +214,7 @@ const Filter = ({bottonsHeader, formFilter, configuration, actions, ...props}) =
                   return(
                       <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%', borderRadius:'100%'}}>
                           {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'0%'}}></i> : ''}
-                          <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
+                          <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
                       </Button>
                   )
                 })
@@ -258,7 +258,7 @@ const Filter = ({bottonsHeader, formFilter, configuration, actions, ...props}) =
                         return(
                             <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%'}}> 
                                 {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                                <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
+                                <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
                             </Button>
                         )
                     })

@@ -19,7 +19,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                     type={type} 
                     onChange={handlerValue} 
                     readOnly={readOnly} 
-                    style={{width:350, height:40 ,fontFamily: 'Arial',  fontSize:15}} 
+                    style={{width:350, height:40 ,fontFamily: 'Roboto',  fontSize:15}} 
                     value={value}
                     {...rest}
                 />
@@ -76,14 +76,14 @@ const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelS
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose} appearance="subtle" color='blue'>
-                        <span style={{fontFamily: 'Arial', fontSize:15}}>Cancelar</span>
+                        <span style={{fontFamily: 'Roboto', fontSize:15}}>Cancelar</span>
                     </Button>
                     {
                         bottonFooter.map((item, index) => {
                             return(
                                 <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance}>
                                     {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                                    <span style={{fontFamily: 'Arial', fontSize:15}}>{item.labelButton}</span>
+                                    <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
                                 </Button>
                             )
                         })
