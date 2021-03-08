@@ -11,6 +11,7 @@ import {DataTableColAction} from '../../../Elements/DataTable/DataTable';
 import Filter from '../../../Elements/Filter/Filter';
 import {Notify} from '../../../Elements/Notify/Notify';
 import {Confirmation} from '../../../Elements/Confirmation/Confirmation';
+import Footer from '../../../Elements/Footer/Footer';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
@@ -565,7 +566,6 @@ class Usuarios extends Component {
         dataKey: 'ID_USUARIO',
         actions: [
             {
-                color: "",
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
@@ -588,7 +588,6 @@ class Usuarios extends Component {
                 },
             },
             {
-                color: "",
                 appearance: "subtle",
                 nameIcon: 'fas fa-edit',
                 onClick: (data, dataKey) => {
@@ -629,7 +628,7 @@ class Usuarios extends Component {
                 dataJson['numero_doc_id'] = updateFormModal[4].valueState;
                 dataJson['email'] = updateFormModal[5].valueState;
                 dataJson['activo'] = updateFormModal[6].valueState;
-                dataJson['password'] = '';
+                dataJson['password'] = null;
 
                 let nullFields = [];
 
@@ -834,6 +833,7 @@ class Usuarios extends Component {
                 <div className='container-usuarios'>
                     <Filter
                         key={2}
+                        titleHeader='Usuarios'
                         bottonsHeader={this.bottonsHeaderFilter}
                         formFilter={this.state.formFilter}
                         configuration={configFilter}
@@ -876,6 +876,7 @@ class Usuarios extends Component {
                     handleClose={() => this.setState({showConfirmacion:false}) }
                     handleAceptar={this.state.handleAceptarConfirmacion}
                 />
+                <Footer/>
             </div>
         )
     }

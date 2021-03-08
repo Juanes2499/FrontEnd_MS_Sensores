@@ -172,7 +172,7 @@ const CustomToggle = ({ children, eventKey, callback }) => {
   );
 }
 
-const Filter = ({bottonsHeader, formFilter, configuration, actions, ...props}) => {
+const Filter = ({titleHeader, bottonsHeader, formFilter, configuration, actions, ...props}) => {
   
   const styleFields = (screenWidth) => {
     if (isWidthUp('lg', screenWidth)) {
@@ -207,18 +207,23 @@ const Filter = ({bottonsHeader, formFilter, configuration, actions, ...props}) =
       <Accordion>
         <Card>
           <Card.Header>
-            <div style={{display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
-              <CustomToggle eventKey="0">Click me!</CustomToggle>
-              {
-                bottonsHeader.map((item, index) => {
-                  return(
-                      <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%', borderRadius:'100%'}}>
-                          {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'0%'}}></i> : ''}
-                          <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
-                      </Button>
-                  )
-                })
-              }
+            <div className='filter-container-header'>
+              <div className='content-name'>
+                <span style={{fontFamily: 'Roboto', fontSize:25, fontWeight:'bolder', color: '#333333'}}>{titleHeader}</span>
+              </div>
+              <div className='content-bottons'>
+                <CustomToggle eventKey="0" />
+                {
+                  bottonsHeader.map((item, index) => {
+                    return(
+                        <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%', borderRadius:'100%'}}>
+                            {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'0%'}}></i> : ''}
+                            <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
+                        </Button>
+                    )
+                  })
+                }
+              </div>
             </div>
           </Card.Header>
           <Accordion.Collapse eventKey="0" >

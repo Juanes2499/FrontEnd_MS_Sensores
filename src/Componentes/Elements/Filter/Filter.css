@@ -1,3 +1,22 @@
+.filter-container-header{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 0%;
+}
+
+.content-name{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.content-bottons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .accordion-details{
     margin-top: 2%;
 }

@@ -98,7 +98,7 @@ const ActionCell = ({ rowData, dataKey, buttons, ...props }) => {
                 {
                     buttons.map((item, index) => {
                         return(
-                            <Button key={index} onClick={() => item.onClick(rowData, dataKey)} color={item.color} appearance={item.appearance} style={{borderRadius:'100%'}}>
+                            <Button key={index} onClick={() => item.onClick(rowData, dataKey)} appearance={item.appearance} style={{borderRadius:'100%'}}>
                                  <i className={item.nameIcon}></i> 
                             </Button>
                         )

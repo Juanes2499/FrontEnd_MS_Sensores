@@ -11,7 +11,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
 
         return (
             <FormGroup key={key} >
-                <p className='label-field'  key={key} >{label} </p>
+                <p key={key} className='label-field'  key={key} >{label} </p>
                 <FormControl 
                     key={key}
                     name={name} 
@@ -30,12 +30,13 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
         return (
             <FormGroup key={key} >
                 <div className='toggle-box'>
-                    <p className='label-field'  key={key} >{label}</p>
+                    <p key={key} className='label-field'>{label}</p>
                     <Toggle 
+                        key={key}
                         size="lg" 
                         checkedChildren="true" 
                         unCheckedChildren="false"
-                        defaultChecked={value}
+                        checked={value}
                         onChange={handlerValue} 
                     />
                 </div>

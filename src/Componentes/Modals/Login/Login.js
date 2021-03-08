@@ -4,6 +4,9 @@ import { Form, ButtonToolbar, Button, FormGroup, FormControl, Schema, Alert } fr
 import './Login.css';
 import 'rsuite/dist/styles/rsuite-default.min.css'
 
+//Elemnt
+import {Notify} from '../../Elements/Notify/Notify';
+
 //Aciones
 import { LoginAction_InicialSesion } from '../../../Acciones/Login/LoginAction';
 
@@ -51,15 +54,10 @@ const Login = ({isActivate, handleClose, ...props}) => {
     const iniciaSesion = (email, pass, handleClosLogin) => {
             
         LoginAction_InicialSesion(email, pass, (authorized) => {
-            if (authorized) {
-                history.push('/Administrator')
-            } else {
-                Alert.config({
-                    className: 'label-alert-error'
-                });
-                return (
-                    Alert.error(`Problemas para iniciar sesión`)
-                );
+            if (authorized.auth) {
+                history.push('/Administrator')  
+            } else if(authorized.auth === false){
+                Notify('error','Error iniciando sesión',`${authorized.response.data.message}`)
             }
         });
     }

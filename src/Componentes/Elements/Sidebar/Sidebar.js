@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import SubMenu from './Submenu';
-import Sidemenu2 from './Sidemenu2';
+import Sidemenu from './Sidemenu';
 import { IconContext } from 'react-icons/lib';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import { Dropdown, ButtonToolbar, Button } from 'rsuite';
 import './Sidebar.css';
 import Cookies from 'universal-cookie'
 import { useHistory } from 'react-router-dom';
@@ -48,34 +45,7 @@ const RightSide = styled.div`
   justify-content: end;
 `;
 
-const SidebarNav = styled.nav`
-  background: rgb(15, 0, 83);
-  width: 340px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
-  transition: 350ms;
-  z-index: 10;
-`;
-
-const SidebarWrap = styled.div`
-  width: 100%;
-`;
-
-
-const CustomDropdown = ({title, trigger}) => (
-  <Dropdown trigger={trigger} title={<span className='hover-dropdown'>{title}</span>}>
-    <Dropdown.Item>New File</Dropdown.Item>
-    <Dropdown.Item>New File with Current Profile</Dropdown.Item>
-    <Dropdown.Item>Download As...</Dropdown.Item>
-  </Dropdown>
-);
-
-
-const Sidebar = ({sideType}) => {
+const Sidebar = () => {
     
     const [sidebar, setSidebar] = useState(false);
     const [SidebarData2, setSidebarData] = useState([]);
@@ -135,23 +105,7 @@ const Sidebar = ({sideType}) => {
                     style={{fill:'#fff'}}><g transform="translate(0 -0.85)"><g transform="translate(0 0.85)"><g transform="translate(0 0)"><path className="a" d="M11.444,22.85H2.861a.978.978,0,0,1-.954-1v-18a.978.978,0,0,1,.954-1h8.583a.977.977,0,0,0,.954-1,.977.977,0,0,0-.954-1H2.861A2.937,2.937,0,0,0,0,3.85v18a2.937,2.937,0,0,0,2.861,3h8.583a1,1,0,0,0,0-2Z" transform="translate(0 -0.85)"/></g></g><g transform="translate(8.665 6.174)"><path className="a" d="M185.151,113.161l-5.8-5.722a.954.954,0,0,0-1.339,1.358l4.144,4.089h-11.1a.954.954,0,0,0,0,1.907h11.1l-4.144,4.089a.954.954,0,1,0,1.339,1.358l5.8-5.722a.953.953,0,0,0,0-1.358Z" transform="translate(-170.1 -107.165)"/></g></g></svg>
                 </RightSide>
             </Nav>
-            { 
-              sideType === 1 ?
-                <SidebarNav sidebar={sidebar}>
-                  <SidebarWrap>
-                      <NavIcon to='#'>
-                        <AiIcons.AiOutlineClose onClick={showSidebar} />
-                      </NavIcon>
-                      {SidebarData2.map((item, index) => {
-                        return <SubMenu item={item} key={index} />;
-                      })}
-                      
-                  </SidebarWrap> 
-                  
-                </SidebarNav>
-              :
-              <Sidemenu2 show={sidebar} dataMenu={SidebarData2}/>
-            }
+            <Sidemenu show={sidebar} dataMenu={SidebarData2} homePage='/Administrator'/>
         </IconContext.Provider>
         </>
     );

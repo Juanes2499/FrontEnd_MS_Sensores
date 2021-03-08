@@ -17,10 +17,10 @@ export const LoginAction_InicialSesion = (email, password, auth) => {
      axios.post(endpoint, loginJson)
           .then(response => {
                cookies.set('token', response.data.token, { path: '/' })
-               return auth(true);
+               return auth({auth: true, response: null});
           }).catch(err => {
                if (err.response && err.response.status === 401) {
-                    return auth(false);
+                    return auth({auth: false, response: err.response});
                }
           })
 };
