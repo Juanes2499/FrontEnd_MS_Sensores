@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Schema, Button, Notification} from 'rsuite';
+import { Schema } from 'rsuite';
 import './Usuarios.css'
 
 //Action
@@ -15,8 +15,6 @@ import Footer from '../../../Elements/Footer/Footer';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
-import { set } from 'lodash';
-
 
 //Configuration filter 
 const configFilter ={
@@ -829,7 +827,7 @@ class Usuarios extends Component {
     render() {
         return (
             <div>
-                <Sidebar key={1} sideType={2}/>
+                <Sidebar key={1}/>
                 <div className='container-usuarios'>
                     <Filter
                         key={2}
