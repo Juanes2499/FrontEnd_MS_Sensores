@@ -79,7 +79,6 @@ const modelSchemaModalNewUsuario = Schema.Model({
     EMAIL: StringType()
         .isEmail('Por favor ingresar un dirección de correo valido')
         .isRequired('Este campo es requerido'),
-    PASSWORD: StringType().isRequired('Este campo es requerido'),
 });
 
 
@@ -439,19 +438,6 @@ class Usuarios extends Component {
                 },
             },
             {
-                name: "PASSWORD",
-                label: "Contraseña",
-                type: "password",
-                dataEntryType:'input',
-                readOnly: false,
-                valueState: '',
-                hadlerValueState: (data) => {
-                    let UserModal = this.state.newUserModal;
-                    UserModal[5].valueState = data;
-                    this.setState({newUserModal: UserModal});
-                },
-            },
-            {
                 name: "ACTIVO",
                 label: "Usuario Activo",
                 type: "toggle",
@@ -460,7 +446,7 @@ class Usuarios extends Component {
                 valueState: false,
                 hadlerValueState: (data) => {
                     let UserModal = this.state.newUserModal;
-                    UserModal[6].valueState = data;
+                    UserModal[5].valueState = data;
                     this.setState({newUserModal: UserModal});
                 },
             }
@@ -749,8 +735,7 @@ class Usuarios extends Component {
                 dataJson['tipo_doc_id'] = newUserModalNewUser[2].valueState;
                 dataJson['numero_doc_id'] = newUserModalNewUser[3].valueState;
                 dataJson['email'] = newUserModalNewUser[4].valueState;
-                dataJson['password'] = newUserModalNewUser[5].valueState;
-                dataJson['activo'] = newUserModalNewUser[6].valueState;
+                dataJson['activo'] = newUserModalNewUser[5].valueState;
 
                 let nullFields = [];
 
@@ -776,6 +761,7 @@ class Usuarios extends Component {
                         newUserModalNewUser[6].valueState = '';
                         this.setState({newUserModal: newUserModalNewUser});
                     }).catch(() => {
+                        
                         Notify('error','Usuario no creado',`El usuario: ${newUserModalNewUser[0].valueState} ${newUserModalNewUser[1].valueState} con correo electrónico: ${newUserModalNewUser[4].valueState} no ha podido ser creado correctamente, comunicarse con el área de TI`)
                     })
                 }
