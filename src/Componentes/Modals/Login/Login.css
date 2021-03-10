@@ -142,7 +142,7 @@
 @media screen and (max-width: 1200px) {
     .login-modal-block{
         width: 40%;
-        height: 31%;
+        height: 35%;
         background-color: rgba(255, 255, 255, 1);
         z-index: 1;
         border-radius: 3%;
@@ -261,10 +261,79 @@
 }
 
 
-/* .login-modal-body{
-    left: 10%;
-    position: absolute;
-    z-index: 2;
-    text-align: center;
-    justify-content: center;
-} */
+.new-passoword-modal-block{
+    width: 25%;
+    height: 42%;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1;
+    border-radius: 3%;
+    transition: all 0.3s ease-out;
+}
+
+.new-passoword-modal-header{
+    height: 10%;
+    width: 90%;
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+@media screen and (max-width: 1200px) {
+
+    .new-passoword-modal-block{
+        width: 40%;
+        height: 40%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 1;
+        border-radius: 3%;
+        transition: all 0.3s ease-out;
+    }
+    
+    .new-passoword-modal-header{
+        height: 10%;
+        width: 90%;
+        margin-top: 5%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+    }
+}
+
+@media screen and (max-width: 960px) {
+
+    .new-passoword-modal-block{
+        width: 50%;
+        height: 40%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 1;
+        border-radius: 3%;
+        transition: all 0.3s ease-out;
+    }
+    
+    .new-passoword-modal-header{
+        height: 10%;
+        width: 90%;
+        margin-top: 5%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .new-passoword-modal-block{
+        width: 80%;
+        height: 40%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 1;
+        border-radius: 3%;
+        transition: all 0.3s ease-out;
+    }
+    
+    .new-passoword-modal-header{
+        height: 10%;
+        width: 90%;
+        margin-top: 5%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+    }
+}

@@ -29,3 +29,41 @@ export const LoginAction_CerrarSesion = () => {
      cookies.remove('token', { path: '/' });
      history.push('/Home');
 }
+
+export const LoginAction_SolicitudCambioContrasena = (email, success) => {
+
+     let data = {
+          email: email
+     }
+
+     const endpoint = `${API_AUTH_HOST}/api/login/emailPassword`;
+
+     axios.post(endpoint, data)
+          .then(() => {
+               return success({state: true, response: null});
+          }).catch(err => {
+               if (err.response && err.response.status === 403) {
+                    return success({state: false, response: err.response});
+               }
+          })
+};
+
+export const LoginAction_ActualizarContrasena = (email, oldPassword, newPass, success) => {
+
+     let data = {
+          email: email,
+          old_password: oldPassword,
+          password_auth: newPass,
+     }
+
+     const endpoint = `${API_AUTH_HOST}/api/login/updatePassword`;
+
+     axios.put(endpoint, data)
+          .then(() => {
+               return success({state: true, response: null});
+          }).catch(err => {
+               if (err.response) {
+                    return success({state: false, response: err.response});
+               }
+          })
+};
