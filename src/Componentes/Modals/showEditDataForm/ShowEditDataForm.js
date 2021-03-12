@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button, FormGroup, FormControl, Toggle } from 'rsuite';
+import { Form, Button, FormGroup, FormControl, Toggle, Input } from 'rsuite';
 import { Modal} from 'rsuite';
 import './ShowEditDataForm.css';
 
@@ -11,7 +11,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
 
         return (
             <FormGroup key={key} >
-                <p key={key} className='label-field'  key={key} >{label} </p>
+                <p key={key} className='label-field' >{label} </p>
                 <FormControl 
                     key={key}
                     name={name} 
@@ -20,6 +20,26 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                     onChange={handlerValue} 
                     readOnly={readOnly} 
                     style={{width:350, height:40 ,fontFamily: 'Roboto',  fontSize:15}} 
+                    value={value}
+                    {...rest}
+                />
+            </FormGroup>
+        );
+    }else if(dataEntryType === 'longText'){
+
+        return (
+            <FormGroup key={key} >
+                <p key={key} className='label-field'>{label} </p>
+                <FormControl 
+                    key={key}
+                    name={name} 
+                    accepter={accepter}
+                    componentClass="textarea" 
+                    rows={5}
+                    type={type} 
+                    onChange={handlerValue} 
+                    readOnly={readOnly} 
+                    style={{width:350, fontFamily: 'Roboto',  fontSize:15}} 
                     value={value}
                     {...rest}
                 />

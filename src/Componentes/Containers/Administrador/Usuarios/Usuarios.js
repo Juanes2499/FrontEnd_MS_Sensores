@@ -3,7 +3,13 @@ import { Schema } from 'rsuite';
 import './Usuarios.css'
 
 //Action
-import {UsuariosAction_ConsultarUsuarios, UsuariosAction_actualizarUsuarios, UsuariosAction_FiltrarUsuarios, UsuariosAction_CrearUsuarios, UsuariosAction_EliminarUsuarios} from '../../../../Acciones/Usuarios/UsuariosAction';
+import {
+    UsuariosAction_ConsultarUsuarios, 
+    UsuariosAction_actualizarUsuarios, 
+    UsuariosAction_FiltrarUsuarios, 
+    UsuariosAction_CrearUsuarios, 
+    UsuariosAction_EliminarUsuarios
+} from '../../../../Acciones/Usuarios/UsuariosAction';
 
 //Elementos
 import Sidebar from '../../../Elements/Sidebar/Sidebar';
@@ -656,21 +662,18 @@ class Usuarios extends Component {
             onClick: () => {
 
                 let newFormFilter = this.state.formFilter;
-                newFormFilter[0].valueState = '';
-                newFormFilter[1].valueState = '';
-                newFormFilter[2].valueState = '';
-                newFormFilter[3].valueState = '';
-                newFormFilter[4].valueState = '';
-                newFormFilter[5].valueState = '';
-                newFormFilter[6].valueState = '';
-                newFormFilter[7].valueState = '';
-                newFormFilter[8].valueState = '';
-                newFormFilter[9].valueState = '';
-                this.setState({formFilter: newFormFilter});    
+                
+                newFormFilter.forEach(x => {
+                    x.valueState = '';
+                })
+
+                this.setState({formFilter: newFormFilter});   
                 
                 UsuariosAction_ConsultarUsuarios()
                     .then(result => {
                         this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    }).catch((err) => {
+                        Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
                     })
             },
         },
@@ -700,6 +703,8 @@ class Usuarios extends Component {
             
                 UsuariosAction_FiltrarUsuarios(dataJsonObject).then(result => {
                     this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                }).catch((err) => {
+                    Notify('warning','No existen conincidencias',`Con las condiciones establecidas en los parámetros no se encontraron datos.`)
                 })
             }
         },
@@ -797,6 +802,8 @@ class Usuarios extends Component {
         UsuariosAction_ConsultarUsuarios()
             .then(result => {
                 this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+        }).catch((err) => {
+            Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
         })
     }
 
@@ -805,8 +812,10 @@ class Usuarios extends Component {
             UsuariosAction_ConsultarUsuarios()
                 .then(result => {
                     this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    this.setState({dataActualizada: false})    
+                }).catch((err) => {
+                    Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
                 })
-            this.setState({dataActualizada: false})    
         }
     }
 
