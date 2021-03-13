@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Schema } from 'rsuite';
-import './Microservicios.css'
+import './Modulos.css'
 
 //Elementos
 import Sidebar from '../../../Elements/Sidebar/Sidebar';
@@ -15,22 +15,22 @@ import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm'
 
 //Actions
 import { 
-    MicroserviciosAction_ConsultarMicroservicios, 
-    MicroserviciosAction_CrearMicroservicios, 
-    MicroserviciosAction_ActualizarMicroservicios, 
-    MicroserviciosAction_EliminarMicroservicios
-} from '../../../../Acciones/Microservicios/MicroserviciosAction';
+    ModulosAction_ConsultarModulos,
+    ModulosAction_CrearModulo,
+    ModulosAction_ActualizarModulo,
+    ModulosAction_EliminarModulo
+} from '../../../../Acciones/Modulos/ModulosAction';
 
 //Schemas
 const { StringType } = Schema.Types;
-const schemaModalMicroservicio = Schema.Model({
-    NOMBRE_MICROSERVICIO: StringType().isRequired('Este campo es requerido'),
+const schemaModalModulo = Schema.Model({
+    NOMBRE_MODULO: StringType().isRequired('Este campo es requerido'),
     DETALLES: StringType().isRequired('Este campo es requerido'),
-    URL_MICROSERVICIO: StringType().isRequired('Este campo es requerido'),
-    ALIAS_MICROSERIVICIO: StringType().isRequired('Este campo es requerido'),
-    URL_ALIAS_MICROSERVICIO: StringType().isRequired('Este campo es requerido'),
+    URL_MODULO: StringType().isRequired('Este campo es requerido'),
+    ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
+    URL_ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
     ORDEN: StringType().isRequired('Este campo es requerido'),
-    ICON_MICROSERVICIO: StringType().isRequired('Este campo es requerido'),
+    ICON_MODULO: StringType().isRequired('Este campo es requerido'),
 });
 
 //Configuration filter 
@@ -78,14 +78,14 @@ const configTable ={
     }
 }
 
-export class Microservicios extends Component {
 
+export class Modulos extends Component {
     //Estados
     state = {
         //Estado para actulizar cuando se realice una acción
         dataActualizada: false,
         //Estados para cargar la data
-        dataMicroservicios: [],
+        dataModulo: [],
         //Estados para el componente showDataEditForm
         showDataEditForm_show: false,
         showDataEditForm_title: '',
@@ -100,8 +100,8 @@ export class Microservicios extends Component {
         //Form para el filtro
         formFilter:[
             {
-                name: "ID_MICROSERVICIO",
-                label: "ID Microservicio",
+                name: "ID_MODULO",
+                label: "ID Módulo",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -118,8 +118,8 @@ export class Microservicios extends Component {
                 }
             },
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Nombre Microservicio",
+                name: "NOMBRE_MODULO",
+                label: "Nombre Módulo",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -136,8 +136,8 @@ export class Microservicios extends Component {
                 }
             },
             {
-                name: "URL_MICROSERVICIO",
-                label: "URL Microservicio",
+                name: "URL_MODULO",
+                label: "URL Módulo",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -154,8 +154,8 @@ export class Microservicios extends Component {
                 }
             },
             {
-                name: "ALIAS_MICROSERIVICIO",
-                label: "Alias Microservicio",
+                name: "ALIAS_MODULO",
+                label: "Alias Módulo",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -172,8 +172,8 @@ export class Microservicios extends Component {
                 }
             },
             {
-                name: "URL_ALIAS_MICROSERVICIO",
-                label: "URL Alias Microservicio",
+                name: "URL_ALIAS_MODULO",
+                label: "URL Alias Módulo",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -263,18 +263,18 @@ export class Microservicios extends Component {
             },
         ],
         //Form para nuevo microservicio
-        formNewMicroservice:[
+        formNewModulo:[
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Nombre Microservicio",
+                name: "NOMBRE_MODULO",
+                label: "Nombre Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formNewMicroservice;
-                    microserviceModal[0].valueState = data;
-                    this.setState({formNewMicroservice: microserviceModal});
+                    let moduloModal = this.state.formNewModulo;
+                    moduloModal[0].valueState = data;
+                    this.setState({formNewModulo: moduloModal});
                 },
             },
             {
@@ -285,48 +285,48 @@ export class Microservicios extends Component {
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formNewMicroservice;
-                    microserviceModal[1].valueState = data;
-                    this.setState({formNewMicroservice: microserviceModal});
+                    let moduloModal = this.state.formNewModulo;
+                    moduloModal[1].valueState = data;
+                    this.setState({formNewModulo: moduloModal});
                 },
             },
             {
-                name: "URL_MICROSERVICIO",
-                label: "URL Microservicio",
+                name: "URL_MODULO",
+                label: "URL Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formNewMicroservice;
-                    microserviceModal[2].valueState = data;
-                    this.setState({formNewMicroservice: microserviceModal});
+                    let moduloModal = this.state.formNewModulo;
+                    moduloModal[2].valueState = data;
+                    this.setState({formNewModulo: moduloModal});
                 },
             },
             {
-                name: "ALIAS_MICROSERIVICIO",
-                label: "Alias Microservicio",
+                name: "ALIAS_MODULO",
+                label: "Alias Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formNewMicroservice;
-                    microserviceModal[3].valueState = data;
-                    this.setState({formNewMicroservice: microserviceModal});
+                    let moduloModal = this.state.formNewModulo;
+                    moduloModal[3].valueState = data;
+                    this.setState({formNewModulo: moduloModal});
                 },
             },
             {
-                name: "URL_ALIAS_MICROSERVICIO",
-                label: "URL Alias Microservicio",
+                name: "URL_ALIAS_MODULO",
+                label: "URL Alias Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formNewMicroservice;
-                    microserviceModal[4].valueState = data;
-                    this.setState({formNewMicroservice: microserviceModal});
+                    let moduloModal = this.state.formNewModulo;
+                    moduloModal[4].valueState = data;
+                    this.setState({formNewModulo: moduloModal});
                 },
             },
             {
@@ -337,51 +337,51 @@ export class Microservicios extends Component {
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formNewMicroservice;
-                    microserviceModal[5].valueState = data;
-                    this.setState({formNewMicroservice: microserviceModal});
+                    let moduloModal = this.state.formNewModulo;
+                    moduloModal[5].valueState = data;
+                    this.setState({formNewModulo: moduloModal});
                 },
             },
             {
-                name: "ICON_MICROSERVICIO",
-                label: "Icono Microservicio",
+                name: "ICON_MODULO",
+                label: "Icono Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formNewMicroservice;
-                    microserviceModal[6].valueState = data;
-                    this.setState({formNewMicroservice: microserviceModal});
+                    let moduloModal = this.state.formNewModulo;
+                    moduloModal[6].valueState = data;
+                    this.setState({formNewModulo: moduloModal});
                 },
             },
         ],
         //Form para actualizar un registro
-        formUpdateMicroservice:[
+        formUpdateModulo:[
             {
-                name: "ID_MICROSERVICIO",
-                label: "ID Microservicio",
+                name: "ID_MODULO",
+                label: "ID Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: true,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[0].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[0].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Nombre Microservicio",
+                name: "NOMBRE_MODULO",
+                label: "Nombre Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[1].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[1].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
             {
@@ -392,48 +392,48 @@ export class Microservicios extends Component {
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[2].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[2].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
             {
-                name: "URL_MICROSERVICIO",
-                label: "URL Microservicio",
+                name: "URL_MODULO",
+                label: "URL Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[3].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[3].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
             {
-                name: "ALIAS_MICROSERVICIO",
-                label: "Alias Microservicio",
+                name: "ALIAS_MODULO",
+                label: "Alias Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[4].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[4].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
             {
-                name: "URL_ALIAS_MICROSERVICIO",
-                label: "URL Alias Microservicio",
+                name: "URL_ALIAS_MODULO",
+                label: "URL Alias Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[5].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[5].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
             {
@@ -444,22 +444,22 @@ export class Microservicios extends Component {
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[6].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[6].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
             {
-                name: "ICON_MICROSERVICIO",
-                label: "Icono Microservicio",
+                name: "ICON_MODULO",
+                label: "Icono Módulo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let microserviceModal = this.state.formUpdateMicroservice;
-                    microserviceModal[7].valueState = data;
-                    this.setState({formUpdateMicroservice: microserviceModal});
+                    let moduloModal = this.state.formUpdateModulo;
+                    moduloModal[7].valueState = data;
+                    this.setState({formUpdateModulo: moduloModal});
                 },
             },
         ]
@@ -468,16 +468,16 @@ export class Microservicios extends Component {
     //Arreglo de la configuración de la columnas de la tabla
     columnsDataTabe = [
         {
-            key: "ID_MICROSERVICIO",
-            text: "ID Microservicio",
+            key: "ID_MODULO",
+            text: "ID Módulo",
             width: 300,
             align: "left",
             fixed: true,
             resizable: true,
         },
         {
-            key: "NOMBRE_MICROSERVICIO",
-            text: "Nombre Microservicio",
+            key: "NOMBRE_MODULO",
+            text: "Nombre Módulo",
             width: 200,
             align: "left",
             fixed: false,
@@ -492,16 +492,16 @@ export class Microservicios extends Component {
             resizable: true,
         },
         {
-            key: "URL_MICROSERVICIO",
-            text: "URL Microservicio",
+            key: "URL_MODULO",
+            text: "URL Módulo",
             width: 200,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "ALIAS_MICROSERIVICIO",
-            text: "Alias Microservicio",
+            key: "ALIAS_MODULO",
+            text: "Alias Módulo",
             width: 200,
             align: "left",
             fixed: false,
@@ -524,8 +524,8 @@ export class Microservicios extends Component {
             resizable: true,
         },
         {
-            key: "ICON_MICROSERVICIO",
-            text: "Icono Microservicio",
+            key: "ICON_MODULO",
+            text: "Icono Módulo",
             width: 200,
             align: "left",
             fixed: false,
@@ -567,25 +567,25 @@ export class Microservicios extends Component {
 
     //Arreglo de las acciones de los botones de la tabla
     bottonsActionsTable = {
-        dataKey: 'ID_MICROSERVICIO',
+        dataKey: 'ID_MODULO',
         actions: [
             {
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
                     let dataJson = {};
-                    dataJson['id_microservicio'] = data.ID_MICROSERVICIO;
+                    dataJson['id_modulo'] = data.ID_MODULO;
                     this.setState({
                         showConfirmacion: true,
-                        tituloConfirmacion: 'Eliminar microservicio',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el microservicio: ${data.NOMBRE_MICROSERVICIO}?`,
+                        tituloConfirmacion: 'Eliminar módulo',
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el módulo: ${data.NOMBRE_MODULO}?`,
                         handleAceptarConfirmacion: () => {
-                            MicroserviciosAction_EliminarMicroservicios(dataJson).then(() => {
-                                Notify('success','Microservicio eliminado',`El microservicio: ${data.NOMBRE_MICROSERVICIO} ha sido eliminado existosamente`)
+                            ModulosAction_EliminarModulo(dataJson).then(() => {
+                                Notify('success','Módulo eliminado',`El módulo: ${data.NOMBRE_MODULO} ha sido eliminado existosamente`)
                                 this.setState({dataActualizada: true})
                                 this.setState({showConfirmacion: false})
                             }).catch(() => {
-                                Notify('error','Microservicio no eliminado',`El microservicio: ${data.NOMBRE_MICROSERVICIO} no ha podido ser eliminado, comunicarse con el área de TI`)
+                                Notify('error','Módulo no eliminado',`El módulo: ${data.NOMBRE_MODULO} no ha podido ser eliminado, comunicarse con el área de TI`)
                             })
                         }
                     }) 
@@ -596,23 +596,23 @@ export class Microservicios extends Component {
                 nameIcon: 'fas fa-edit',
                 onClick: (data, dataKey) => {
 
-                    let updateForm = this.state.formUpdateMicroservice;
-                    updateForm[0].valueState = data.ID_MICROSERVICIO
-                    updateForm[1].valueState = data.NOMBRE_MICROSERVICIO
+                    let updateForm = this.state.formUpdateModulo;
+                    updateForm[0].valueState = data.ID_MODULO
+                    updateForm[1].valueState = data.NOMBRE_MODULO
                     updateForm[2].valueState = data.DETALLES
-                    updateForm[3].valueState = data.URL_MICROSERVICIO
-                    updateForm[4].valueState = data.ALIAS_MICROSERIVICIO
-                    updateForm[5].valueState = data.URL_ALIAS_MICROSERVICIO
+                    updateForm[3].valueState = data.URL_MODULO
+                    updateForm[4].valueState = data.ALIAS_MODULO
+                    updateForm[5].valueState = data.URL_ALIAS_MODULO
                     updateForm[6].valueState = data.ORDEN
-                    updateForm[7].valueState = data.ICON_MICROSERVICIO
-                    this.setState({formUpdateMicroservice: updateForm});
+                    updateForm[7].valueState = data.ICON_MODULO
+                    this.setState({formUpdateModulo: updateForm});
 
                     this.setState({
                         showDataEditForm_show: true,
-                        showDataEditForm_title: 'Editar Microservicio',
-                        showDataEditForm_schema: schemaModalMicroservicio,
-                        showDataEditForm_fields: this.state.formUpdateMicroservice,
-                        showDataEditForm_bottonFooter: this.bottonsFooterModalUpdateMicroservico
+                        showDataEditForm_title: 'Editar Módulo',
+                        showDataEditForm_schema: schemaModalModulo,
+                        showDataEditForm_fields: this.state.formUpdateModulo,
+                        showDataEditForm_bottonFooter: this.bottonsFooterModalUpdateModulo
                     })
 
                 },
@@ -631,10 +631,10 @@ export class Microservicios extends Component {
             onClick: () => {
                 this.setState({
                     showDataEditForm_show: true,
-                    showDataEditForm_title: 'Nuevo Microservicio',
-                    showDataEditForm_schema: schemaModalMicroservicio,
-                    showDataEditForm_fields: this.state.formNewMicroservice,
-                    showDataEditForm_bottonFooter: this.bottonsFooterModalNewMicroservico
+                    showDataEditForm_title: 'Nuevo Módulo',
+                    showDataEditForm_schema: schemaModalModulo,
+                    showDataEditForm_fields: this.state.formNewModulo,
+                    showDataEditForm_bottonFooter: this.bottonsFooterModalNewModulo
                 })
             }
         },
@@ -658,9 +658,9 @@ export class Microservicios extends Component {
 
                 this.setState({formFilter: newFormFilter});    
                 
-                MicroserviciosAction_ConsultarMicroservicios()
+                ModulosAction_ConsultarModulos()
                     .then(result => {
-                        this.setState({dataMicroservicios: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                        this.setState({dataModulo: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
                         Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
                     })
@@ -690,9 +690,9 @@ export class Microservicios extends Component {
                     }
                 })
             
-                MicroserviciosAction_ConsultarMicroservicios(dataJsonObject)
+                ModulosAction_ConsultarModulos(dataJsonObject)
                     .then(result => {
-                        this.setState({dataMicroservicios: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                        this.setState({dataModulo: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
                         Notify('warning','No existen conincidencias',`Con las condiciones establecidas en los parámetros no se encontraron datos.`)
                     })
@@ -701,9 +701,9 @@ export class Microservicios extends Component {
     ]
 
     //Arreglo de los botones de las acciones del footer para nuevo microservicio
-    bottonsFooterModalNewMicroservico = [
+    bottonsFooterModalNewModulo = [
         {
-            labelButton: "Crear Microservicio",
+            labelButton: "Crear Módulo",
             color: "green",
             appearance: "subtle",
             icon: true,
@@ -712,36 +712,30 @@ export class Microservicios extends Component {
                 
                 let dataJson = {};
                 
-                let newMicroservicio = this.state.formNewMicroservice;
-                dataJson['nombre_microservicio'] = newMicroservicio[0].valueState;
-                dataJson['detalles'] = newMicroservicio[1].valueState;
-                dataJson['url_microservicio'] = newMicroservicio[2].valueState;
-                dataJson['alias_microservicio'] = newMicroservicio[3].valueState;
-                dataJson['url_alias_microservicio'] = newMicroservicio[4].valueState;
-                dataJson['icon_microservicio'] = newMicroservicio[5].valueState;
-                dataJson['orden'] = newMicroservicio[5].valueState;
+                let newModulo = this.state.formNewModulo;
 
                 let nullFields = [];
 
-                newMicroservicio.forEach(x => {
+                newModulo.forEach(x => {
                     if (x.valueState === ''){
                         nullFields.push(x.label)
+                    }else{
+                        dataJson[`${x.name.toLowerCase()}`] = x.valueState
                     }
-                    
                 })
                 
                 if(nullFields.length > 0){
-                    Notify('warning','Problema creando microservicio',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                    Notify('warning','Problema creando módulo',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    MicroserviciosAction_CrearMicroservicios(dataJson).then(() => {
-                        Notify('success','Microservicio creado',`El microservicio: ${newMicroservicio[0].valueState} ha sido creado existosamente`)
+                    ModulosAction_CrearModulo(dataJson).then(() => {
+                        Notify('success','Módulo creado',`El módulo: ${newModulo[0].valueState} ha sido creado existosamente`)
                         this.setState({dataActualizada: true})
-                        newMicroservicio.forEach(x => {
+                        newModulo.forEach(x => {
                             x.valueState = ''
                         })
-                        this.setState({formNewMicroservice: newMicroservicio});
+                        this.setState({formNewModulo: newModulo});
                     }).catch((err) => {
-                        Notify('error','Microservicio no creado',`${err.response.data.return}`)
+                        Notify('error','Módulo no creado',`${err.response.data.return}`)
                     })
                 }
             },
@@ -749,7 +743,7 @@ export class Microservicios extends Component {
     ]
 
     //Arreglo de los botones de las acciones del footer para actualizar microservicio
-    bottonsFooterModalUpdateMicroservico = [
+    bottonsFooterModalUpdateModulo = [
         {
             labelButton: "Actualizar",
             color: "yellow",
@@ -760,11 +754,11 @@ export class Microservicios extends Component {
                 
                 let dataJson = {};
                 
-                let updateMicroservicio = this.state.formUpdateMicroservice;
+                let updateModulo = this.state.formUpdateModulo;
 
                 let nullFields = [];
 
-                updateMicroservicio.forEach(x => {
+                updateModulo.forEach(x => {
                     if (x.valueState === ''){
                         nullFields.push(x.label)
                     }else{
@@ -775,17 +769,17 @@ export class Microservicios extends Component {
                 console.log(dataJson)
             
                 if(nullFields.length > 0){
-                    Notify('warning','Problema actualizando microservicio',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                    Notify('warning','Problema actualizando módulo',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    MicroserviciosAction_ActualizarMicroservicios(dataJson).then(() => {
-                        Notify('success','Microservicio actualizado',`El microservicio: ${updateMicroservicio[0].valueState} ha sido actualizado existosamente`)
+                    ModulosAction_ActualizarModulo(dataJson).then(() => {
+                        Notify('success','Módulo actualizado',`El módulo: ${updateModulo[1].valueState} ha sido actualizado existosamente`)
                         this.setState({dataActualizada: true})
-                        updateMicroservicio.forEach(x => {
+                        updateModulo.forEach(x => {
                             x.valueState = ''
                         })
                         this.setState({showDataEditForm_show: false});
                     }).catch((err) => {
-                        Notify('error','Microservicio no actualizado',`${err.response.data.return}`)
+                        Notify('error','Módulo no actualizado',`${err.response.data.return}`)
                     })
                 }
             },
@@ -793,9 +787,9 @@ export class Microservicios extends Component {
     ]
 
     componentDidMount = () => {
-        MicroserviciosAction_ConsultarMicroservicios()
+        ModulosAction_ConsultarModulos()
             .then((response) => {
-                this.setState({dataMicroservicios: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                this.setState({dataModulo: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
             }).catch((err) => {
                 Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
@@ -803,9 +797,9 @@ export class Microservicios extends Component {
 
     componentDidUpdate = () => {
         if(this.state.dataActualizada){
-            MicroserviciosAction_ConsultarMicroservicios()
+            ModulosAction_ConsultarModulos()
                 .then((response) => {
-                    this.setState({dataMicroservicios: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    this.setState({dataModulo: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     this.setState({dataActualizada:false})
                 }).catch((err) => {
                     Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
@@ -818,10 +812,10 @@ export class Microservicios extends Component {
         return (
             <div>
                 <Sidebar key={1}/>
-                    <div className='container-microservicios'>
+                    <div className='container-modulos'>
                         <Filter
                             key={2}
-                            titleHeader='Microservicios'
+                            titleHeader='Módulos'
                             bottonsHeader={this.bottonsHeaderFilter}
                             formFilter={this.state.formFilter}
                             configuration={configFilter}
@@ -829,9 +823,9 @@ export class Microservicios extends Component {
                         />
                         <br/>
                         <DataTableColAction 
-                            key={this.state.dataMicroservicios.id} 
+                            key={this.state.dataModulo.id} 
                             configuration={configTable} 
-                            data={this.state.dataMicroservicios} 
+                            data={this.state.dataModulo} 
                             columns={this.columnsDataTabe} 
                             buttonActions={this.bottonsActionsTable}
                         />
@@ -859,4 +853,4 @@ export class Microservicios extends Component {
     }
 }
 
-export default Microservicios
+export default Modulos
