@@ -9,6 +9,7 @@ import Microservicios from '../Containers/Administrador/Microservicios/Microserv
 import Modulos from '../Containers/Administrador/Modulos/Modulos';
 import Roles from '../Containers/Administrador/Roles/Roles';
 import ConfiguracionMicroserviciosModulos from '../Containers/Administrador/ConfiguracionMicroserviciosModulos/ConfiguracionMicroserviciosModulos';
+import ConfiguracionUsuarios from '../Containers/Administrador/ConfiguracionUsuarios/ConfiguracionUsuarios';
 class Router extends Component {
 
 
@@ -26,6 +27,7 @@ class Router extends Component {
             <Route exact path="/Administrator/Authentication/Modulos" component={validateAuth(Modulos)}/>
             <Route exact path="/Administrator/Authentication/Roles" component={validateAuth(Roles)}/>
             <Route exact path="/Administrator/Authentication/ConfiguracionMSM" component={validateAuth(ConfiguracionMicroserviciosModulos)}/>
+            <Route exact path="/Administrator/Authentication/ConfiguracionUsuarios" component={validateAuth(ConfiguracionUsuarios)}/>
             <Redirect to ="/Home"/>
           </Switch>
         </BrowserRouter>

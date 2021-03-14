@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Schema } from 'rsuite';
-import './ConfiguracionMicroserviciosModulos.css'
+import './ConfiguracionUsuarios.css'
 
 //Elementos
 import Sidebar from '../../../Elements/Sidebar/Sidebar';
@@ -15,12 +15,13 @@ import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm'
 
 //Actions
 import { 
-    ConfiguracionMicroserviciosModulosAction_ConsultarConfiguracion,
-    ConfiguracionMicroserviciosModulosAction_ConsultarMicrosevicios,
-    ConfiguracionMicroserviciosModulosAction_ConsultarModulos,
-    ConfiguracionMicroserviciosModulosAction_CrearConfiguracion,
-    ConfiguracionMicroserviciosModulosAction_EliminarConfiguracion
-} from '../../../../Acciones/ConfiguracionMicroserviciosModulos/ConfiguracionMicroserviciosModulosAction';
+    ConfiguracionUsuarios_ConsultarConfiguracion,
+    ConfiguracionUsuarios_ConsultarMicrosevicios,
+    ConfiguracionUsuarios_ConsultarModulos,
+    ConfiguracionUsuarios_CrearConfigracion,
+    ConfiguracionUsuarios_EliminarConfigracion
+} from '../../../../Acciones/ConfiguracionUsuarios/ConfiguracionUsuariosAction';
+
 
 //Schemas
 const { StringType } = Schema.Types;
@@ -74,7 +75,8 @@ const configTable ={
     }
 }
 
-export class ConfiguracionMicroserviciosModulos extends Component {
+
+export class ConfiguracionUsuarios extends Component {
     //Estados
     state = {
         //Estado para actulizar cuando se realice una acción
@@ -95,7 +97,7 @@ export class ConfiguracionMicroserviciosModulos extends Component {
         //Form para el filtro
         formFilter:[
             {
-                name: "ID_CONFIGURACION",
+                name: "ID_CONFIGURACION_USUARIO",
                 label: "ID Configuración",
                 type: "text",
                 dataEntryType:'input',
@@ -113,8 +115,8 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 }
             },
             {
-                name: "ID_MICROSERVICIO",
-                label: "ID Microservicio",
+                name: "NOMBRES",
+                label: "Nombres",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -131,8 +133,8 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 }
             },
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Nombre Microservicio",
+                name: "APELLIDOS",
+                label: "Apellidos",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -149,8 +151,8 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 }
             },
             {
-                name: "ALIAS_MICROSERIVICIO",
-                label: "Alias Microservicio",
+                name: "EMAIL",
+                label: "Email",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -165,10 +167,10 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                     newOperator[3].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
-            },//////////////////////
+            },////////////////////
             {
-                name: "ID_MODULO",
-                label: "ID Módulo",
+                name: "NOMBRE_MICROSERVICIO",
+                label: "Nombre Microservicio",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -185,8 +187,8 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 }
             },
             {
-                name: "NOMBRE_MODULO",
-                label: "Nombre Módulo",
+                name: "ALIAS_MICROSERIVICIO",
+                label: "Alias Microservicio",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -201,10 +203,10 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                     newOperator[5].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
-            },
+            },//////////////////////
             {
-                name: "ALIAS_MODULO",
-                label: "Alias Módulo",
+                name: "NOMBRE_MODULO",
+                label: "Nombre Módulo",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -221,10 +223,10 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 }
             },
             {
-                name: "FECHA_CREACION",
-                label: "Fecha Creación",
-                type: "date",
-                dataEntryType:'datepicker',
+                name: "ALIAS_MODULO",
+                label: "Alias Módulo",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -239,10 +241,10 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 }
             },
             {
-                name: "HORA_CREACION",
-                label: "Hora Creación",
-                type: "time",
-                dataEntryType:'timepicker',
+                name: "FECHA_CREACION",
+                label: "Fecha Creación",
+                type: "date",
+                dataEntryType:'datepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -256,18 +258,34 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                     this.setState({formFilter: newOperator});
                 }
             },
+            {
+                name: "HORA_CREACION",
+                label: "Hora Creación",
+                type: "time",
+                dataEntryType:'timepicker',
+                valueState: '',
+                operador: [],
+                hadlerValueState: (data) => {
+                    let newFilterModal = this.state.formFilter;
+                    newFilterModal[9].valueState = data;
+                    this.setState({formFilter: newFilterModal});
+                },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[9].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
+            },
         ],
         //Form para nuevo microservicio
         formNew:[
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Alias Microservicio",
-                type: "text",
-                dataEntryType:'selectPicker',
+                name: "EMAIL",
+                label: "Email",
+                type: "email",
+                dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
-                dataPicker: [],
-                placeHolderPicker:'Seleccionar',
                 hadlerValueState: (data) => {
                     let newModal = this.state.formNew;
                     newModal[0].valueState = data;
@@ -275,10 +293,10 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 },
             },
             {
-                name: "NOMBRE_MODULO",
-                label: "Alias Módulo",
+                name: "NOMBRE_MICROSERVICIO",
+                label: "Alias Microservicio",
                 type: "text",
-                dataEntryType:'selectPicker',
+                dataEntryType:'selectpicker',
                 readOnly: false,
                 valueState: '',
                 dataPicker: [],
@@ -289,23 +307,70 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                     this.setState({formNew: newModal});
                 },
             },
+            {
+                name: "NOMBRE_MODULO",
+                label: "Alias Módulo",
+                type: "text",
+                dataEntryType:'selectpicker',
+                readOnly: false,
+                valueState: '',
+                dataPicker: [],
+                placeHolderPicker:'Seleccionar',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formNew;
+                    newModal[2].valueState = data;
+                    this.setState({formNew: newModal});
+                },
+            },
         ],
     }
 
     //Arreglo de la configuración de la columnas de la tabla
     columnsDataTabe = [
         {
-            key: "ID_CONFIGURACION",
-            text: "ID Configuración",
+            key: "ID_CONFIGURACION_USUARIO",
+            text: "ID Configuración Usuario",
             width: 300,
             align: "left",
             fixed: true,
             resizable: true,
         },
         {
-            key: "ID_MICROSERVICIO",
-            text: "ID Microservicio",
+            key: "ID_USUARIO",
+            text: "ID Usuario",
             width: 300,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "NOMBRES",
+            text: "Nombres",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "APELLIDOS",
+            text: "Apellidos",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "EMAIL",
+            text: "Email",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "ID_MICROSERVICIO",
+            text: "ID Microservcio",
+            width: 200,
             align: "left",
             fixed: false,
             resizable: true,
@@ -319,32 +384,8 @@ export class ConfiguracionMicroserviciosModulos extends Component {
             resizable: true,
         },
         {
-            key: "URL_MICROSERVICIO",
-            text: "URL Microservicio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
             key: "ALIAS_MICROSERIVICIO",
             text: "Alias Microservicio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "URL_ALIAS_MICROSERVICIO",
-            text: "URL Alias Microservicio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ORDEN_MICROSERVICIO",
-            text: "Orden Microservicio",
             width: 200,
             align: "left",
             fixed: false,
@@ -367,32 +408,8 @@ export class ConfiguracionMicroserviciosModulos extends Component {
             resizable: true,
         },
         {
-            key: "URL_MODULO",
-            text: "URL Módulo",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
             key: "ALIAS_MODULO",
             text: "Alias Módulo",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "URL_ALIAS_MODULO",
-            text: "URL Alias Módulo",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ORDEN_MODULO",
-            text: "Orden Módulo",
             width: 200,
             align: "left",
             fixed: false,
@@ -418,25 +435,25 @@ export class ConfiguracionMicroserviciosModulos extends Component {
 
     //Arreglo de las acciones de los botones de la tabla
     bottonsActionsTable = {
-        dataKey: 'ID_CONFIGURACION',
+        dataKey: 'ID_CONFIGURACION_USUARIO',
         actions: [
             {
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
                     let dataJson = {};
-                    dataJson['id_configuracion'] = data.ID_CONFIGURACION;
+                    dataJson['id_configuracion_usuario'] = data.ID_CONFIGURACION_USUARIO;
                     this.setState({
                         showConfirmacion: true,
                         tituloConfirmacion: 'Eliminar configuración',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar la configuración entre el microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO}?`,
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar la configuración entre email: ${data.EMAIL}, microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO}?`,
                         handleAceptarConfirmacion: () => {
-                            ConfiguracionMicroserviciosModulosAction_EliminarConfiguracion(dataJson).then(() => {
-                                Notify('success','Configuración eliminada',`La configuración: ${data.ID_CONFIGURACION} ha sido eliminado existosamente`)
+                            ConfiguracionUsuarios_EliminarConfigracion(dataJson).then(() => {
+                                Notify('success','Configuración eliminada',`La configuración: ${data.ID_CONFIGURACION_USUARIO} ha sido eliminado existosamente`)
                                 this.setState({dataActualizada: true})
                                 this.setState({showConfirmacion: false})
                             }).catch(() => {
-                                Notify('error','Configuración no eliminada',`La configuración entre el microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO} no ha podido ser eliminado, comunicarse con el área de TI`)
+                                Notify('error','Configuración no eliminada',`La configuración entre email: ${data.EMAIL}, microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO} no ha podido ser eliminado, comunicarse con el área de TI`)
                             })
                         }
                     }) 
@@ -483,7 +500,7 @@ export class ConfiguracionMicroserviciosModulos extends Component {
 
                 this.setState({formFilter: newFormFilter});    
                 
-                ConfiguracionMicroserviciosModulosAction_ConsultarConfiguracion()
+                ConfiguracionUsuarios_ConsultarConfiguracion()
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -515,7 +532,7 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                     }
                 })
             
-                ConfiguracionMicroserviciosModulosAction_ConsultarConfiguracion(dataJsonObject)
+                ConfiguracionUsuarios_ConsultarConfiguracion(dataJsonObject)
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -552,8 +569,8 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 if(nullFields.length > 0){
                     Notify('warning','Problema creando configuración',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    ConfiguracionMicroserviciosModulosAction_CrearConfiguracion(dataJson).then(() => {
-                        Notify('success','Configuración creada',`La configuración de microservicio: ${newConfiguracion[0].valueState} y módulo: ${newConfiguracion[1].valueState}  ha sido creada existosamente`)
+                    ConfiguracionUsuarios_CrearConfigracion(dataJson).then(() => {
+                        Notify('success','Configuración creada',`La configuración entre email: ${newConfiguracion[0].valueState}, microservicio: ${newConfiguracion[1].valueState} y módulo: ${newConfiguracion[2].valueState}  ha sido creada existosamente`)
                         this.setState({dataActualizada: true})
                         newConfiguracion.forEach(x => {
                             x.valueState = ''
@@ -568,26 +585,26 @@ export class ConfiguracionMicroserviciosModulos extends Component {
     ]
 
     componentDidMount = () => {
-        ConfiguracionMicroserviciosModulosAction_ConsultarConfiguracion()
+        ConfiguracionUsuarios_ConsultarConfiguracion()
             .then((response) => {
                 this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
             }).catch((err) => {
                 Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
 
-        ConfiguracionMicroserviciosModulosAction_ConsultarMicrosevicios()
+            ConfiguracionUsuarios_ConsultarMicrosevicios()
             .then((response) => {
                 let newFrom = this.state.formNew;
-                newFrom[0].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
+                newFrom[1].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
                 this.setState({formNew: newFrom})
             }).catch((err) => {
                 Notify('error','Error consultado Microservicios',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Microsertvicios. Por favor solicitarlo al administrador de la plataforma.`)
             })
 
-        ConfiguracionMicroserviciosModulosAction_ConsultarModulos()
+            ConfiguracionUsuarios_ConsultarModulos()
             .then((response) => {
                 let newFrom = this.state.formNew;
-                newFrom[1].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
+                newFrom[2].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
                 this.setState({formNew: newFrom})
             }).catch((err) => {
                 Notify('error','Error consultado Módulos',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Módulos. Por favor solicitarlo al administrador de la plataforma.`)
@@ -596,7 +613,7 @@ export class ConfiguracionMicroserviciosModulos extends Component {
 
     componentDidUpdate = () => {
         if(this.state.dataActualizada){
-            ConfiguracionMicroserviciosModulosAction_ConsultarConfiguracion()
+            ConfiguracionUsuarios_ConsultarConfiguracion()
                 .then((response) => {
                     this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     this.setState({dataActualizada:false})
@@ -614,7 +631,7 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                     <div className='container-configuracion'>
                         <Filter
                             key={2}
-                            titleHeader='Configuración Microservicios y Módulos'
+                            titleHeader='Configuración Usuarios'
                             bottonsHeader={this.bottonsHeaderFilter}
                             formFilter={this.state.formFilter}
                             configuration={configFilter}
@@ -652,4 +669,4 @@ export class ConfiguracionMicroserviciosModulos extends Component {
     }
 }
 
-export default ConfiguracionMicroserviciosModulos
+export default ConfiguracionUsuarios
