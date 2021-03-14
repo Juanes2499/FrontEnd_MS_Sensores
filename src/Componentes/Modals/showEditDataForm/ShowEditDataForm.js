@@ -1,10 +1,12 @@
 import React from 'react'
-import { Form, Button, FormGroup, FormControl, Toggle, Input } from 'rsuite';
+import { Form, Button, FormGroup, FormControl, Toggle, SelectPicker } from 'rsuite';
 import { Modal} from 'rsuite';
 import './ShowEditDataForm.css';
 
-const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, value, readOnly, ...rest }) => {
+const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, value, readOnly, placeHolderPicker, dataPicker, ...props }) => {
     
+    console.log(dataPicker)
+
     dataEntryType = dataEntryType.toLowerCase();
     
     if (dataEntryType === 'input'){
@@ -21,7 +23,6 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                     readOnly={readOnly} 
                     style={{width:350, height:40 ,fontFamily: 'Roboto',  fontSize:15}} 
                     value={value}
-                    {...rest}
                 />
             </FormGroup>
         );
@@ -41,7 +42,6 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                     readOnly={readOnly} 
                     style={{width:350, fontFamily: 'Roboto',  fontSize:15}} 
                     value={value}
-                    {...rest}
                 />
             </FormGroup>
         );
@@ -62,10 +62,26 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                 </div>
             </FormGroup>
         );
+    }else if(dataEntryType === 'selectpicker'){
+
+        console.log('entro')
+        return (
+            <FormGroup key={key} >
+                    <p key={key} className='label-field'>{label}</p>
+                    <SelectPicker
+                      size="md"
+                      placeholder={placeHolderPicker}
+                      data={dataPicker}
+                      style={{ width: 350, display: 'block', marginBottom: 1, fontFamily:'Roboto'}}
+                      onChange={handlerValue}
+                    />
+            </FormGroup>
+        );
     }
 }
 
-const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelSchema, fields, bottonFooter}) => {
+const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelSchema, fields, bottonFooter, ...props}) => {
+    
     return (
         <div>
             <Modal style={{top:'5%'}} show={isActivate}>
@@ -89,6 +105,8 @@ const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelS
                                         value={item.valueState}
                                         handlerValue={item.hadlerValueState} 
                                         readOnly={item.readOnly}
+                                        dataPicker={item.dataPicker}
+                                        placeHolderPicker={item.placeHolderPicker}
                                     />
                                 )
                             })

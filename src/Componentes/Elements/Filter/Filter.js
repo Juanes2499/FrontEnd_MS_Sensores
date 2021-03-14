@@ -1,17 +1,16 @@
-import React, {useState,useEffect, useContext} from 'react'
-import { Form, Button, FormGroup, Toggle, DatePicker, SelectPicker, MultiCascader, Input, FormControl } from 'rsuite';
+import React, {useContext} from 'react'
+import { Form, Button, FormGroup, Toggle, DatePicker, SelectPicker, MultiCascader, FormControl } from 'rsuite';
 // import Accordion from '@material-ui/core/Accordion';
 // import AccordionDetails from '@material-ui/core/AccordionDetails';
 // import AccordionSummary from '@material-ui/core/AccordionSummary';
 // import AccordionActions from '@material-ui/core/AccordionActions';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { operadoresFiltro, operadoresConectoresFiltro } from '../../../Shared/maestras';
+import { operadoresConectoresFiltro } from '../../../Shared/maestras';
 import './Filter.css';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
-import userEvent from '@testing-library/user-event';
 import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import AccordionContext from 'react-bootstrap/AccordionContext';
 
