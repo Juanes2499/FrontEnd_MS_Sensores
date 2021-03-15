@@ -7,6 +7,7 @@ import {LoginAction_CerrarSesion} from '../Acciones/Login/LoginAction';
 import history from './createHistory';
 
 const API_AUTH_HOST = window.API_AUTH_HOST;
+const API_SENSORES_HOST = window.API_SENSORES_HOST;
 const TOKEN_KEY = window.TOKEN_KEY;
 const cookies = new Cookies();
 
@@ -23,6 +24,21 @@ export const  createAxiosInstance = (config) => {
 
     return axios.create(minConfig)
 }
+
+export const  createAxiosInstanceSensores = (config) => {
+    const token = cookies.get('token')
+    if (!token) return null
+    let minConfig = {
+        baseURL: API_SENSORES_HOST,
+        headers: { 'Authorization': `Bearer ${token}`}
+    }
+    if (config) {
+        minConfig = { ...minConfig, ...config }
+    }
+
+    return axios.create(minConfig)
+}
+
 
 export const validateAuth =  (ComposedComponent) => {      
     class Authorise extends Component {

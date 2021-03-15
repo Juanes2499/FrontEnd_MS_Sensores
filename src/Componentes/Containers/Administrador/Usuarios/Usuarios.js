@@ -48,7 +48,7 @@ const configTable ={
     cellBordered: false,
     autoHeight: false,
     style:{
-        borderRadius:'10px'
+        borderRadius:'10px',
     },
     resizable: true,
     headerStyle: {

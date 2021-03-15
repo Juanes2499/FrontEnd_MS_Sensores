@@ -31,7 +31,7 @@ export const DataTableRowsAction = ({configuration, data, columns, handleOnRowCl
     }
     
     return (
-        <div>
+        <div style={configuration.style}>
             <Table
                 width={configuration.width}
                 height={configuration.height}
@@ -134,9 +134,9 @@ export const DataTableColAction = ({configuration, data, columns, buttonActions}
                 
         return datos
     }
-    
+
     return (
-        <div>
+        <div style={configuration.styleMargin}>
             <Table
                 width={configuration.width}
                 height={configuration.height}

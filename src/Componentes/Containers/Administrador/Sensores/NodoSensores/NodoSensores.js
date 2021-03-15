@@ -1,33 +1,37 @@
 import React, { Component } from 'react'
 import { Schema } from 'rsuite';
-import './ConfiguracionUsuarios.css'
+import './NodoSensores.css'
 
 //Elementos
-import Sidebar from '../../../Elements/Sidebar/Sidebar';
-import { DataTableColAction } from '../../../Elements/DataTable/DataTable';
-import Filter from '../../../Elements/Filter/Filter';
-import { Notify } from '../../../Elements/Notify/Notify';
-import { Confirmation } from '../../../Elements/Confirmation/Confirmation';
-import Footer from '../../../Elements/Footer/Footer';
+import Sidebar from '../../../../Elements/Sidebar/Sidebar';
+import { DataTableColAction } from '../../../../Elements/DataTable/DataTable';
+import Filter from '../../../../Elements/Filter/Filter';
+import { Notify } from '../../../../Elements/Notify/Notify';
+import { Confirmation } from '../../../../Elements/Confirmation/Confirmation';
+import Footer from '../../../../Elements/Footer/Footer';
+import Maps from '../../../../Elements/Maps/Maps';
 
 //Modals
-import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
+import ShowEditDataForm from '../../../../Modals/showEditDataForm/ShowEditDataForm';
 
 //Actions
 import { 
-    ConfiguracionUsuarios_ConsultarConfiguracion,
-    ConfiguracionUsuarios_ConsultarMicrosevicios,
-    ConfiguracionUsuarios_ConsultarModulos,
-    ConfiguracionUsuarios_CrearConfigracion,
-    ConfiguracionUsuarios_EliminarConfigracion
-} from '../../../../Acciones/ConfiguracionUsuarios/ConfiguracionUsuariosAction';
-
+    NodoSensoresAction_ConsultarNodos,
+    NodoSensoresAction_CrearNodo,
+    NodoSensoresAction_ActualizarNodo,
+    NodoSensoresAction_EliminarNodo
+} from '../../../../../Acciones/Sensores/NodoSensores/NodoSesnoresAction';
 
 //Schemas
 const { StringType } = Schema.Types;
 const schemaModalModulo = Schema.Model({
-    NOMBRE_MICROSERVICIO: StringType().isRequired('Este campo es requerido'),
     NOMBRE_MODULO: StringType().isRequired('Este campo es requerido'),
+    DETALLES: StringType().isRequired('Este campo es requerido'),
+    URL_MODULO: StringType().isRequired('Este campo es requerido'),
+    ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
+    URL_ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
+    ORDEN: StringType().isRequired('Este campo es requerido'),
+    ICON_MODULO: StringType().isRequired('Este campo es requerido'),
 });
 
 //Configuration filter 
@@ -58,9 +62,6 @@ const configTable ={
     style:{
         borderRadius:'10px'
     },
-    styleMargin:{
-        marginBottom:"7%",
-    },
     resizable: true,
     headerStyle: {
         display:'flex',
@@ -78,14 +79,13 @@ const configTable ={
     }
 }
 
-
-export class ConfiguracionUsuarios extends Component {
+export class NodoSensores extends Component {
     //Estados
     state = {
         //Estado para actulizar cuando se realice una acción
         dataActualizada: false,
         //Estados para cargar la data
-        data: [],
+        dataModulo: [],
         //Estados para el componente showDataEditForm
         showDataEditForm_show: false,
         showDataEditForm_title: '',
@@ -100,8 +100,8 @@ export class ConfiguracionUsuarios extends Component {
         //Form para el filtro
         formFilter:[
             {
-                name: "ID_CONFIGURACION_USUARIO",
-                label: "ID Configuración",
+                name: "ID_NODO_SENSOR",
+                label: "ID Nodo Sensor",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -118,8 +118,8 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "NOMBRES",
-                label: "Nombres",
+                name: "LATITUD",
+                label: "Latitud",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -136,8 +136,8 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "APELLIDOS",
-                label: "Apellidos",
+                name: "LONGITUD",
+                label: "Longitud",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -154,8 +154,8 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "EMAIL",
-                label: "Email",
+                name: "DISPOSITIVO_ADQUISICION",
+                label: "Tarjeta de Adquisisición",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -170,10 +170,10 @@ export class ConfiguracionUsuarios extends Component {
                     newOperator[3].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
-            },////////////////////
+            },
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Nombre Microservicio",
+                name: "ESTADO",
+                label: "Estado",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -190,10 +190,10 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "ALIAS_MICROSERIVICIO",
-                label: "Alias Microservicio",
-                type: "text",
-                dataEntryType:'input',
+                name: "FECHA_CREACION",
+                label: "Fecha Creación",
+                type: "date",
+                dataEntryType:'datepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -206,12 +206,12 @@ export class ConfiguracionUsuarios extends Component {
                     newOperator[5].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
-            },//////////////////////
+            },
             {
-                name: "NOMBRE_MODULO",
-                label: "Nombre Módulo",
-                type: "text",
-                dataEntryType:'input',
+                name: "HORA_CREACION",
+                label: "Hora Creación",
+                type: "time",
+                dataEntryType:'timepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -226,10 +226,10 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "ALIAS_MODULO",
-                label: "Alias Módulo",
-                type: "text",
-                dataEntryType:'input',
+                name: "FECHA_ACTUALIZACION",
+                label: "Fecha Actualización",
+                type: "date",
+                dataEntryType:'datepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -244,10 +244,10 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "FECHA_CREACION",
-                label: "Fecha Creación",
-                type: "date",
-                dataEntryType:'datepicker',
+                name: "HORA_ACTUALIZACION",
+                label: "Hora Actualización",
+                type: "time",
+                dataEntryType:'timepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -261,31 +261,13 @@ export class ConfiguracionUsuarios extends Component {
                     this.setState({formFilter: newOperator});
                 }
             },
-            {
-                name: "HORA_CREACION",
-                label: "Hora Creación",
-                type: "time",
-                dataEntryType:'timepicker',
-                valueState: '',
-                operador: [],
-                hadlerValueState: (data) => {
-                    let newFilterModal = this.state.formFilter;
-                    newFilterModal[9].valueState = data;
-                    this.setState({formFilter: newFilterModal});
-                },
-                handleOperator: (operador) => {
-                    let newOperator = this.state.formFilter;
-                    newOperator[9].operador = operador;
-                    this.setState({formFilter: newOperator});
-                }
-            },
         ],
-        //Form para nuevo microservicio
+        //Form para nuevo registros
         formNew:[
             {
-                name: "EMAIL",
-                label: "Email",
-                type: "email",
+                name: "LATITUD",
+                label: "Latitud",
+                type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
@@ -296,14 +278,12 @@ export class ConfiguracionUsuarios extends Component {
                 },
             },
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Alias Microservicio",
+                name: "LONGITUD",
+                label: "Longitud",
                 type: "text",
-                dataEntryType:'selectpicker',
+                dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
-                dataPicker: [],
-                placeHolderPicker:'Seleccionar',
                 hadlerValueState: (data) => {
                     let newModal = this.state.formNew;
                     newModal[1].valueState = data;
@@ -311,109 +291,148 @@ export class ConfiguracionUsuarios extends Component {
                 },
             },
             {
-                name: "NOMBRE_MODULO",
-                label: "Alias Módulo",
+                name: "DISPOSITIVO_ADQUISICION",
+                label: "Tarjeta de Adquisición",
                 type: "text",
-                dataEntryType:'selectpicker',
+                dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
-                dataPicker: [],
-                placeHolderPicker:'Seleccionar',
                 hadlerValueState: (data) => {
                     let newModal = this.state.formNew;
                     newModal[2].valueState = data;
                     this.setState({formNew: newModal});
                 },
             },
+            {
+                name: "ESTADO",
+                label: "Estado",
+                type: "toggle",
+                dataEntryType:'toggle',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formNew;
+                    newModal[3].valueState = data;
+                    this.setState({formNew: newModal});
+                },
+            },
         ],
+        //Form para actualizar un registro
+        formUpdate:[
+            {
+                name: "ID_NODO_SENSOR",
+                label: "ID Nodo Sensor",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: true,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[0].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+            {
+                name: "LATITUD",
+                label: "Latitud",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[1].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+            {
+                name: "LONGITUD",
+                label: "Longitud",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[2].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+            {
+                name: "DISPOSITIVO_ADQUISICION",
+                label: "Tarjeta de Adquisición",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[3].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+            {
+                name: "ESTADO",
+                label: "Estado",
+                type: "toggle",
+                dataEntryType:'toggle',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[4].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+        ]
     }
 
     //Arreglo de la configuración de la columnas de la tabla
     columnsDataTabe = [
         {
-            key: "ID_CONFIGURACION_USUARIO",
-            text: "ID Configuración Usuario",
+            key: "ID_NODO_SENSOR",
+            text: "ID Nodo Sensor",
             width: 300,
             align: "left",
             fixed: true,
             resizable: true,
         },
         {
-            key: "ID_USUARIO",
-            text: "ID Usuario",
-            width: 300,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "NOMBRES",
-            text: "Nombres",
+            key: "TOKEN",
+            text: "Token",
             width: 200,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "APELLIDOS",
-            text: "Apellidos",
+            key: "LATITUD",
+            text: "Latitud",
+            width: 100,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "LONGITUD",
+            text: "Longitud",
+            width: 100,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "DISPOSITIVO_ADQUISICION",
+            text: "Tarjeta de Adquisición",
             width: 200,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "EMAIL",
-            text: "Email",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ID_MICROSERVICIO",
-            text: "ID Microservcio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "NOMBRE_MICROSERVICIO",
-            text: "Nombre Microservicio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ALIAS_MICROSERIVICIO",
-            text: "Alias Microservicio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ID_MODULO",
-            text: "ID Módulo",
-            width: 300,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "NOMBRE_MODULO",
-            text: "Nombre Módulo",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ALIAS_MODULO",
-            text: "Alias Módulo",
-            width: 200,
+            key: "ESTADO",
+            text: "Estado",
+            width: 100,
             align: "left",
             fixed: false,
             resizable: true,
@@ -434,34 +453,73 @@ export class ConfiguracionUsuarios extends Component {
             fixed: false,
             resizable: true,
         },
+        {
+            key: "FECHA_ACTUALIZACION",
+            text: "Fecha Actualización",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "HORA_ACTUALIZACION",
+            text: "Hora Actualización",
+            width: 150,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
     ]
 
     //Arreglo de las acciones de los botones de la tabla
     bottonsActionsTable = {
-        dataKey: 'ID_CONFIGURACION_USUARIO',
+        dataKey: 'ID_NODO_SENSOR',
         actions: [
             {
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
                     let dataJson = {};
-                    dataJson['id_configuracion_usuario'] = data.ID_CONFIGURACION_USUARIO;
+                    dataJson['id_nodo_sensor'] = data.ID_NODO_SENSOR;
                     this.setState({
                         showConfirmacion: true,
-                        tituloConfirmacion: 'Eliminar configuración',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar la configuración entre email: ${data.EMAIL}, microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO}?`,
+                        tituloConfirmacion: 'Eliminar Nodo Sensor',
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el Nodo Sensor con ID: ${data.ID_NODO_SENSOR}?`,
                         handleAceptarConfirmacion: () => {
-                            ConfiguracionUsuarios_EliminarConfigracion(dataJson).then(() => {
-                                Notify('success','Configuración eliminada',`La configuración: ${data.ID_CONFIGURACION_USUARIO} ha sido eliminado existosamente`)
+                            NodoSensoresAction_EliminarNodo(dataJson).then(() => {
+                                Notify('success','Nodo Sensor eliminado',`El Nodo Sensor: ${data.ID_NODO_SENSOR} ha sido eliminado existosamente`)
                                 this.setState({dataActualizada: true})
                                 this.setState({showConfirmacion: false})
                             }).catch(() => {
-                                Notify('error','Configuración no eliminada',`La configuración entre email: ${data.EMAIL}, microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO} no ha podido ser eliminado, comunicarse con el área de TI`)
+                                Notify('error','MóNodo Sensordulo no eliminado',`El Nodo Sensor con ID: ${data.ID_NODO_SENSOR} no ha podido ser eliminado, comunicarse con el área de TI`)
                             })
                         }
                     }) 
                 },
             },
+            {
+                appearance: "subtle",
+                nameIcon: 'fas fa-edit',
+                onClick: (data, dataKey) => {
+
+                    let updateForm = this.state.formUpdate;
+                    updateForm[0].valueState = data.ID_NODO_SENSOR
+                    updateForm[1].valueState = data.LATITUD
+                    updateForm[2].valueState = data.LONGITUD
+                    updateForm[3].valueState = data.DISPOSITIVO_ADQUISICION
+                    updateForm[4].valueState = data.ESTADO
+                    this.setState({formUpdate: updateForm});
+
+                    this.setState({
+                        showDataEditForm_show: true,
+                        showDataEditForm_title: 'Editar Módulo',
+                        showDataEditForm_schema: schemaModalModulo,
+                        showDataEditForm_fields: this.state.formUpdate,
+                        showDataEditForm_bottonFooter: this.bottonsFooterModalUpdate
+                    })
+
+                },
+            }
         ]
     }
 
@@ -476,10 +534,10 @@ export class ConfiguracionUsuarios extends Component {
             onClick: () => {
                 this.setState({
                     showDataEditForm_show: true,
-                    showDataEditForm_title: 'Nueva Configuración',
+                    showDataEditForm_title: 'Nuevo Nodo',
                     showDataEditForm_schema: schemaModalModulo,
                     showDataEditForm_fields: this.state.formNew,
-                    showDataEditForm_bottonFooter: this.bottonsFooterModalNew
+                    showDataEditForm_bottonFooter: this.bottonsFooterModalNewRegister
                 })
             }
         },
@@ -503,9 +561,9 @@ export class ConfiguracionUsuarios extends Component {
 
                 this.setState({formFilter: newFormFilter});    
                 
-                ConfiguracionUsuarios_ConsultarConfiguracion()
+                NodoSensoresAction_ConsultarNodos()
                     .then(result => {
-                        this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                        this.setState({dataModulo: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
                         Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
                     })
@@ -535,9 +593,9 @@ export class ConfiguracionUsuarios extends Component {
                     }
                 })
             
-                ConfiguracionUsuarios_ConsultarConfiguracion(dataJsonObject)
+                NodoSensoresAction_ConsultarNodos(dataJsonObject)
                     .then(result => {
-                        this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                        this.setState({dataModulo: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
                         Notify('warning','No existen conincidencias',`Con las condiciones establecidas en los parámetros no se encontraron datos.`)
                     })
@@ -545,10 +603,10 @@ export class ConfiguracionUsuarios extends Component {
         },
     ]
 
-    //Arreglo de los botones de las acciones del footer para nueva configuración
-    bottonsFooterModalNew = [
+    //Arreglo de los botones de las acciones del footer para nuevo microservicio
+    bottonsFooterModalNewRegister = [
         {
-            labelButton: "Crear Configuración",
+            labelButton: "Crear Módulo",
             color: "green",
             appearance: "subtle",
             icon: true,
@@ -557,11 +615,11 @@ export class ConfiguracionUsuarios extends Component {
                 
                 let dataJson = {};
                 
-                let newConfiguracion = this.state.formNew;
+                let newModulo = this.state.formNew;
 
                 let nullFields = [];
 
-                newConfiguracion.forEach(x => {
+                newModulo.forEach(x => {
                     if (x.valueState === ''){
                         nullFields.push(x.label)
                     }else{
@@ -570,17 +628,61 @@ export class ConfiguracionUsuarios extends Component {
                 })
                 
                 if(nullFields.length > 0){
-                    Notify('warning','Problema creando configuración',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                    Notify('warning','Problema creando Nodo Sensor',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    ConfiguracionUsuarios_CrearConfigracion(dataJson).then(() => {
-                        Notify('success','Configuración creada',`La configuración entre email: ${newConfiguracion[0].valueState}, microservicio: ${newConfiguracion[1].valueState} y módulo: ${newConfiguracion[2].valueState}  ha sido creada existosamente`)
+                    NodoSensoresAction_CrearNodo(dataJson).then(() => {
+                        Notify('success','Nodo Sensor creado',`El nodo sensor ha sido creado existosamente`)
                         this.setState({dataActualizada: true})
-                        newConfiguracion.forEach(x => {
+                        newModulo.forEach(x => {
                             x.valueState = ''
                         })
-                        this.setState({formNew: newConfiguracion});
+                        this.setState({formNew: newModulo});
                     }).catch((err) => {
-                        Notify('error','Configuración no creada',`${err.response.data.return}`)
+                        Notify('error','Nodo Sensor no creado',`${err.response.data.return}`)
+                    })
+                }
+            },
+        }
+    ]
+
+    //Arreglo de los botones de las acciones del footer para actualizar microservicio
+    bottonsFooterModalUpdate = [
+        {
+            labelButton: "Actualizar",
+            color: "yellow",
+            appearance: "subtle",
+            icon: true,
+            nameIcon: 'fas fa-edit',
+            onClick: () => {
+                
+                let dataJson = {};
+                
+                let update = this.state.formUpdate;
+
+                let nullFields = [];
+
+                update.forEach(x => {
+                    if (x.valueState === ''){
+                        nullFields.push(x.label)
+                    }else{
+                        dataJson[`${x.name.toLowerCase()}`] = x.valueState
+                    }
+                })
+
+                console.log(dataJson)
+            
+                if(nullFields.length > 0){
+                    Notify('warning','Problema actualizando Nodo Sensor',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                }else{
+                    NodoSensoresAction_ActualizarNodo(dataJson).then(() => {
+                        Notify('success','Nodo Sensor actualizado',`El Nodo Sensor: ${update[0].valueState} ha sido actualizado existosamente`)
+                        this.setState({dataActualizada: true})
+                        update.forEach(x => {
+                            x.valueState = ''
+                        })
+                        this.setState({showDataEditForm_show: false});
+                    }).catch((err) => {
+                        Notify('error','Nodo Sensor no actualizado',`${err.response.data.return}`)
                     })
                 }
             },
@@ -588,37 +690,19 @@ export class ConfiguracionUsuarios extends Component {
     ]
 
     componentDidMount = () => {
-        ConfiguracionUsuarios_ConsultarConfiguracion()
+        NodoSensoresAction_ConsultarNodos()
             .then((response) => {
-                this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                this.setState({dataModulo: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
             }).catch((err) => {
                 Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
-            })
-
-            ConfiguracionUsuarios_ConsultarMicrosevicios()
-            .then((response) => {
-                let newFrom = this.state.formNew;
-                newFrom[1].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
-                this.setState({formNew: newFrom})
-            }).catch((err) => {
-                Notify('error','Error consultado Microservicios',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Microsertvicios. Por favor solicitarlo al administrador de la plataforma.`)
-            })
-
-            ConfiguracionUsuarios_ConsultarModulos()
-            .then((response) => {
-                let newFrom = this.state.formNew;
-                newFrom[2].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
-                this.setState({formNew: newFrom})
-            }).catch((err) => {
-                Notify('error','Error consultado Módulos',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Módulos. Por favor solicitarlo al administrador de la plataforma.`)
             })
     }
 
     componentDidUpdate = () => {
         if(this.state.dataActualizada){
-            ConfiguracionUsuarios_ConsultarConfiguracion()
+            NodoSensoresAction_ConsultarNodos()
                 .then((response) => {
-                    this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    this.setState({dataModulo: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     this.setState({dataActualizada:false})
                 }).catch((err) => {
                     Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
@@ -631,10 +715,10 @@ export class ConfiguracionUsuarios extends Component {
         return (
             <div>
                 <Sidebar key={1}/>
-                    <div className='container-configuracion'>
+                    <div className='container-estandar'>
                         <Filter
                             key={2}
-                            titleHeader='Configuración Usuarios'
+                            titleHeader='Nodo Sensores'
                             bottonsHeader={this.bottonsHeaderFilter}
                             formFilter={this.state.formFilter}
                             configuration={configFilter}
@@ -642,12 +726,14 @@ export class ConfiguracionUsuarios extends Component {
                         />
                         <br/>
                         <DataTableColAction 
-                            key={this.state.data.id} 
+                            key={this.state.dataModulo.id} 
                             configuration={configTable} 
-                            data={this.state.data} 
+                            data={this.state.dataModulo} 
                             columns={this.columnsDataTabe} 
                             buttonActions={this.bottonsActionsTable}
                         />
+                        <br/>
+                        <Maps/>
                     </div>
                     <ShowEditDataForm
                         key={3}
@@ -672,4 +758,4 @@ export class ConfiguracionUsuarios extends Component {
     }
 }
 
-export default ConfiguracionUsuarios
+export default NodoSensores

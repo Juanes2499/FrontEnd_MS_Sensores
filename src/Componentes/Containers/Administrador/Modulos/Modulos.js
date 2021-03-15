@@ -508,8 +508,8 @@ export class Modulos extends Component {
             resizable: true,
         },
         {
-            key: "URL_ALIAS_MICROSERVICIO",
-            text: "URL Alias Microservicio",
+            key: "URL_ALIAS_MODULO",
+            text: "URL Alias Módulo",
             width: 200,
             align: "left",
             fixed: false,
