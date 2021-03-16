@@ -79,13 +79,27 @@ const configTable ={
     }
 }
 
+//Configuration mapa 
+const configMap ={
+    style:{
+        width:'100%',
+        height:'400px',
+        marginBottom:'7%'
+    },
+    center:[3.470415, -76.500162],
+    zoom:13,
+    scrollWheelZoom:true,
+}
+
 export class NodoSensores extends Component {
     //Estados
     state = {
         //Estado para actulizar cuando se realice una acción
         dataActualizada: false,
         //Estados para cargar la data
-        dataModulo: [],
+        data: [],
+        //Estado para cargar la data del mapa
+        dataMap: [],
         //Estados para el componente showDataEditForm
         showDataEditForm_show: false,
         showDataEditForm_title: '',
@@ -563,7 +577,7 @@ export class NodoSensores extends Component {
                 
                 NodoSensoresAction_ConsultarNodos()
                     .then(result => {
-                        this.setState({dataModulo: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                        this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
                         Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
                     })
@@ -595,7 +609,7 @@ export class NodoSensores extends Component {
             
                 NodoSensoresAction_ConsultarNodos(dataJsonObject)
                     .then(result => {
-                        this.setState({dataModulo: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                        this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
                         Notify('warning','No existen conincidencias',`Con las condiciones establecidas en los parámetros no se encontraron datos.`)
                     })
@@ -692,7 +706,15 @@ export class NodoSensores extends Component {
     componentDidMount = () => {
         NodoSensoresAction_ConsultarNodos()
             .then((response) => {
-                this.setState({dataModulo: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                let dataMapArray = [];
+                this.state.data.forEach(x => {
+                    dataMapArray.push({
+                        lat: x.LATITUD,
+                        lon: x.LONGITUD,
+                    })
+                })
+                this.setState({dataMap:dataMapArray})
             }).catch((err) => {
                 Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
@@ -702,7 +724,15 @@ export class NodoSensores extends Component {
         if(this.state.dataActualizada){
             NodoSensoresAction_ConsultarNodos()
                 .then((response) => {
-                    this.setState({dataModulo: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    let dataMapArray = [];
+                    this.state.data.forEach(x => {
+                        dataMapArray.push({
+                            lat: x.LATITUD,
+                            lon: x.LONGITUD,
+                        })
+                    })
+                    this.setState({dataMap:dataMapArray})
                     this.setState({dataActualizada:false})
                 }).catch((err) => {
                     Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
@@ -726,14 +756,21 @@ export class NodoSensores extends Component {
                         />
                         <br/>
                         <DataTableColAction 
-                            key={this.state.dataModulo.id} 
+                            key={this.state.data.id} 
+                            //
+
                             configuration={configTable} 
-                            data={this.state.dataModulo} 
+                            data={this.state.data} 
+  
+  //
                             columns={this.columnsDataTabe} 
                             buttonActions={this.bottonsActionsTable}
                         />
                         <br/>
-                        <Maps/>
+                        <Maps
+                            configuration={configMap}
+                            data={this.state.dataMap}
+                        />
                     </div>
                     <ShowEditDataForm
                         key={3}
