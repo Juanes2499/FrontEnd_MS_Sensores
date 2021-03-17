@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Schema } from 'rsuite';
-import './NodoSensores.css'
+import './VariablesNodoSensor.css'
 
 //Elementos
 import Sidebar from '../../../../Elements/Sidebar/Sidebar';
@@ -9,18 +9,17 @@ import Filter from '../../../../Elements/Filter/Filter';
 import { Notify } from '../../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../../Elements/Confirmation/Confirmation';
 import Footer from '../../../../Elements/Footer/Footer';
-import Maps from '../../../../Elements/Maps/Maps';
 
 //Modals
 import ShowEditDataForm from '../../../../Modals/showEditDataForm/ShowEditDataForm';
 
 //Actions
 import { 
-    NodoSensoresAction_ConsultarNodos,
-    NodoSensoresAction_CrearNodo,
-    NodoSensoresAction_ActualizarNodo,
-    NodoSensoresAction_EliminarNodo
-} from '../../../../../Acciones/Sensores/NodoSensores/NodoSesnoresAction';
+    VariablesNodoSensoresAction_ConsultarVariables,
+    VariablesNodoSensoresAction_CrearVariables,
+    VariablesNodoSensoresAction_ActualizarVariables,
+    VariablesNodoSensoresAction_EliminarVariables
+} from '../../../../../Acciones/Sensores/VariablesNodoSensor/VariablesNodoSensorAction';
 
 //Schemas
 const { StringType } = Schema.Types;
@@ -79,19 +78,7 @@ const configTable ={
     }
 }
 
-//Configuration mapa 
-const configMap ={
-    style:{
-        width:'100%',
-        height:'400px',
-        marginBottom:'7%'
-    },
-    center:[3.470415, -76.500162],
-    zoom:13,
-    scrollWheelZoom:true,
-}
-
-export class NodoSensores extends Component {
+export class VariablesNodoSensor extends Component {
     //Estados
     state = {
         //Estado para actulizar cuando se realice una acción
@@ -114,8 +101,8 @@ export class NodoSensores extends Component {
         //Form para el filtro
         formFilter:[
             {
-                name: "ID_NODO_SENSOR",
-                label: "ID Nodo Sensor",
+                name: "ID_VARIABLE",
+                label: "ID Variable",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -132,8 +119,8 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "LATITUD",
-                label: "Latitud",
+                name: "NOMBRE_VARIABLE",
+                label: "Nombre Variable",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -150,8 +137,8 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "LONGITUD",
-                label: "Longitud",
+                name: "DETALLES",
+                label: "Detalles",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -168,8 +155,8 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "DISPOSITIVO_ADQUISICION",
-                label: "Tarjeta de Adquisisición",
+                name: "TIPO_DATO",
+                label: "Tipo de Dato",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -186,8 +173,8 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "ESTADO",
-                label: "Estado",
+                name: "UNIDAD_MEDIDA",
+                label: "Unidad de Medida",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -204,10 +191,10 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "FECHA_CREACION",
-                label: "Fecha Creación",
-                type: "date",
-                dataEntryType:'datepicker',
+                name: "RANGO_MIN",
+                label: "Rango Mínimo",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -222,10 +209,10 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "HORA_CREACION",
-                label: "Hora Creación",
-                type: "time",
-                dataEntryType:'timepicker',
+                name: "RANGO_MAX",
+                label: "Rango Máximo",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -240,10 +227,10 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "FECHA_ACTUALIZACION",
-                label: "Fecha Actualización",
-                type: "date",
-                dataEntryType:'datepicker',
+                name: "ESTADO",
+                label: "Estado",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -258,10 +245,10 @@ export class NodoSensores extends Component {
                 }
             },
             {
-                name: "HORA_ACTUALIZACION",
-                label: "Hora Actualización",
-                type: "time",
-                dataEntryType:'timepicker',
+                name: "FECHA_CREACION",
+                label: "Fecha Creación",
+                type: "date",
+                dataEntryType:'datepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -275,12 +262,66 @@ export class NodoSensores extends Component {
                     this.setState({formFilter: newOperator});
                 }
             },
+            {
+                name: "HORA_CREACION",
+                label: "Hora Creación",
+                type: "time",
+                dataEntryType:'timepicker',
+                valueState: '',
+                operador: [],
+                hadlerValueState: (data) => {
+                    let newFilterModal = this.state.formFilter;
+                    newFilterModal[9].valueState = data;
+                    this.setState({formFilter: newFilterModal});
+                },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[9].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
+            },
+            {
+                name: "FECHA_ACTUALIZACION",
+                label: "Fecha Actualización",
+                type: "date",
+                dataEntryType:'datepicker',
+                valueState: '',
+                operador: [],
+                hadlerValueState: (data) => {
+                    let newFilterModal = this.state.formFilter;
+                    newFilterModal[10].valueState = data;
+                    this.setState({formFilter: newFilterModal});
+                },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[10].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
+            },
+            {
+                name: "HORA_ACTUALIZACION",
+                label: "Hora Actualización",
+                type: "time",
+                dataEntryType:'timepicker',
+                valueState: '',
+                operador: [],
+                hadlerValueState: (data) => {
+                    let newFilterModal = this.state.formFilter;
+                    newFilterModal[11].valueState = data;
+                    this.setState({formFilter: newFilterModal});
+                },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[11].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
+            },
         ],
         //Form para nuevo registros
         formNew:[
             {
-                name: "LATITUD",
-                label: "Latitud",
+                name: "NOMBRE_VARIABLE",
+                label: "Nombre Variable",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -292,8 +333,8 @@ export class NodoSensores extends Component {
                 },
             },
             {
-                name: "LONGITUD",
-                label: "Longitud",
+                name: "DETALLES",
+                label: "Detalles",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -305,8 +346,8 @@ export class NodoSensores extends Component {
                 },
             },
             {
-                name: "DISPOSITIVO_ADQUISICION",
-                label: "Tarjeta de Adquisición",
+                name: "TIPO_DATO",
+                label: "Tipo Dato",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -314,6 +355,45 @@ export class NodoSensores extends Component {
                 hadlerValueState: (data) => {
                     let newModal = this.state.formNew;
                     newModal[2].valueState = data;
+                    this.setState({formNew: newModal});
+                },
+            },
+            {
+                name: "UNIDAD_MEDIDA",
+                label: "Unidad Media",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formNew;
+                    newModal[3].valueState = data;
+                    this.setState({formNew: newModal});
+                },
+            },
+            {
+                name: "RANGO_MIN",
+                label: "Rango Mínimo",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formNew;
+                    newModal[4].valueState = data;
+                    this.setState({formNew: newModal});
+                },
+            },
+            {
+                name: "RANGO_MAX",
+                label: "Rango Máximo",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formNew;
+                    newModal[5].valueState = data;
                     this.setState({formNew: newModal});
                 },
             },
@@ -326,7 +406,7 @@ export class NodoSensores extends Component {
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newModal = this.state.formNew;
-                    newModal[3].valueState = data;
+                    newModal[6].valueState = data;
                     this.setState({formNew: newModal});
                 },
             },
@@ -334,8 +414,8 @@ export class NodoSensores extends Component {
         //Form para actualizar un registro
         formUpdate:[
             {
-                name: "ID_NODO_SENSOR",
-                label: "ID Nodo Sensor",
+                name: "ID_VARIABLE",
+                label: "ID Variable",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: true,
@@ -347,8 +427,8 @@ export class NodoSensores extends Component {
                 },
             },
             {
-                name: "LATITUD",
-                label: "Latitud",
+                name: "NOMBRE_VARIABLE",
+                label: "Nombre Variable",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -360,8 +440,8 @@ export class NodoSensores extends Component {
                 },
             },
             {
-                name: "LONGITUD",
-                label: "Longitud",
+                name: "DETALLES",
+                label: "Detalles",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -373,8 +453,8 @@ export class NodoSensores extends Component {
                 },
             },
             {
-                name: "DISPOSITIVO_ADQUISICION",
-                label: "Tarjeta de Adquisición",
+                name: "TIPO_DATO",
+                label: "Tipo Dato",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -382,6 +462,45 @@ export class NodoSensores extends Component {
                 hadlerValueState: (data) => {
                     let newModal = this.state.formUpdate;
                     newModal[3].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+            {
+                name: "UNIDAD_MEDIDA",
+                label: "Unidad Media",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[4].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+            {
+                name: "RANGO_MIN",
+                label: "Rango Mínimo",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[5].valueState = data;
+                    this.setState({formUpdate: newModal});
+                },
+            },
+            {
+                name: "RANGO_MAX",
+                label: "Rango Máximo",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newModal = this.state.formUpdate;
+                    newModal[6].valueState = data;
                     this.setState({formUpdate: newModal});
                 },
             },
@@ -394,7 +513,7 @@ export class NodoSensores extends Component {
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newModal = this.state.formUpdate;
-                    newModal[4].valueState = data;
+                    newModal[7].valueState = data;
                     this.setState({formUpdate: newModal});
                 },
             },
@@ -404,40 +523,56 @@ export class NodoSensores extends Component {
     //Arreglo de la configuración de la columnas de la tabla
     columnsDataTabe = [
         {
-            key: "ID_NODO_SENSOR",
-            text: "ID Nodo Sensor",
+            key: "ID_VARIABLE",
+            text: "ID Variable",
             width: 300,
             align: "left",
             fixed: true,
             resizable: true,
         },
         {
-            key: "TOKEN",
-            text: "Token",
+            key: "NOMBRE_VARIABLE",
+            text: "Nombre Variable",
             width: 200,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "LATITUD",
-            text: "Latitud",
+            key: "DETALLES",
+            text: "Detalles",
             width: 100,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "LONGITUD",
-            text: "Longitud",
+            key: "TIPO_DATO",
+            text: "Tipo Dato",
             width: 100,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "DISPOSITIVO_ADQUISICION",
-            text: "Tarjeta de Adquisición",
+            key: "UNIDAD_MEDIDA",
+            text: "Unidad Medida",
+            width: 200,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "RANGO_MIN",
+            text: "Rango Mínimo",
+            width: 100,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "RANGO_MAX",
+            text: "Rango Máximo",
             width: 200,
             align: "left",
             fixed: false,
@@ -487,25 +622,25 @@ export class NodoSensores extends Component {
 
     //Arreglo de las acciones de los botones de la tabla
     bottonsActionsTable = {
-        dataKey: 'ID_NODO_SENSOR',
+        dataKey: 'ID_VARIABLE',
         actions: [
             {
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
                     let dataJson = {};
-                    dataJson['id_nodo_sensor'] = data.ID_NODO_SENSOR;
+                    dataJson['id_variable'] = data.ID_VARIABLE;
                     this.setState({
                         showConfirmacion: true,
-                        tituloConfirmacion: 'Eliminar Nodo Sensor',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el Nodo Sensor con ID: ${data.ID_NODO_SENSOR}?`,
+                        tituloConfirmacion: 'Eliminar Variable Nodo Sensor',
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar la Variable Nodo Sensor con ID: ${data.ID_VARIABLE}?`,
                         handleAceptarConfirmacion: () => {
-                            NodoSensoresAction_EliminarNodo(dataJson).then(() => {
-                                Notify('success','Nodo Sensor eliminado',`El Nodo Sensor: ${data.ID_NODO_SENSOR} ha sido eliminado existosamente`)
+                            VariablesNodoSensoresAction_EliminarVariables(dataJson).then(() => {
+                                Notify('success','Nodo Sensor eliminado',`La Variable Nodo Sensor: ${data.ID_VARIABLE} ha sido eliminado existosamente`)
                                 this.setState({dataActualizada: true})
                                 this.setState({showConfirmacion: false})
                             }).catch(() => {
-                                Notify('error','Nodo Sensor no eliminado',`El Nodo Sensor con ID: ${data.ID_NODO_SENSOR} no ha podido ser eliminado, comunicarse con el área de TI`)
+                                Notify('error','Variable Nodo Sensordulo no eliminada',`La Variable Nodo Sensor con ID: ${data.ID_VARIABLE} no ha podido ser eliminado, comunicarse con el área de TI`)
                             })
                         }
                     }) 
@@ -517,16 +652,19 @@ export class NodoSensores extends Component {
                 onClick: (data, dataKey) => {
 
                     let updateForm = this.state.formUpdate;
-                    updateForm[0].valueState = data.ID_NODO_SENSOR
-                    updateForm[1].valueState = data.LATITUD
-                    updateForm[2].valueState = data.LONGITUD
-                    updateForm[3].valueState = data.DISPOSITIVO_ADQUISICION
-                    updateForm[4].valueState = data.ESTADO
+                    updateForm[0].valueState = data.ID_VARIABLE
+                    updateForm[1].valueState = data.NOMBRE_VARIABLE
+                    updateForm[2].valueState = data.DETALLES
+                    updateForm[3].valueState = data.TIPO_DATO
+                    updateForm[4].valueState = data.UNIDAD_MEDIDA
+                    updateForm[5].valueState = data.RANGO_MIN
+                    updateForm[6].valueState = data.RANGO_MAX
+                    updateForm[7].valueState = data.ESTADO
                     this.setState({formUpdate: updateForm});
 
                     this.setState({
                         showDataEditForm_show: true,
-                        showDataEditForm_title: 'Editar Nodo',
+                        showDataEditForm_title: 'Editar Módulo',
                         showDataEditForm_schema: schemaModalModulo,
                         showDataEditForm_fields: this.state.formUpdate,
                         showDataEditForm_bottonFooter: this.bottonsFooterModalUpdate
@@ -548,7 +686,7 @@ export class NodoSensores extends Component {
             onClick: () => {
                 this.setState({
                     showDataEditForm_show: true,
-                    showDataEditForm_title: 'Nuevo Nodo',
+                    showDataEditForm_title: 'Nueva Variable',
                     showDataEditForm_schema: schemaModalModulo,
                     showDataEditForm_fields: this.state.formNew,
                     showDataEditForm_bottonFooter: this.bottonsFooterModalNewRegister
@@ -575,7 +713,7 @@ export class NodoSensores extends Component {
 
                 this.setState({formFilter: newFormFilter});    
                 
-                NodoSensoresAction_ConsultarNodos()
+                VariablesNodoSensoresAction_ConsultarVariables()
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -607,7 +745,7 @@ export class NodoSensores extends Component {
                     }
                 })
             
-                NodoSensoresAction_ConsultarNodos(dataJsonObject)
+                VariablesNodoSensoresAction_ConsultarVariables(dataJsonObject)
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -620,7 +758,7 @@ export class NodoSensores extends Component {
     //Arreglo de los botones de las acciones del footer para nuevo registro
     bottonsFooterModalNewRegister = [
         {
-            labelButton: "Crear Módulo",
+            labelButton: "Crear Variable",
             color: "green",
             appearance: "subtle",
             icon: true,
@@ -629,11 +767,11 @@ export class NodoSensores extends Component {
                 
                 let dataJson = {};
                 
-                let newModulo = this.state.formNew;
+                let newRegister = this.state.formNew;
 
                 let nullFields = [];
 
-                newModulo.forEach(x => {
+                newRegister.forEach(x => {
                     if (x.valueState === ''){
                         nullFields.push(x.label)
                     }else{
@@ -642,17 +780,17 @@ export class NodoSensores extends Component {
                 })
                 
                 if(nullFields.length > 0){
-                    Notify('warning','Problema creando Nodo Sensor',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                    Notify('warning','Problema creando Variable Nodo Sensor',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    NodoSensoresAction_CrearNodo(dataJson).then(() => {
-                        Notify('success','Nodo Sensor creado',`El nodo sensor ha sido creado existosamente`)
+                    VariablesNodoSensoresAction_CrearVariables(dataJson).then(() => {
+                        Notify('success','Variable Nodo Sensor creado',`La variable nodo sensor: ${newRegister[0].valueState} ha sido creado existosamente`)
                         this.setState({dataActualizada: true})
-                        newModulo.forEach(x => {
+                        newRegister.forEach(x => {
                             x.valueState = ''
                         })
-                        this.setState({formNew: newModulo});
+                        this.setState({formNew: newRegister});
                     }).catch((err) => {
-                        Notify('error','Nodo Sensor no creado',`${err.response.data.return}`)
+                        Notify('error','Variable Nodo Sensor no creado',`${err.response.data.return}`)
                     })
                 }
             },
@@ -686,17 +824,17 @@ export class NodoSensores extends Component {
                 console.log(dataJson)
             
                 if(nullFields.length > 0){
-                    Notify('warning','Problema actualizando Nodo Sensor',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                    Notify('warning','Problema actualizando Variable Nodo Sensor',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    NodoSensoresAction_ActualizarNodo(dataJson).then(() => {
-                        Notify('success','Nodo Sensor actualizado',`El Nodo Sensor: ${update[0].valueState} ha sido actualizado existosamente`)
+                    VariablesNodoSensoresAction_ActualizarVariables(dataJson).then(() => {
+                        Notify('success','Variable Nodo Sensor actualizado',`La Variable Nodo Sensor: ${update[1].valueState} ha sido actualizado existosamente`)
                         this.setState({dataActualizada: true})
                         update.forEach(x => {
                             x.valueState = ''
                         })
                         this.setState({showDataEditForm_show: false});
                     }).catch((err) => {
-                        Notify('error','Nodo Sensor no actualizado',`${err.response.data.return}`)
+                        Notify('error','Variable Nodo Sensor no actualizado',`${err.response.data.return}`)
                     })
                 }
             },
@@ -704,17 +842,9 @@ export class NodoSensores extends Component {
     ]
 
     componentDidMount = () => {
-        NodoSensoresAction_ConsultarNodos()
+        VariablesNodoSensoresAction_ConsultarVariables()
             .then((response) => {
                 this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
-                let dataMapArray = [];
-                this.state.data.forEach(x => {
-                    dataMapArray.push({
-                        lat: x.LATITUD,
-                        lon: x.LONGITUD,
-                    })
-                })
-                this.setState({dataMap:dataMapArray})
             }).catch((err) => {
                 Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
@@ -722,17 +852,9 @@ export class NodoSensores extends Component {
 
     componentDidUpdate = () => {
         if(this.state.dataActualizada){
-            NodoSensoresAction_ConsultarNodos()
+            VariablesNodoSensoresAction_ConsultarVariables()
                 .then((response) => {
                     this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
-                    let dataMapArray = [];
-                    this.state.data.forEach(x => {
-                        dataMapArray.push({
-                            lat: x.LATITUD,
-                            lon: x.LONGITUD,
-                        })
-                    })
-                    this.setState({dataMap:dataMapArray})
                     this.setState({dataActualizada:false})
                 }).catch((err) => {
                     Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
@@ -748,7 +870,7 @@ export class NodoSensores extends Component {
                     <div className='container-estandar'>
                         <Filter
                             key={2}
-                            titleHeader='Nodo Sensores'
+                            titleHeader='Variables Nodo Sensores'
                             bottonsHeader={this.bottonsHeaderFilter}
                             formFilter={this.state.formFilter}
                             configuration={configFilter}
@@ -757,20 +879,12 @@ export class NodoSensores extends Component {
                         <br/>
                         <DataTableColAction 
                             key={this.state.data.id} 
-                            //
-
                             configuration={configTable} 
                             data={this.state.data} 
-  
-  //
                             columns={this.columnsDataTabe} 
                             buttonActions={this.bottonsActionsTable}
                         />
                         <br/>
-                        <Maps
-                            configuration={configMap}
-                            data={this.state.dataMap}
-                        />
                     </div>
                     <ShowEditDataForm
                         key={3}
@@ -795,4 +909,4 @@ export class NodoSensores extends Component {
     }
 }
 
-export default NodoSensores
+export default VariablesNodoSensor
