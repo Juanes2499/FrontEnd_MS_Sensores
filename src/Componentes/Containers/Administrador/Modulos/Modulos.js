@@ -3,12 +3,10 @@ import { Schema } from 'rsuite';
 import './Modulos.css'
 
 //Elementos
-import Sidebar from '../../../Elements/Sidebar/Sidebar';
 import { DataTableColAction } from '../../../Elements/DataTable/DataTable';
 import Filter from '../../../Elements/Filter/Filter';
 import { Notify } from '../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../Elements/Confirmation/Confirmation';
-import Footer from '../../../Elements/Footer/Footer';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
@@ -811,7 +809,6 @@ export class Modulos extends Component {
 
         return (
             <div>
-                <Sidebar key={1}/>
                     <div className='container-modulos'>
                         <Filter
                             key={2}
@@ -847,7 +844,6 @@ export class Modulos extends Component {
                         handleClose={() => this.setState({showConfirmacion:false}) }
                         handleAceptar={this.state.handleAceptarConfirmacion}
                     />
-                <Footer/>
             </div>
         )
     }

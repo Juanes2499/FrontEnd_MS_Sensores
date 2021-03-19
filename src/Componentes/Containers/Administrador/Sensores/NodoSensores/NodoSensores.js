@@ -3,12 +3,10 @@ import { Schema } from 'rsuite';
 import './NodoSensores.css'
 
 //Elementos
-import Sidebar from '../../../../Elements/Sidebar/Sidebar';
 import { DataTableColAction } from '../../../../Elements/DataTable/DataTable';
 import Filter from '../../../../Elements/Filter/Filter';
 import { Notify } from '../../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../../Elements/Confirmation/Confirmation';
-import Footer from '../../../../Elements/Footer/Footer';
 import Maps from '../../../../Elements/Maps/Maps';
 
 //Modals
@@ -744,52 +742,50 @@ export class NodoSensores extends Component {
 
         return (
             <div>
-                <Sidebar key={1}/>
-                    <div className='container-estandar'>
-                        <Filter
-                            key={2}
-                            titleHeader='Nodo Sensores'
-                            bottonsHeader={this.bottonsHeaderFilter}
-                            formFilter={this.state.formFilter}
-                            configuration={configFilter}
-                            actions={this.bottonsFooterFilter}
-                        />
-                        <br/>
-                        <DataTableColAction 
-                            key={this.state.data.id} 
-                            //
+                <div className='container-estandar'>
+                    <Filter
+                        key={2}
+                        titleHeader='Nodo Sensores'
+                        bottonsHeader={this.bottonsHeaderFilter}
+                        formFilter={this.state.formFilter}
+                        configuration={configFilter}
+                        actions={this.bottonsFooterFilter}
+                    />
+                    <br/>
+                    <DataTableColAction 
+                        key={this.state.data.id} 
+                        //
 
-                            configuration={configTable} 
-                            data={this.state.data} 
-  
-  //
-                            columns={this.columnsDataTabe} 
-                            buttonActions={this.bottonsActionsTable}
-                        />
-                        <br/>
-                        <Maps
-                            configuration={configMap}
-                            data={this.state.dataMap}
-                        />
-                    </div>
-                    <ShowEditDataForm
-                        key={3}
-                        layaout = "vertical"
-                        isActivate={this.state.showDataEditForm_show}
-                        tittleModal={this.state.showDataEditForm_title}
-                        handleClose={() => this.setState({showDataEditForm_show: false})}
-                        modelSchema={this.state.showDataEditForm_schema}
-                        fields={this.state.showDataEditForm_fields}
-                        bottonFooter={this.state.showDataEditForm_bottonFooter}
+                        configuration={configTable} 
+                        data={this.state.data} 
+
+//
+                        columns={this.columnsDataTabe} 
+                        buttonActions={this.bottonsActionsTable}
                     />
-                    <Confirmation 
-                        show={this.state.showConfirmacion}
-                        titulo={this.state.tituloConfirmacion} 
-                        cuerpo={this.state.cuerpoConfirmacion}  
-                        handleClose={() => this.setState({showConfirmacion:false}) }
-                        handleAceptar={this.state.handleAceptarConfirmacion}
+                    <br/>
+                    <Maps
+                        configuration={configMap}
+                        data={this.state.dataMap}
                     />
-                <Footer/>
+                </div>
+                <ShowEditDataForm
+                    key={3}
+                    layaout = "vertical"
+                    isActivate={this.state.showDataEditForm_show}
+                    tittleModal={this.state.showDataEditForm_title}
+                    handleClose={() => this.setState({showDataEditForm_show: false})}
+                    modelSchema={this.state.showDataEditForm_schema}
+                    fields={this.state.showDataEditForm_fields}
+                    bottonFooter={this.state.showDataEditForm_bottonFooter}
+                />
+                <Confirmation 
+                    show={this.state.showConfirmacion}
+                    titulo={this.state.tituloConfirmacion} 
+                    cuerpo={this.state.cuerpoConfirmacion}  
+                    handleClose={() => this.setState({showConfirmacion:false}) }
+                    handleAceptar={this.state.handleAceptarConfirmacion}
+                />
             </div>
         )
     }

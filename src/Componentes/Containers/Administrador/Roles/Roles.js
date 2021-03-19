@@ -3,12 +3,10 @@ import { Schema } from 'rsuite';
 import './Roles.css'
 
 //Elementos
-import Sidebar from '../../../Elements/Sidebar/Sidebar';
 import { DataTableColAction } from '../../../Elements/DataTable/DataTable';
 import Filter from '../../../Elements/Filter/Filter';
 import { Notify } from '../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../Elements/Confirmation/Confirmation';
-import Footer from '../../../Elements/Footer/Footer';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
@@ -418,43 +416,41 @@ export class Roles extends Component {
 
         return (
             <div>
-                <Sidebar key={1}/>
-                    <div className='container-roles'>
-                        <Filter
-                            key={2}
-                            titleHeader='Roles'
-                            bottonsHeader={this.bottonsHeaderFilter}
-                            formFilter={this.state.formFilter}
-                            configuration={configFilter}
-                            actions={this.bottonsFooterFilter}
-                        />
-                        <br/>
-                        <DataTableColAction 
-                            key={this.state.dataModulo.id} 
-                            configuration={configTable} 
-                            data={this.state.dataModulo} 
-                            columns={this.columnsDataTabe} 
-                            buttonActions={this.bottonsActionsTable}
-                        />
-                    </div>
-                    <ShowEditDataForm
-                        key={3}
-                        layaout = "vertical"
-                        isActivate={this.state.showDataEditForm_show}
-                        tittleModal={this.state.showDataEditForm_title}
-                        handleClose={() => this.setState({showDataEditForm_show: false})}
-                        modelSchema={this.state.showDataEditForm_schema}
-                        fields={this.state.showDataEditForm_fields}
-                        bottonFooter={this.state.showDataEditForm_bottonFooter}
+                <div className='container-roles'>
+                    <Filter
+                        key={2}
+                        titleHeader='Roles'
+                        bottonsHeader={this.bottonsHeaderFilter}
+                        formFilter={this.state.formFilter}
+                        configuration={configFilter}
+                        actions={this.bottonsFooterFilter}
                     />
-                    <Confirmation 
-                        show={this.state.showConfirmacion}
-                        titulo={this.state.tituloConfirmacion} 
-                        cuerpo={this.state.cuerpoConfirmacion}  
-                        handleClose={() => this.setState({showConfirmacion:false}) }
-                        handleAceptar={this.state.handleAceptarConfirmacion}
+                    <br/>
+                    <DataTableColAction 
+                        key={this.state.dataModulo.id} 
+                        configuration={configTable} 
+                        data={this.state.dataModulo} 
+                        columns={this.columnsDataTabe} 
+                        buttonActions={this.bottonsActionsTable}
                     />
-                <Footer/>
+                </div>
+                <ShowEditDataForm
+                    key={3}
+                    layaout = "vertical"
+                    isActivate={this.state.showDataEditForm_show}
+                    tittleModal={this.state.showDataEditForm_title}
+                    handleClose={() => this.setState({showDataEditForm_show: false})}
+                    modelSchema={this.state.showDataEditForm_schema}
+                    fields={this.state.showDataEditForm_fields}
+                    bottonFooter={this.state.showDataEditForm_bottonFooter}
+                />
+                <Confirmation 
+                    show={this.state.showConfirmacion}
+                    titulo={this.state.tituloConfirmacion} 
+                    cuerpo={this.state.cuerpoConfirmacion}  
+                    handleClose={() => this.setState({showConfirmacion:false}) }
+                    handleAceptar={this.state.handleAceptarConfirmacion}
+                />
             </div>
         )
     }

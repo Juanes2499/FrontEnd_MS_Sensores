@@ -1,5 +1,4 @@
 import React from 'react'
-import { Divider } from 'rsuite';
 import './Footer.css';
 import logoSapphireSoftware from '../../../Logos/LogoSapphireSoftware.png'
 

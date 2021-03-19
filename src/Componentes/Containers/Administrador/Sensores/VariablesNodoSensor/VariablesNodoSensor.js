@@ -3,12 +3,10 @@ import { Schema } from 'rsuite';
 import './VariablesNodoSensor.css'
 
 //Elementos
-import Sidebar from '../../../../Elements/Sidebar/Sidebar';
 import { DataTableColAction } from '../../../../Elements/DataTable/DataTable';
 import Filter from '../../../../Elements/Filter/Filter';
 import { Notify } from '../../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../../Elements/Confirmation/Confirmation';
-import Footer from '../../../../Elements/Footer/Footer';
 
 //Modals
 import ShowEditDataForm from '../../../../Modals/showEditDataForm/ShowEditDataForm';
@@ -866,44 +864,42 @@ export class VariablesNodoSensor extends Component {
 
         return (
             <div>
-                <Sidebar key={1}/>
-                    <div className='container-estandar'>
-                        <Filter
-                            key={2}
-                            titleHeader='Variables Nodo Sensores'
-                            bottonsHeader={this.bottonsHeaderFilter}
-                            formFilter={this.state.formFilter}
-                            configuration={configFilter}
-                            actions={this.bottonsFooterFilter}
-                        />
-                        <br/>
-                        <DataTableColAction 
-                            key={this.state.data.id} 
-                            configuration={configTable} 
-                            data={this.state.data} 
-                            columns={this.columnsDataTabe} 
-                            buttonActions={this.bottonsActionsTable}
-                        />
-                        <br/>
-                    </div>
-                    <ShowEditDataForm
-                        key={3}
-                        layaout = "vertical"
-                        isActivate={this.state.showDataEditForm_show}
-                        tittleModal={this.state.showDataEditForm_title}
-                        handleClose={() => this.setState({showDataEditForm_show: false})}
-                        modelSchema={this.state.showDataEditForm_schema}
-                        fields={this.state.showDataEditForm_fields}
-                        bottonFooter={this.state.showDataEditForm_bottonFooter}
+                <div className='container-estandar'>
+                    <Filter
+                        key={2}
+                        titleHeader='Variables Nodo Sensores'
+                        bottonsHeader={this.bottonsHeaderFilter}
+                        formFilter={this.state.formFilter}
+                        configuration={configFilter}
+                        actions={this.bottonsFooterFilter}
                     />
-                    <Confirmation 
-                        show={this.state.showConfirmacion}
-                        titulo={this.state.tituloConfirmacion} 
-                        cuerpo={this.state.cuerpoConfirmacion}  
-                        handleClose={() => this.setState({showConfirmacion:false}) }
-                        handleAceptar={this.state.handleAceptarConfirmacion}
+                    <br/>
+                    <DataTableColAction 
+                        key={this.state.data.id} 
+                        configuration={configTable} 
+                        data={this.state.data} 
+                        columns={this.columnsDataTabe} 
+                        buttonActions={this.bottonsActionsTable}
                     />
-                <Footer/>
+                    <br/>
+                </div>
+                <ShowEditDataForm
+                    key={3}
+                    layaout = "vertical"
+                    isActivate={this.state.showDataEditForm_show}
+                    tittleModal={this.state.showDataEditForm_title}
+                    handleClose={() => this.setState({showDataEditForm_show: false})}
+                    modelSchema={this.state.showDataEditForm_schema}
+                    fields={this.state.showDataEditForm_fields}
+                    bottonFooter={this.state.showDataEditForm_bottonFooter}
+                />
+                <Confirmation 
+                    show={this.state.showConfirmacion}
+                    titulo={this.state.tituloConfirmacion} 
+                    cuerpo={this.state.cuerpoConfirmacion}  
+                    handleClose={() => this.setState({showConfirmacion:false}) }
+                    handleAceptar={this.state.handleAceptarConfirmacion}
+                />
             </div>
         )
     }

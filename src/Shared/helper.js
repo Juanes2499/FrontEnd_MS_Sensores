@@ -6,10 +6,15 @@ import jwt from 'jsonwebtoken';
 import {LoginAction_CerrarSesion} from '../Acciones/Login/LoginAction';
 import history from './createHistory';
 
+//Elemts
+import Sidebar from '../Componentes/Elements/Sidebar/Sidebar';
+import Footer from '../Componentes/Elements/Footer/Footer';
+
 const API_AUTH_HOST = window.API_AUTH_HOST;
 const API_SENSORES_HOST = window.API_SENSORES_HOST;
 const TOKEN_KEY = window.TOKEN_KEY;
 const cookies = new Cookies();
+
 
 export const  createAxiosInstance = (config) => {
     const token = cookies.get('token')
@@ -68,7 +73,15 @@ export const validateAuth =  (ComposedComponent) => {
         }
 
         render() {
-            return <ComposedComponent {...this.props} />
+            return (
+                <div>
+                    <Sidebar key={1}/> 
+                        <div style={{marginTop:'70px'}}>
+                            <ComposedComponent {...this.props} />
+                        </div> 
+                    <Footer/> 
+                </div>
+            )
         }
     }
 
