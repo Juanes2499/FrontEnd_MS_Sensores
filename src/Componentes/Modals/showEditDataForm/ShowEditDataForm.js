@@ -4,8 +4,6 @@ import { Modal} from 'rsuite';
 import './ShowEditDataForm.css';
 
 const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, value, readOnly, placeHolderPicker, dataPicker, ...props }) => {
-    
-    console.log(dataPicker)
 
     dataEntryType = dataEntryType.toLowerCase();
     
@@ -64,7 +62,6 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
         );
     }else if(dataEntryType === 'selectpicker'){
 
-        console.log('entro')
         return (
             <FormGroup key={key} >
                     <p key={key} className='label-field'>{label}</p>

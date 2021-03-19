@@ -12,6 +12,7 @@ import ConfiguracionMicroserviciosModulos from '../Containers/Administrador/Conf
 import ConfiguracionUsuarios from '../Containers/Administrador/ConfiguracionUsuarios/ConfiguracionUsuarios';
 import NodoSensores from '../Containers/Administrador/Sensores/NodoSensores/NodoSensores';
 import VariablesNodoSensor from '../Containers/Administrador/Sensores/VariablesNodoSensor/VariablesNodoSensor';
+import ConfiguracionVariablesNodo from '../Containers/Administrador/Sensores/ConfiguracionVariablesNodo/ConfiguracionVariablesNodo';
 class Router extends Component {
 
 
@@ -32,6 +33,7 @@ class Router extends Component {
             <Route exact path="/Administrator/Authentication/ConfiguracionUsuarios" component={validateAuth(ConfiguracionUsuarios)}/>
             <Route exact path="/Administrator/Sensores/NodoSensores" component={validateAuth(NodoSensores)}/>
             <Route exact path="/Administrator/Sensores/VariablesNodoSensor" component={validateAuth(VariablesNodoSensor)}/>
+            <Route exact path="/Administrator/Sensores/ConfiguracionVNS" component={validateAuth(ConfiguracionVariablesNodo)}/>
             <Redirect to ="/Home"/>
           </Switch>
         </BrowserRouter>

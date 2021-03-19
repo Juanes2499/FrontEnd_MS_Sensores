@@ -1,33 +1,36 @@
 import React, { Component } from 'react'
 import { Schema } from 'rsuite';
-import './ConfiguracionUsuarios.css'
+import "./ConfiguracionVariablesNodo.css"
 
 //Elementos
-import Sidebar from '../../../Elements/Sidebar/Sidebar';
-import { DataTableColAction } from '../../../Elements/DataTable/DataTable';
-import Filter from '../../../Elements/Filter/Filter';
-import { Notify } from '../../../Elements/Notify/Notify';
-import { Confirmation } from '../../../Elements/Confirmation/Confirmation';
-import Footer from '../../../Elements/Footer/Footer';
+import Sidebar from '../../../../Elements/Sidebar/Sidebar';
+import { DataTableColAction } from '../../../../Elements/DataTable/DataTable';
+import Filter from '../../../../Elements/Filter/Filter';
+import { Notify } from '../../../../Elements/Notify/Notify';
+import { Confirmation } from '../../../../Elements/Confirmation/Confirmation';
+import Footer from '../../../../Elements/Footer/Footer';
 
 //Modals
-import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
+import ShowEditDataForm from '../../../../Modals/showEditDataForm/ShowEditDataForm';
 
 //Actions
 import { 
-    ConfiguracionUsuarios_ConsultarConfiguracion,
-    ConfiguracionUsuarios_ConsultarMicrosevicios,
-    ConfiguracionUsuarios_ConsultarModulos,
-    ConfiguracionUsuarios_CrearConfigracion,
-    ConfiguracionUsuarios_EliminarConfigracion
-} from '../../../../Acciones/ConfiguracionUsuarios/ConfiguracionUsuariosAction';
-
+    ConfiguracionVariablesNodoAction_ConsultarConfiguracion,
+    ConfiguracionVariablesNodoAction_ConsultarVariables,
+    ConfiguracionVariablesNodoAction_CrearConfiguracion,
+    ConfiguracionVariablesNodoAction_EliminarConfiguracion
+} from '../../../../../Acciones/Sensores/ConfiguracionVariablesNodo/ConfiguracionVariablesNodoAction';
 
 //Schemas
 const { StringType } = Schema.Types;
 const schemaModalModulo = Schema.Model({
-    NOMBRE_MICROSERVICIO: StringType().isRequired('Este campo es requerido'),
     NOMBRE_MODULO: StringType().isRequired('Este campo es requerido'),
+    DETALLES: StringType().isRequired('Este campo es requerido'),
+    URL_MODULO: StringType().isRequired('Este campo es requerido'),
+    ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
+    URL_ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
+    ORDEN: StringType().isRequired('Este campo es requerido'),
+    ICON_MODULO: StringType().isRequired('Este campo es requerido'),
 });
 
 //Configuration filter 
@@ -55,11 +58,11 @@ const configTable ={
     bordered: true,
     cellBordered: false,
     autoHeight: false,
-    style:{
-        borderRadius:'10px'
-    },
     styleMargin:{
         marginBottom:"7%",
+    },
+    style:{
+        borderRadius:'10px'
     },
     resizable: true,
     headerStyle: {
@@ -79,13 +82,15 @@ const configTable ={
 }
 
 
-export class ConfiguracionUsuarios extends Component {
+export class ConfiguracionVariablesNodo extends Component {
     //Estados
     state = {
         //Estado para actulizar cuando se realice una acción
         dataActualizada: false,
         //Estados para cargar la data
         data: [],
+        //Estado para cargar la data del mapa
+        dataMap: [],
         //Estados para el componente showDataEditForm
         showDataEditForm_show: false,
         showDataEditForm_title: '',
@@ -100,7 +105,7 @@ export class ConfiguracionUsuarios extends Component {
         //Form para el filtro
         formFilter:[
             {
-                name: "ID_CONFIGURACION_USUARIO",
+                name: "ID_CONFIGURACION",
                 label: "ID Configuración",
                 type: "text",
                 dataEntryType:'input',
@@ -118,8 +123,8 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "NOMBRES",
-                label: "Nombres",
+                name: "ID_NODO_SENSOR",
+                label: "ID Nodo Sensor",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -136,8 +141,8 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "APELLIDOS",
-                label: "Apellidos",
+                name: "NOMBRE_VARIABLE",
+                label: "Nombre Variable",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -154,8 +159,8 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "EMAIL",
-                label: "Email",
+                name: "TIPO_DATO",
+                label: "Tipo de Dato",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -170,10 +175,10 @@ export class ConfiguracionUsuarios extends Component {
                     newOperator[3].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
-            },////////////////////
+            },
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Nombre Microservicio",
+                name: "UNIDAD_MEDIDA",
+                label: "Unidad de Medida",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -190,10 +195,10 @@ export class ConfiguracionUsuarios extends Component {
                 }
             },
             {
-                name: "ALIAS_MICROSERIVICIO",
-                label: "Alias Microservicio",
-                type: "text",
-                dataEntryType:'input',
+                name: "FECHA_CREACION_CONFIGURACION",
+                label: "Fecha Creación",
+                type: "date",
+                dataEntryType:'datepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -206,12 +211,12 @@ export class ConfiguracionUsuarios extends Component {
                     newOperator[5].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
-            },//////////////////////
+            },
             {
-                name: "NOMBRE_MODULO",
-                label: "Nombre Módulo",
-                type: "text",
-                dataEntryType:'input',
+                name: "HORA_CREACION_CONFIGURACION",
+                label: "Hora Creación",
+                type: "time",
+                dataEntryType:'timepicker',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -225,67 +230,13 @@ export class ConfiguracionUsuarios extends Component {
                     this.setState({formFilter: newOperator});
                 }
             },
-            {
-                name: "ALIAS_MODULO",
-                label: "Alias Módulo",
-                type: "text",
-                dataEntryType:'input',
-                valueState: '',
-                operador: [],
-                hadlerValueState: (data) => {
-                    let newFilterModal = this.state.formFilter;
-                    newFilterModal[7].valueState = data;
-                    this.setState({formFilter: newFilterModal});
-                },
-                handleOperator: (operador) => {
-                    let newOperator = this.state.formFilter;
-                    newOperator[7].operador = operador;
-                    this.setState({formFilter: newOperator});
-                }
-            },
-            {
-                name: "FECHA_CREACION",
-                label: "Fecha Creación",
-                type: "date",
-                dataEntryType:'datepicker',
-                valueState: '',
-                operador: [],
-                hadlerValueState: (data) => {
-                    let newFilterModal = this.state.formFilter;
-                    newFilterModal[8].valueState = data;
-                    this.setState({formFilter: newFilterModal});
-                },
-                handleOperator: (operador) => {
-                    let newOperator = this.state.formFilter;
-                    newOperator[8].operador = operador;
-                    this.setState({formFilter: newOperator});
-                }
-            },
-            {
-                name: "HORA_CREACION",
-                label: "Hora Creación",
-                type: "time",
-                dataEntryType:'timepicker',
-                valueState: '',
-                operador: [],
-                hadlerValueState: (data) => {
-                    let newFilterModal = this.state.formFilter;
-                    newFilterModal[9].valueState = data;
-                    this.setState({formFilter: newFilterModal});
-                },
-                handleOperator: (operador) => {
-                    let newOperator = this.state.formFilter;
-                    newOperator[9].operador = operador;
-                    this.setState({formFilter: newOperator});
-                }
-            },
         ],
-        //Form para nuevo microservicio
+        //Form para nuevo registros
         formNew:[
             {
-                name: "EMAIL",
-                label: "Email",
-                type: "email",
+                name: "ID_NODO_SENSOR",
+                label: "ID Nodo Sensor",
+                type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
@@ -296,8 +247,8 @@ export class ConfiguracionUsuarios extends Component {
                 },
             },
             {
-                name: "NOMBRE_MICROSERVICIO",
-                label: "Alias Microservicio",
+                name: "NOMBRE_VARIABLE",
+                label: "Nombre Variable",
                 type: "text",
                 dataEntryType:'selectpicker',
                 readOnly: false,
@@ -310,116 +261,61 @@ export class ConfiguracionUsuarios extends Component {
                     this.setState({formNew: newModal});
                 },
             },
-            {
-                name: "NOMBRE_MODULO",
-                label: "Alias Módulo",
-                type: "text",
-                dataEntryType:'selectpicker',
-                readOnly: false,
-                valueState: '',
-                dataPicker: [],
-                placeHolderPicker:'Seleccionar',
-                hadlerValueState: (data) => {
-                    let newModal = this.state.formNew;
-                    newModal[2].valueState = data;
-                    this.setState({formNew: newModal});
-                },
-            },
         ],
     }
 
     //Arreglo de la configuración de la columnas de la tabla
     columnsDataTabe = [
         {
-            key: "ID_CONFIGURACION_USUARIO",
-            text: "ID Configuración Usuario",
+            key: "ID_CONFIGURACION",
+            text: "ID Configuración",
             width: 300,
             align: "left",
             fixed: true,
             resizable: true,
         },
         {
-            key: "ID_USUARIO",
-            text: "ID Usuario",
+            key: "ID_NODO_SENSOR",
+            text: "ID Nodo Sensor",
             width: 300,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "NOMBRES",
-            text: "Nombres",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "APELLIDOS",
-            text: "Apellidos",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "EMAIL",
-            text: "Email",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ID_MICROSERVICIO",
-            text: "ID Microservcio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "NOMBRE_MICROSERVICIO",
-            text: "Nombre Microservicio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ALIAS_MICROSERIVICIO",
-            text: "Alias Microservicio",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "ID_MODULO",
-            text: "ID Módulo",
+            key: "ID_VARIABLE",
+            text: "ID Variable",
             width: 300,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "NOMBRE_MODULO",
-            text: "Nombre Módulo",
+            key: "NOMBRE_VARIABLE",
+            text: "Nombre Variable",
             width: 200,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "ALIAS_MODULO",
-            text: "Alias Módulo",
-            width: 200,
+            key: "TIPO_DATO_VARIABLE",
+            text: "Tipo Variable",
+            width: 150,
             align: "left",
             fixed: false,
             resizable: true,
         },
         {
-            key: "FECHA_CREACION",
+            key: "UNIDAD_MEDIDA_VARIABLE",
+            text: "Unidad Medida Variable",
+            width: 150,
+            align: "left",
+            fixed: false,
+            resizable: true,
+        },
+        {
+            key: "FECHA_CREACION_CONFIGURACION",
             text: "Fecha Creación",
             width: 200,
             align: "left",
@@ -427,7 +323,7 @@ export class ConfiguracionUsuarios extends Component {
             resizable: true,
         },
         {
-            key: "HORA_CREACION",
+            key: "HORA_CREACION_CONFIGURACION",
             text: "Hora Creación",
             width: 150,
             align: "left",
@@ -438,25 +334,25 @@ export class ConfiguracionUsuarios extends Component {
 
     //Arreglo de las acciones de los botones de la tabla
     bottonsActionsTable = {
-        dataKey: 'ID_CONFIGURACION_USUARIO',
+        dataKey: 'ID_CONFIGURACION',
         actions: [
             {
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
                     let dataJson = {};
-                    dataJson['id_configuracion_usuario'] = data.ID_CONFIGURACION_USUARIO;
+                    dataJson['id_configuracion'] = data.ID_CONFIGURACION;
                     this.setState({
                         showConfirmacion: true,
-                        tituloConfirmacion: 'Eliminar configuración',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar la configuración entre email: ${data.EMAIL}, microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO}?`,
+                        tituloConfirmacion: 'Eliminar Configuracion Variable Nodo',
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar la Configuracion Variable Nodo con ID: ${data.ID_CONFIGURACION}?`,
                         handleAceptarConfirmacion: () => {
-                            ConfiguracionUsuarios_EliminarConfigracion(dataJson).then(() => {
-                                Notify('success','Configuración eliminada',`La configuración: ${data.ID_CONFIGURACION_USUARIO} ha sido eliminado existosamente`)
+                            ConfiguracionVariablesNodoAction_EliminarConfiguracion(dataJson).then(() => {
+                                Notify('success','Configuracion Variable Nodo eliminada',`La Configuracion Variable Nodo:  ${data.ID_CONFIGURACION} entre Nodo Sensor: ${data.ID_NODO_SENSOR} y la Variable: ${data.NOMBRE_VARIABLE} ha sido eliminada existosamente`)
                                 this.setState({dataActualizada: true})
                                 this.setState({showConfirmacion: false})
                             }).catch(() => {
-                                Notify('error','Configuración no eliminada',`La configuración entre email: ${data.EMAIL}, microservicio: ${data.ALIAS_MICROSERIVICIO} y módulo: ${data.ALIAS_MODULO} no ha podido ser eliminado, comunicarse con el área de TI`)
+                                Notify('error','Configuracion Variable Nodo no eliminada',`La Configuracion Variable Nodo:  ${data.ID_CONFIGURACION} entre Nodo Sensor: ${data.ID_NODO_SENSOR} y la Variable: ${data.NOMBRE_VARIABLE} no ha podido ser eliminada, comunicarse con el área de TI`)
                             })
                         }
                     }) 
@@ -476,10 +372,10 @@ export class ConfiguracionUsuarios extends Component {
             onClick: () => {
                 this.setState({
                     showDataEditForm_show: true,
-                    showDataEditForm_title: 'Nueva Configuración',
+                    showDataEditForm_title: 'Nueva Variable',
                     showDataEditForm_schema: schemaModalModulo,
                     showDataEditForm_fields: this.state.formNew,
-                    showDataEditForm_bottonFooter: this.bottonsFooterModalNew
+                    showDataEditForm_bottonFooter: this.bottonsFooterModalNewRegister
                 })
             }
         },
@@ -503,7 +399,7 @@ export class ConfiguracionUsuarios extends Component {
 
                 this.setState({formFilter: newFormFilter});    
                 
-                ConfiguracionUsuarios_ConsultarConfiguracion()
+                ConfiguracionVariablesNodoAction_ConsultarConfiguracion()
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -535,7 +431,7 @@ export class ConfiguracionUsuarios extends Component {
                     }
                 })
             
-                ConfiguracionUsuarios_ConsultarConfiguracion(dataJsonObject)
+                ConfiguracionVariablesNodoAction_ConsultarConfiguracion(dataJsonObject)
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -545,10 +441,10 @@ export class ConfiguracionUsuarios extends Component {
         },
     ]
 
-    //Arreglo de los botones de las acciones del footer para nueva configuración
-    bottonsFooterModalNew = [
+    //Arreglo de los botones de las acciones del footer para nuevo registro
+    bottonsFooterModalNewRegister = [
         {
-            labelButton: "Crear Configuración",
+            labelButton: "Crear Variable",
             color: "green",
             appearance: "subtle",
             icon: true,
@@ -557,11 +453,11 @@ export class ConfiguracionUsuarios extends Component {
                 
                 let dataJson = {};
                 
-                let newConfiguracion = this.state.formNew;
+                let newRegister = this.state.formNew;
 
                 let nullFields = [];
 
-                newConfiguracion.forEach(x => {
+                newRegister.forEach(x => {
                     if (x.valueState === ''){
                         nullFields.push(x.label)
                     }else{
@@ -570,53 +466,45 @@ export class ConfiguracionUsuarios extends Component {
                 })
                 
                 if(nullFields.length > 0){
-                    Notify('warning','Problema creando configuración',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                    Notify('warning','Problema creando la Configuracion Variable Nodo',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    ConfiguracionUsuarios_CrearConfigracion(dataJson).then(() => {
-                        Notify('success','Configuración creada',`La configuración entre email: ${newConfiguracion[0].valueState}, microservicio: ${newConfiguracion[1].valueState} y módulo: ${newConfiguracion[2].valueState}  ha sido creada existosamente`)
+                    ConfiguracionVariablesNodoAction_CrearConfiguracion(dataJson).then(() => {
+                        Notify('success','Configuracion Variable Nodo creada',`La Configuracion Nodo Sensor: ${newRegister[0].valueState} con la Variable: ${newRegister[1].valueState} ha sido creada existosamente`)
                         this.setState({dataActualizada: true})
-                        newConfiguracion.forEach(x => {
+                        newRegister.forEach(x => {
                             x.valueState = ''
                         })
-                        this.setState({formNew: newConfiguracion});
+                        this.setState({formNew: newRegister});
                     }).catch((err) => {
-                        Notify('error','Configuración no creada',`${err.response.data.return}`)
+                        Notify('error','Configuracion Variable Nodo no creado',`${err.response.data.return}`)
                     })
                 }
             },
         }
     ]
 
+
     componentDidMount = () => {
-        ConfiguracionUsuarios_ConsultarConfiguracion()
+        ConfiguracionVariablesNodoAction_ConsultarConfiguracion()
             .then((response) => {
                 this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
             }).catch((err) => {
                 Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
 
-        ConfiguracionUsuarios_ConsultarMicrosevicios()
+        ConfiguracionVariablesNodoAction_ConsultarVariables()
             .then((response) => {
                 let newFrom = this.state.formNew;
                 newFrom[1].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
                 this.setState({formNew: newFrom})
             }).catch((err) => {
-                Notify('error','Error consultado Microservicios',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Microsertvicios. Por favor solicitarlo al administrador de la plataforma.`)
-            })
-
-        ConfiguracionUsuarios_ConsultarModulos()
-            .then((response) => {
-                let newFrom = this.state.formNew;
-                newFrom[2].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
-                this.setState({formNew: newFrom})
-            }).catch((err) => {
-                Notify('error','Error consultado Módulos',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Módulos. Por favor solicitarlo al administrador de la plataforma.`)
+                Notify('error','Error consultado Variable',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Sensores - Variables Nodo Sensor. Por favor solicitarlo al administrador de la plataforma.`)
             })
     }
 
     componentDidUpdate = () => {
         if(this.state.dataActualizada){
-            ConfiguracionUsuarios_ConsultarConfiguracion()
+            ConfiguracionVariablesNodoAction_ConsultarConfiguracion()
                 .then((response) => {
                     this.setState({data: response.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     this.setState({dataActualizada:false})
@@ -631,10 +519,10 @@ export class ConfiguracionUsuarios extends Component {
         return (
             <div>
                 <Sidebar key={1}/>
-                    <div className='container-configuracion'>
+                    <div className='container-estandar'>
                         <Filter
                             key={2}
-                            titleHeader='Configuración Usuarios'
+                            titleHeader='Configuración Variables Nodo Sensores'
                             bottonsHeader={this.bottonsHeaderFilter}
                             formFilter={this.state.formFilter}
                             configuration={configFilter}
@@ -648,6 +536,7 @@ export class ConfiguracionUsuarios extends Component {
                             columns={this.columnsDataTabe} 
                             buttonActions={this.bottonsActionsTable}
                         />
+                        <br/>
                     </div>
                     <ShowEditDataForm
                         key={3}
@@ -672,4 +561,4 @@ export class ConfiguracionUsuarios extends Component {
     }
 }
 
-export default ConfiguracionUsuarios
+export default ConfiguracionVariablesNodo
