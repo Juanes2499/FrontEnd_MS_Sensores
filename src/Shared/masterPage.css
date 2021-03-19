@@ -1,6 +1,8 @@
 .body{
     min-height: 100vh; 
     background-color:#E7E7EE;
+    overflow-y: scroll;
+    display: flex;
 }
 
 .body-container{
@@ -9,8 +11,8 @@
     bottom: auto;
     top: 10%;
     position: fixed;
+    height: auto;
     border-radius: 16px;
     background-color:#fff;
     padding: 20px 20px 20px 20px;
-    overflow: visible;
 }
