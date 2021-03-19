@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Schema } from 'rsuite';
-import './Modulos.css'
+import '../global.css'
+
+//global
+import {configTable} from '../global';
 
 //Elementos
 import { DataTableColAction } from '../../../Elements/DataTable/DataTable';
@@ -49,33 +52,6 @@ const configFilter ={
         borderRadius:'5px'
     }
 }
-
-//Configuration table 
-const configTable ={
-    height: 400,
-    bordered: true,
-    cellBordered: false,
-    autoHeight: false,
-    style:{
-        borderRadius:'10px'
-    },
-    resizable: true,
-    headerStyle: {
-        display:'flex',
-        fontFamily:'Roboto', 
-        fontSize:'110%',
-        //color:'rgb(255, 255, 255)',
-        color:'rgb(0, 0, 0)',
-        //backgroundColor:'rgb(0, 0, 0)'
-    },
-    cellStyle: {
-        display:'flex',
-        fontFamily:'Roboto', 
-        fontSize:'100%',
-        color:'rgb(148, 148, 148)',
-    }
-}
-
 
 export class Modulos extends Component {
     //Estados
@@ -809,7 +785,7 @@ export class Modulos extends Component {
 
         return (
             <div>
-                    <div className='container-modulos'>
+                    <div className='container-global'>
                         <Filter
                             key={2}
                             titleHeader='Módulos'

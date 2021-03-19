@@ -1,0 +1,16 @@
+.body{
+    min-height: 100vh; 
+    background-color:#E7E7EE;
+}
+
+.body-container{
+    right: 2%;
+    left: 5%;
+    bottom: auto;
+    top: 10%;
+    position: fixed;
+    border-radius: 16px;
+    background-color:#fff;
+    padding: 20px 20px 20px 20px;
+    overflow: visible;
+}

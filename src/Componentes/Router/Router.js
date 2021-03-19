@@ -12,6 +12,8 @@ import ConfiguracionUsuarios from '../Containers/Administrador/ConfiguracionUsua
 import NodoSensores from '../Containers/Administrador/Sensores/NodoSensores/NodoSensores';
 import VariablesNodoSensor from '../Containers/Administrador/Sensores/VariablesNodoSensor/VariablesNodoSensor';
 import ConfiguracionVariablesNodo from '../Containers/Administrador/Sensores/ConfiguracionVariablesNodo/ConfiguracionVariablesNodo';
+
+
 class Router extends Component {
 
 

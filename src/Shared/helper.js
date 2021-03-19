@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 import jwt from 'jsonwebtoken';
 import {LoginAction_CerrarSesion} from '../Acciones/Login/LoginAction';
 import history from './createHistory';
+import './masterPage.css';
 
 //Elemts
 import Sidebar from '../Componentes/Elements/Sidebar/Sidebar';
@@ -74,9 +75,9 @@ export const validateAuth =  (ComposedComponent) => {
 
         render() {
             return (
-                <div>
+                <div className='body'>
                     <Sidebar key={1}/> 
-                        <div style={{marginTop:'70px'}}>
+                        <div className='body-container'>
                             <ComposedComponent {...this.props} />
                         </div> 
                     <Footer/> 

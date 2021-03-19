@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import { Schema } from 'rsuite';
-import './Usuarios.css'
+import '../global.css'
+
+//global
+import {configTable} from '../global';
 
 //Action
 import {
@@ -36,32 +39,6 @@ const configFilter ={
     styleAccordionSummary: {
         backgroundColor:'rgba(17, 0, 94, 0.808)', 
         borderRadius:'5px'
-    }
-}
-
-//Configuration table 
-const configTable ={
-    height: 400,
-    bordered: true,
-    cellBordered: false,
-    autoHeight: false,
-    style:{
-        borderRadius:'10px',
-    },
-    resizable: true,
-    headerStyle: {
-        display:'flex',
-        fontFamily:'Roboto', 
-        fontSize:'110%',
-        //color:'rgb(255, 255, 255)',
-        color:'rgb(0, 0, 0)',
-        //backgroundColor:'rgb(0, 0, 0)'
-    },
-    cellStyle: {
-        display:'flex',
-        fontFamily:'Roboto', 
-        fontSize:'100%',
-        color:'rgb(148, 148, 148)',
     }
 }
 
@@ -820,7 +797,7 @@ class Usuarios extends Component {
     render() {
         return (
             <div>
-                <div className='container-usuarios'>
+                <div className='container-global'>
                     <Filter
                         key={2}
                         titleHeader='Usuarios'
