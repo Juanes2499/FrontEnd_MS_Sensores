@@ -80,6 +80,9 @@ export const validateAuth =  (ComposedComponent) => {
                         <div className='body-container'>
                             <ComposedComponent {...this.props} />
                         </div> 
+                        <div className='body-container'>
+                            <ComposedComponent {...this.props} />
+                        </div> 
                     <Footer/> 
                 </div>
             )

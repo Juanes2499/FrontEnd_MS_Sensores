@@ -60,7 +60,7 @@ const configMap ={
     style:{
         width:'100%',
         height:'400px',
-        marginBottom:'7%'
+        marginBottom:'2%'
     },
     center:[3.470415, -76.500162],
     zoom:13,
