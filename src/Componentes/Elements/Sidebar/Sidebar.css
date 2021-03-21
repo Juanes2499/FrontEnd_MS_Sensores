@@ -62,27 +62,27 @@
 
 @media screen and (max-width: 960px) {
     .nombre-user{
-        color: white;
+        color: #3B3798;
         font-family: 'Roboto';
-        font-size: 105%;
+        font-size: 90%;
         font-weight: bold;
     }
     .email-user{
-        color: white;
+        color: #3B3798;
         font-family: 'Roboto';
-        font-size: 90%;
+        font-size: 80%;
     }
 }
 
 @media screen and (max-width: 600px) {
     .nombre-user{
-        color: white;
+        color: #3B3798;
         font-family: 'Roboto';
-        font-size: 90%;
+        font-size: 80%;
         font-weight: bold;
     }
     .email-user{
-        color: white;
+        color: #3B3798;
         font-family: 'Roboto';
         font-size: 70%;
     }
