@@ -71,6 +71,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                       data={dataPicker}
                       style={{ width: 350, display: 'block', marginBottom: 1, fontFamily:'Roboto'}}
                       onChange={handlerValue}
+                      defaultValue={value}
                     />
             </FormGroup>
         );
