@@ -13,7 +13,7 @@ import NodoSensores from '../Containers/Administrador/Sensores/NodoSensores/Nodo
 import VariablesNodoSensor from '../Containers/Administrador/Sensores/VariablesNodoSensor/VariablesNodoSensor';
 import ConfiguracionVariablesNodo from '../Containers/Administrador/Sensores/ConfiguracionVariablesNodo/ConfiguracionVariablesNodo';
 import ConfiguracionReglas from '../Containers/Administrador/Sensores/ConfiguracionReglas/ConfiguracionReglas';
-
+import DatosNodoSensor from '../Containers/Administrador/Sensores/DatosNodoSensor/DatosNodoSensor';
 
 class Router extends Component {
 
@@ -37,6 +37,7 @@ class Router extends Component {
             <Route exact path="/Administrator/Sensores/VariablesNodoSensor" component={validateAuth(VariablesNodoSensor)}/>
             <Route exact path="/Administrator/Sensores/ConfiguracionVNS" component={validateAuth(ConfiguracionVariablesNodo)}/>
             <Route exact path="/Administrator/Sensores/ConfiguracionRNS" component={validateAuth(ConfiguracionReglas)}/>
+            <Route exact path="/Administrator/Sensores/DatosNodoSensor" component={validateAuth(DatosNodoSensor)}/>
             <Redirect to ="/Home"/>
           </Switch>
         </BrowserRouter>
