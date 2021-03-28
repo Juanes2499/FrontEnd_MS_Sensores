@@ -556,7 +556,7 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 newFrom[0].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
                 this.setState({formNew: newFrom})
             }).catch((err) => {
-                Notify('error','Error consultado Microservicios',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Microsertvicios. Por favor solicitarlo al administrador de la plataforma.`)
+                Notify('error','Error consultado Microservicios',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
 
         ConfiguracionMicroserviciosModulosAction_ConsultarModulos()
@@ -565,7 +565,7 @@ export class ConfiguracionMicroserviciosModulos extends Component {
                 newFrom[1].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
                 this.setState({formNew: newFrom})
             }).catch((err) => {
-                Notify('error','Error consultado Módulos',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Autentiación - Módulos. Por favor solicitarlo al administrador de la plataforma.`)
+                Notify('error','Error consultado Módulos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
     }
 

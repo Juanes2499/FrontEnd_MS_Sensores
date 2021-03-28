@@ -35,7 +35,7 @@ export const ConfiguracionMicroserviciosModulosAction_ConsultarMicrosevicios = (
         "ordenar":""
     }
 
-    const endpoint = '/api/microservicios/get'
+    const endpoint = '/api/configuracion_microservicio_modulos/microservicios/get'
 
     return new Promise((resolve, reject) => {
         try {
@@ -60,7 +60,7 @@ export const ConfiguracionMicroserviciosModulosAction_ConsultarModulos = () => {
         "ordenar":""
     }
 
-    const endpoint = '/api/modulos/get'
+    const endpoint = '/api/configuracion_microservicio_modulos/modulos/get'
 
     return new Promise((resolve, reject) => {
         try {
