@@ -35,7 +35,7 @@ export const ConfiguracionVariablesNodoAction_ConsultarVariables = () => {
         "ordenar":""
     }
 
-    const endpoint = '/api/variablesNodoSensor/get'
+    const endpoint = '/api/configuracionVariablesNodoSensor/variablesNodoSensor/get'
 
     return new Promise((resolve, reject) => {
         try {

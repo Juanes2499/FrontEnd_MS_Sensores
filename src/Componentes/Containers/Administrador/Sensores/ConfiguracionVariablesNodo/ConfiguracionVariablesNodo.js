@@ -469,7 +469,7 @@ export class ConfiguracionVariablesNodo extends Component {
                 newFrom[1].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
                 this.setState({formNew: newFrom})
             }).catch((err) => {
-                Notify('error','Error consultado Variable',`Posiblemente su cuenta no tiene permisos para consumir endpoints relacionado con el módulo de Sensores - Variables Nodo Sensor. Por favor solicitarlo al administrador de la plataforma.`)
+                Notify('error','Error consultado Variable',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
     }
 
