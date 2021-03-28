@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { Schema } from 'rsuite';
 import "../../global.css"
 
 //global
 import {configTable} from '../../global';
 
 //Elementos
-import { DataTableColAction } from '../../../../Elements/DataTable/DataTable';
+import { DataTable } from '../../../../Elements/DataTable/DataTable';
 import Filter from '../../../../Elements/Filter/Filter';
 import { Notify } from '../../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../../Elements/Confirmation/Confirmation';
@@ -16,25 +15,8 @@ import ShowEditDataForm from '../../../../Modals/showEditDataForm/ShowEditDataFo
 
 //Actions
 import { 
-    ConfiguracionReglasActionAction_ConsultarRegla,
-    ConfiguracionReglasActionAction_EliminarRegla
-} from '../../../../../Acciones/Sensores/ConfiguracionReglas/ConfiguracionReglasAction';
-
-import { 
     DatosNodoSensorAction_ConsultarDatos
 } from '../../../../../Acciones/Sensores/DatosNodoSensor/DatosNodoSensorAction';
-
-//Schemas
-const { StringType } = Schema.Types;
-const schemaModalModulo = Schema.Model({
-    NOMBRE_MODULO: StringType().isRequired('Este campo es requerido'),
-    DETALLES: StringType().isRequired('Este campo es requerido'),
-    URL_MODULO: StringType().isRequired('Este campo es requerido'),
-    ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
-    URL_ALIAS_MODULO: StringType().isRequired('Este campo es requerido'),
-    ORDEN: StringType().isRequired('Este campo es requerido'),
-    ICON_MODULO: StringType().isRequired('Este campo es requerido'),
-});
 
 //Configuration filter 
 const configFilter ={
@@ -78,8 +60,8 @@ export class DatosNodoSensor extends Component {
         //Form para el filtro
         formFilter:[
             {
-                name: "ID_REGLA",
-                label: "ID Regla",
+                name: "ID_DATO",
+                label: "ID Dato",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -132,10 +114,10 @@ export class DatosNodoSensor extends Component {
                 }
             },
             {
-                name: "FECHA_CREACION",
-                label: "Fecha Creación",
-                type: "date",
-                dataEntryType:'datepicker',
+                name: "VALOR_DATO",
+                label: "Valor Dato",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -150,10 +132,10 @@ export class DatosNodoSensor extends Component {
                 }
             },
             {
-                name: "HORA_CREACION",
-                label: "Hora Creación",
-                type: "time",
-                dataEntryType:'timepicker',
+                name: "VALOR_NOTIFICADO",
+                label: "Valor Notificado",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -168,10 +150,10 @@ export class DatosNodoSensor extends Component {
                 }
             },
             {
-                name: "FECHA_ACTUALIZACION",
-                label: "Fecha Actualización",
-                type: "date",
-                dataEntryType:'datepicker',
+                name: "ID_REGLA",
+                label: "ID Regla",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -186,10 +168,10 @@ export class DatosNodoSensor extends Component {
                 }
             },
             {
-                name: "HORA_ACTUALIZACION",
-                label: "Hora Actualización",
-                type: "time",
-                dataEntryType:'timepicker',
+                name: "EXPRESION_EVALUADA",
+                label: "Expresión Regla",
+                type: "text",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -200,6 +182,42 @@ export class DatosNodoSensor extends Component {
                 handleOperator: (operador) => {
                     let newOperator = this.state.formFilter;
                     newOperator[6].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
+            },
+            {
+                name: "FECHA_CREACION",
+                label: "Fecha Creación",
+                type: "date",
+                dataEntryType:'datepicker',
+                valueState: '',
+                operador: [],
+                hadlerValueState: (data) => {
+                    let newFilterModal = this.state.formFilter;
+                    newFilterModal[7].valueState = data;
+                    this.setState({formFilter: newFilterModal});
+                },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[7].operador = operador;
+                    this.setState({formFilter: newOperator});
+                }
+            },
+            {
+                name: "HORA_CREACION",
+                label: "Hora Creación",
+                type: "time",
+                dataEntryType:'timepicker',
+                valueState: '',
+                operador: [],
+                hadlerValueState: (data) => {
+                    let newFilterModal = this.state.formFilter;
+                    newFilterModal[8].valueState = data;
+                    this.setState({formFilter: newFilterModal});
+                },
+                handleOperator: (operador) => {
+                    let newOperator = this.state.formFilter;
+                    newOperator[8].operador = operador;
                     this.setState({formFilter: newOperator});
                 }
             },
@@ -306,35 +324,6 @@ export class DatosNodoSensor extends Component {
         }
     ]
 
-    //Arreglo de las acciones de los botones de la tabla
-    bottonsActionsTable = {
-        dataKey: 'ID_REGLA',
-        actions: [
-            {
-                appearance: "subtle",
-                nameIcon: 'fas fa-trash-alt',
-                onClick: (data, dataKey) => {
-                    let dataJson = {};
-                    dataJson['id_regla'] = data.ID_REGLA;
-                    this.setState({
-                        showConfirmacion: true,
-                        tituloConfirmacion: 'Eliminar Regla',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar la Regla con ID: ${data.ID_REGLA}?`,
-                        handleAceptarConfirmacion: () => {
-                            ConfiguracionReglasActionAction_EliminarRegla(dataJson).then(() => {
-                                Notify('success','Regla eliminada',`La Regla: ${data.ID_REGLA} ha sido eliminada existosamente`)
-                                this.setState({dataActualizada: true})
-                                this.setState({showConfirmacion: false})
-                            }).catch(() => {
-                                Notify('error','Regla no eliminada',`La Regla: ${data.ID_REGLA} no ha podido ser eliminada, comunicarse con el área de TI`)
-                            })
-                        }
-                    }) 
-                },
-            },
-        ]
-    }
-
     //Arreglo de los botones de las acciones del header del filtro
     bottonsHeaderFilter = [
         
@@ -358,7 +347,7 @@ export class DatosNodoSensor extends Component {
 
                 this.setState({formFilter: newFormFilter});    
                 
-                ConfiguracionReglasActionAction_ConsultarRegla()
+                DatosNodoSensorAction_ConsultarDatos()
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -390,7 +379,7 @@ export class DatosNodoSensor extends Component {
                     }
                 })
             
-                ConfiguracionReglasActionAction_ConsultarRegla(dataJsonObject)
+                DatosNodoSensorAction_ConsultarDatos(dataJsonObject)
                     .then(result => {
                         this.setState({data: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
                     }).catch((err) => {
@@ -424,12 +413,11 @@ export class DatosNodoSensor extends Component {
                         actions={this.bottonsFooterFilter}
                     />
                     <br/>
-                    <DataTableColAction 
+                    <DataTable 
                         key={this.state.data.id} 
                         configuration={configTable} 
                         data={this.state.data} 
                         columns={this.columnsDataTabe} 
-                        buttonActions={this.bottonsActionsTable}
                     />
                     <br/>
                 </div>
