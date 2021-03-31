@@ -164,7 +164,7 @@ export const DataTableColAction = ({configuration, data, columns, buttonActions}
                         )
                     })
                 }    
-                <Column width={80} fixed='right'>
+                <Column width={configuration.ActionCellStyle.width} fixed='right'>
                     <HeaderCell style={configuration.headerStyle}>Acciones</HeaderCell>
                     <ActionCell dataKey={buttonActions.dataKey} buttons={buttonActions.actions}/>
                 </Column>       
