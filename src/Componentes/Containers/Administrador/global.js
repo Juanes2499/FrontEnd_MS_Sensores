@@ -23,5 +23,8 @@ export const configTable ={
         fontFamily:'Roboto', 
         fontSize:'100%',
         color:'rgb(148, 148, 148)',
+    },
+    ActionCellStyle: {
+        width: 130
     }
 }
