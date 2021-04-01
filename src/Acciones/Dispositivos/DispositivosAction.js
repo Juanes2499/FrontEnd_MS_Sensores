@@ -76,3 +76,66 @@ export const DispositivosAction_CrearDispositivos = (data) => {
         }
     })
 }
+
+export const DispositivosAction_ActualizarDispositivos = (data) => {
+
+    data.microservicio_interes = "GLOBAL";
+    data.modulo_interes = "GLOBAL";
+
+    const endpoint = '/api/dispositivos'
+
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().put(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
+
+export const DispositivosAction_EliminarDispositivos = (data) => {
+
+    data.microservicio_interes = "GLOBAL";
+    data.modulo_interes = "GLOBAL";
+
+    const endpoint = '/api/dispositivos/delete'
+
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
+
+export const DispositivosAction_EstadoContrasenaDispositivo = (data) => {
+
+    data.microservicio_interes = "GLOBAL";
+    data.modulo_interes = "GLOBAL";
+
+    const endpoint = '/api/dispositivos/validarEstadoContrasena'
+
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}

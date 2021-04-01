@@ -16,14 +16,12 @@ import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm'
 
 //Actions
 import { 
-    ModulosAction_ActualizarModulo,
-    ModulosAction_EliminarModulo
-} from '../../../../Acciones/Modulos/ModulosAction';
-
-import { 
     DispositivosAction_ConsultarDispositivos,
     DispositivosAction_ConsultarMicrosevicios,
     DispositivosAction_CrearDispositivos,
+    DispositivosAction_ActualizarDispositivos,
+    DispositivosAction_EliminarDispositivos,
+    DispositivosAction_EstadoContrasenaDispositivo
 } from '../../../../Acciones/Dispositivos/DispositivosAction';
 
 //Schemas
@@ -342,109 +340,192 @@ export class Dispositivos extends Component {
             }
         ],
         //Form para actualizar un registro
-        formUpdateModulo:[
+        formUpdate:[
             {
-                name: "ID_MODULO",
-                label: "ID Módulo",
+                name: "ID_DISPOSITIVO",
+                label: "ID Dispositivo",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: true,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
+                    let form = this.state.formUpdate;
                     form[0].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    this.setState({formUpdate: form});
                 },
             },
             {
-                name: "NOMBRE_MODULO",
-                label: "Nombre Módulo",
+                name: "MARCA",
+                label: "Marca",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
+                    let form = this.state.formUpdate;
                     form[1].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    this.setState({formUpdate: form});
                 },
             },
             {
-                name: "DETALLES",
-                label: "Detalles",
+                name: "REFERENCIA",
+                label: "Referencia",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
+                    let form = this.state.formUpdate;
                     form[2].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    this.setState({formUpdate: form});
                 },
             },
             {
-                name: "URL_MODULO",
-                label: "URL Módulo",
+                name: "LATITUD",
+                label: "Latitud",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
+                    let form = this.state.formUpdate;
                     form[3].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    this.setState({formUpdate: form});
                 },
             },
             {
-                name: "ALIAS_MODULO",
-                label: "Alias Módulo",
+                name: "LONGITUD",
+                label: "Longitud",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
+                    let form = this.state.formUpdate;
                     form[4].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    this.setState({formUpdate: form});
                 },
             },
             {
-                name: "URL_ALIAS_MODULO",
-                label: "URL Alias Módulo",
+                name: "NOMBRE_MICROSERVICIO",
+                label: "Alias Microservicio",
                 type: "text",
-                dataEntryType:'input',
+                dataEntryType:'selectpicker',
                 readOnly: false,
                 valueState: '',
+                dataPicker: [],
+                placeHolderPicker:'Seleccionar',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
+                    let form = this.state.formUpdate;
                     form[5].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    this.setState({formUpdate: form});
                 },
             },
             {
-                name: "ORDEN",
-                label: "Orden",
+                name: "EMAIL_RESPONSABLE",
+                label: "Email Responsable",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
+                    let form = this.state.formUpdate;
                     form[6].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    this.setState({formUpdate: form});
                 },
             },
             {
-                name: "ICON_MODULO",
-                label: "Icono Módulo",
+                name: "DISPOSITIVO_ACTIVO",
+                label: "Dispositivo Activo",
+                type: "toggle",
+                dataEntryType:'toggle',
+                readOnly: false,
+                valueState: false,
+                hadlerValueState: (data) => {
+                    let form = this.state.formUpdate;
+                    form[7].valueState = data;
+                    this.setState({newUserModal: form});
+                },
+            }
+        ],
+        //Form para actualizar la contraseña
+        formPassword:[
+            {
+                name: "ID_DISPOSITIVO",
+                label: "ID Dispositivo",
                 type: "text",
+                dataEntryType:'input',
+                readOnly: true,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let form = this.state.formUpdate;
+                    form[0].valueState = data;
+                    this.setState({formUpdate: form});
+                },
+            },
+            {
+                name: "EMAIL_RESPONSABLE",
+                label: "Email Responsable",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: true,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let form = this.state.formUpdate;
+                    form[1].valueState = data;
+                    this.setState({formUpdate: form});
+                },
+            },
+            {
+                name: "NOMBRE_MICROSERVICIO",
+                label: "Nombre Microservicio",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: true,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let form = this.state.formUpdate;
+                    form[2].valueState = data;
+                    this.setState({formUpdate: form});
+                },
+            },
+            {
+                name: "OLD_PASSWORD",
+                label: "Contraseña Anterior",
+                type: "password",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdateModulo;
-                    form[7].valueState = data;
-                    this.setState({formUpdateModulo: form});
+                    let form = this.state.formUpdate;
+                    form[3].valueState = data;
+                    this.setState({formUpdate: form});
+                },
+            },
+            {
+                name: "PASSWORD_AUTH",
+                label: "Contraseña Nueva",
+                type: "password",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let form = this.state.formUpdate;
+                    form[4].valueState = data;
+                    this.setState({formUpdate: form});
+                },
+            },
+            {
+                name: "PASSWORD_AUTH_CONF",
+                label: "Confirmación Contraseña Nueva",
+                type: "password",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let form = this.state.formUpdate;
+                    form[5].valueState = data;
+                    this.setState({formUpdate: form});
                 },
             },
         ]
@@ -592,25 +673,25 @@ export class Dispositivos extends Component {
 
     //Arreglo de las acciones de los botones de la tabla
     bottonsActionsTable = {
-        dataKey: 'ID_MODULO',
+        dataKey: 'ID_DISPOSITIVO',
         actions: [
             {
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
                     let dataJson = {};
-                    dataJson['id_modulo'] = data.ID_MODULO;
+                    dataJson['id_dispositivo'] = data.ID_DISPOSITIVO;
                     this.setState({
                         showConfirmacion: true,
-                        tituloConfirmacion: 'Eliminar módulo',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el módulo: ${data.NOMBRE_MODULO}?`,
+                        tituloConfirmacion: 'Eliminar Dispositivo',
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el Dispositivo: ${data.MARCA} - ${data.REFERENCIA} con ID: ${data.ID_DISPOSITIVO} ?`,
                         handleAceptarConfirmacion: () => {
-                            ModulosAction_EliminarModulo(dataJson).then(() => {
-                                Notify('success','Módulo eliminado',`El módulo: ${data.NOMBRE_MODULO} ha sido eliminado existosamente`)
+                            DispositivosAction_EliminarDispositivos(dataJson).then(() => {
+                                Notify('success','Módulo eliminado',`El Dispositivo: ${data.MARCA} - ${data.REFERENCIA} con ID: ${data.ID_DISPOSITIVO} ha sido eliminado existosamente`)
                                 this.setState({dataActualizada: true})
                                 this.setState({showConfirmacion: false})
                             }).catch(() => {
-                                Notify('error','Módulo no eliminado',`El módulo: ${data.NOMBRE_MODULO} no ha podido ser eliminado, comunicarse con el área de TI`)
+                                Notify('error','Dispositivo no eliminado',`El Dispositivo: ${data.MARCA} - ${data.REFERENCIA} con ID: ${data.ID_DISPOSITIVO} no ha podido ser eliminado, comunicarse con el área de TI`)
                             })
                         }
                     }) 
@@ -621,22 +702,92 @@ export class Dispositivos extends Component {
                 nameIcon: 'fas fa-edit',
                 onClick: (data, dataKey) => {
 
-                    let updateForm = this.state.formUpdateModulo;
-                    updateForm[0].valueState = data.ID_MODULO
-                    updateForm[1].valueState = data.NOMBRE_MODULO
-                    updateForm[2].valueState = data.DETALLES
-                    updateForm[3].valueState = data.URL_MODULO
-                    updateForm[4].valueState = data.ALIAS_MODULO
-                    updateForm[5].valueState = data.URL_ALIAS_MODULO
-                    updateForm[6].valueState = data.ORDEN
-                    updateForm[7].valueState = data.ICON_MODULO
-                    this.setState({formUpdateModulo: updateForm});
+                    console.log(data)
+
+                    let updateForm = this.state.formUpdate;
+                    updateForm[0].valueState = data.ID_DISPOSITIVO
+                    updateForm[1].valueState = data.MARCA
+                    updateForm[2].valueState = data.REFERENCIA
+                    updateForm[3].valueState = data.LATITUD
+                    updateForm[4].valueState = data.LONGITUD
+                    updateForm[5].valueState = data.NOMBRE_MICROSERVICIO
+                    updateForm[6].valueState = data.EMAIL_RESPONSABLE
+                    updateForm[7].valueState = data.DISPOSITIVO_ACTIVO
+                    this.setState({formUpdate: updateForm});
 
                     this.setState({
                         showDataEditForm_show: true,
                         showDataEditForm_title: 'Editar Módulo',
                         showDataEditForm_schema: schemaModalModulo,
-                        showDataEditForm_fields: this.state.formUpdateModulo,
+                        showDataEditForm_fields: this.state.formUpdate,
+                        showDataEditForm_bottonFooter: this.bottonsFooterModalUpdateModulo
+                    })
+
+                },
+            },
+            {
+                appearance: "subtle",
+                nameIcon: 'fas fa-key',
+                onClick: (data, dataKey) => {
+
+                    console.log(data)
+
+                    let passForm = this.state.formPassword;
+                    passForm[0].valueState = data.ID_DISPOSITIVO
+                    passForm[1].valueState = data.EMAIL_RESPONSABLE
+                    passForm[2].valueState = data.EMAIL_RESPONSABLE
+                    passForm[3].valueState = data.EMAIL_RESPONSABLE
+                    passForm[4].valueState = data.EMAIL_RESPONSABLE
+
+                    this.setState({formPassword: passForm});
+
+                    let dataJson = {
+                        id_dispositivo: data.ID_DISPOSITIVO,
+                        email_responsable: data.EMAIL_RESPONSABLE
+                    }
+
+                    DispositivosAction_EstadoContrasenaDispositivo(dataJson)
+                        .then((result) => {
+                            if(result.invalidPassword === true){
+                                Notify('warning','Estado contraseña dispositivo',`La contraseña del dispositivo esta desactivada. Si solicitó cambio de contraseña, revise su correo y escriba la contraseña que fue enviada para restablecer la contraseña del dispositivo. Si no ha llegado nada a su correo por favor comuniquese con el administrador de la plataforma.`)
+                            }else if(result.invalidPassword === false){
+                                Notify('warning','Estado contraseña dispositivo',`La contraseña del dispositivo esta activada. Si no recuerda la contraseña del dispositivo, por favor de clic en Cambiar Contraseña.`)
+                            }
+                        })
+
+                    this.setState({
+                        showDataEditForm_show: true,
+                        showDataEditForm_title: 'Cambiar contraseña',
+                        showDataEditForm_schema: schemaModalModulo,
+                        showDataEditForm_fields: this.state.formPassword,
+                        showDataEditForm_bottonFooter: this.bottonsFooterModalUpdatePassword
+                    })
+
+                },
+            },
+            {
+                appearance: "subtle",
+                nameIcon: 'fas fa-passport',
+                onClick: (data, dataKey) => {
+
+                    console.log(data)
+
+                    let updateForm = this.state.formUpdate;
+                    updateForm[0].valueState = data.ID_DISPOSITIVO
+                    updateForm[1].valueState = data.MARCA
+                    updateForm[2].valueState = data.REFERENCIA
+                    updateForm[3].valueState = data.LATITUD
+                    updateForm[4].valueState = data.LONGITUD
+                    updateForm[5].valueState = data.NOMBRE_MICROSERVICIO
+                    updateForm[6].valueState = data.EMAIL_RESPONSABLE
+                    updateForm[7].valueState = data.DISPOSITIVO_ACTIVO
+                    this.setState({formUpdate: updateForm});
+
+                    this.setState({
+                        showDataEditForm_show: true,
+                        showDataEditForm_title: 'Editar Módulo',
+                        showDataEditForm_schema: schemaModalModulo,
+                        showDataEditForm_fields: this.state.formUpdate,
                         showDataEditForm_bottonFooter: this.bottonsFooterModalUpdateModulo
                     })
 
@@ -725,10 +876,10 @@ export class Dispositivos extends Component {
         },
     ]
 
-    //Arreglo de los botones de las acciones del footer para nuevo microservicio
+    //Arreglo de los botones de las acciones del footer para nuevo registrp
     bottonsFooterModalNewModulo = [
         {
-            labelButton: "Crear Módulo",
+            labelButton: "Crear Dispositivo",
             color: "green",
             appearance: "subtle",
             icon: true,
@@ -767,7 +918,7 @@ export class Dispositivos extends Component {
         }
     ]
 
-    //Arreglo de los botones de las acciones del footer para actualizar microservicio
+    //Arreglo de los botones de las acciones del footer para actualizar el registro
     bottonsFooterModalUpdateModulo = [
         {
             labelButton: "Actualizar",
@@ -779,33 +930,73 @@ export class Dispositivos extends Component {
                 
                 let dataJson = {};
                 
-                let updateModulo = this.state.formUpdateModulo;
+                let updateReg = this.state.formUpdate;
 
                 let nullFields = [];
 
-                updateModulo.forEach(x => {
+                updateReg.forEach(x => {
                     if (x.valueState === ''){
                         nullFields.push(x.label)
                     }else{
                         dataJson[`${x.name.toLowerCase()}`] = x.valueState
                     }
                 })
-
-                console.log(dataJson)
             
                 if(nullFields.length > 0){
-                    Notify('warning','Problema actualizando módulo',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                    Notify('warning','Problema actualizando Dispositivo',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                    ModulosAction_ActualizarModulo(dataJson).then(() => {
-                        Notify('success','Módulo actualizado',`El módulo: ${updateModulo[1].valueState} ha sido actualizado existosamente`)
+                    DispositivosAction_ActualizarDispositivos(dataJson).then(() => {
+                        Notify('success','Dispositivo actualizado',`El Dispositivo: ${updateReg[1].valueState} - ${updateReg[2].valueState} con ID: ${updateReg[0].valueState} ha sido actualizado existosamente`)
                         this.setState({dataActualizada: true})
-                        updateModulo.forEach(x => {
+                        updateReg.forEach(x => {
                             x.valueState = ''
                         })
                         this.setState({showDataEditForm_show: false});
                     }).catch((err) => {
-                        Notify('error','Módulo no actualizado',`${err.response.data.return}`)
+                        Notify('error','Dispositivo no actualizado',`${err.response.data.return}`)
                     })
+                }
+            },
+        }
+    ]
+
+    //Arreglo de los botones de las acciones del footer para la actualización de contraseña
+    bottonsFooterModalUpdatePassword = [
+        {
+            labelButton: "Actualizar",
+            color: "yellow",
+            appearance: "subtle",
+            icon: true,
+            nameIcon: 'fas fa-key',
+            onClick: () => {
+                
+                let dataJson = {};
+                
+                let updatePass = this.state.formPassword;
+
+                let nullFields = [];
+
+                updatePass.forEach(x => {
+                    if (x.valueState === ''){
+                        nullFields.push(x.label)
+                    }else{
+                        dataJson[`${x.name.toLowerCase()}`] = x.valueState
+                    }
+                })
+            
+                if(nullFields.length > 0){
+                    Notify('warning','Problema actualizando contraseña',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
+                }else{
+                        DispositivosAction_ActualizarDispositivos(dataJson).then(() => {
+                            Notify('success','Contraseña actualizada',`La contraseña para el dispositivo con ID: ${updatePass[0].valueState} ha sido actualizada existosamente`)
+                            this.setState({dataActualizada: true})
+                            updatePass.forEach(x => {
+                                x.valueState = ''
+                            })
+                            this.setState({showDataEditForm_show: false});
+                        }).catch((err) => {
+                            Notify('error','Contraseña no actualizada',`${err.response.data.return}`)
+                        })
                 }
             },
         }
@@ -824,6 +1015,9 @@ export class Dispositivos extends Component {
                 let newFrom = this.state.formNew;
                 newFrom[4].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
                 this.setState({formNew: newFrom})
+                let updateForm = this.state.formUpdate;
+                updateForm[5].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
+                this.setState({formUpdate: updateForm})
             }).catch((err) => {
                 Notify('error','Error consultado Microservicios',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
