@@ -10,6 +10,7 @@ import { DataTableColAction } from '../../../Elements/DataTable/DataTable';
 import Filter from '../../../Elements/Filter/Filter';
 import { Notify } from '../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../Elements/Confirmation/Confirmation';
+import { ShowInformation } from '../../../Modals/ShowInformation/ShowInformation';
 
 //Modals
 import ShowEditDataForm from '../../../Modals/showEditDataForm/ShowEditDataForm';
@@ -21,7 +22,10 @@ import {
     DispositivosAction_CrearDispositivos,
     DispositivosAction_ActualizarDispositivos,
     DispositivosAction_EliminarDispositivos,
-    DispositivosAction_EstadoContrasenaDispositivo
+    DispositivosAction_EstadoContrasenaDispositivo,
+    DispositivosAction_CambiarContrasenaDispositivo,
+    DispositivosAction_SolicitarCambioContrasena,
+    DispositivosAction_CambiarTokenDispositivo
 } from '../../../../Acciones/Dispositivos/DispositivosAction';
 
 //Schemas
@@ -73,6 +77,11 @@ export class Dispositivos extends Component {
         tituloConfirmacion:'', 
         cuerpoConfirmacion:'',
         handleAceptarConfirmacion:()=>{},
+        //Estado para el componente modal para mostrar información
+        showInformacion: false,
+        tituloInformacion:'', 
+        cuerpoInformacion:'',
+        buttonFooterInformacion: [],
         //Form para el filtro
         formFilter:[
             {
@@ -328,7 +337,7 @@ export class Dispositivos extends Component {
             {
                 name: "EMAIL_RESPONSABLE",
                 label: "Email Responsable",
-                type: "text",
+                type: "email",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
@@ -424,7 +433,7 @@ export class Dispositivos extends Component {
             {
                 name: "EMAIL_RESPONSABLE",
                 label: "Email Responsable",
-                type: "text",
+                type: "email",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
@@ -458,9 +467,9 @@ export class Dispositivos extends Component {
                 readOnly: true,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdate;
+                    let form = this.state.formPassword;
                     form[0].valueState = data;
-                    this.setState({formUpdate: form});
+                    this.setState({formPassword: form});
                 },
             },
             {
@@ -471,9 +480,9 @@ export class Dispositivos extends Component {
                 readOnly: true,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdate;
+                    let form = this.state.formPassword;
                     form[1].valueState = data;
-                    this.setState({formUpdate: form});
+                    this.setState({formPassword: form});
                 },
             },
             {
@@ -484,9 +493,9 @@ export class Dispositivos extends Component {
                 readOnly: true,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdate;
+                    let form = this.state.formPassword;
                     form[2].valueState = data;
-                    this.setState({formUpdate: form});
+                    this.setState({formPassword: form});
                 },
             },
             {
@@ -497,9 +506,9 @@ export class Dispositivos extends Component {
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdate;
+                    let form = this.state.formPassword;
                     form[3].valueState = data;
-                    this.setState({formUpdate: form});
+                    this.setState({formPassword: form});
                 },
             },
             {
@@ -510,9 +519,9 @@ export class Dispositivos extends Component {
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdate;
+                    let form = this.state.formPassword;
                     form[4].valueState = data;
-                    this.setState({formUpdate: form});
+                    this.setState({formPassword: form});
                 },
             },
             {
@@ -523,9 +532,9 @@ export class Dispositivos extends Component {
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
-                    let form = this.state.formUpdate;
+                    let form = this.state.formPassword;
                     form[5].valueState = data;
-                    this.setState({formUpdate: form});
+                    this.setState({formPassword: form});
                 },
             },
         ]
@@ -702,8 +711,6 @@ export class Dispositivos extends Component {
                 nameIcon: 'fas fa-edit',
                 onClick: (data, dataKey) => {
 
-                    console.log(data)
-
                     let updateForm = this.state.formUpdate;
                     updateForm[0].valueState = data.ID_DISPOSITIVO
                     updateForm[1].valueState = data.MARCA
@@ -730,14 +737,10 @@ export class Dispositivos extends Component {
                 nameIcon: 'fas fa-key',
                 onClick: (data, dataKey) => {
 
-                    console.log(data)
-
                     let passForm = this.state.formPassword;
                     passForm[0].valueState = data.ID_DISPOSITIVO
                     passForm[1].valueState = data.EMAIL_RESPONSABLE
-                    passForm[2].valueState = data.EMAIL_RESPONSABLE
-                    passForm[3].valueState = data.EMAIL_RESPONSABLE
-                    passForm[4].valueState = data.EMAIL_RESPONSABLE
+                    passForm[2].valueState = data.NOMBRE_MICROSERVICIO
 
                     this.setState({formPassword: passForm});
 
@@ -770,27 +773,47 @@ export class Dispositivos extends Component {
                 nameIcon: 'fas fa-passport',
                 onClick: (data, dataKey) => {
 
-                    console.log(data)
+                    let dataJson = {};
 
-                    let updateForm = this.state.formUpdate;
-                    updateForm[0].valueState = data.ID_DISPOSITIVO
-                    updateForm[1].valueState = data.MARCA
-                    updateForm[2].valueState = data.REFERENCIA
-                    updateForm[3].valueState = data.LATITUD
-                    updateForm[4].valueState = data.LONGITUD
-                    updateForm[5].valueState = data.NOMBRE_MICROSERVICIO
-                    updateForm[6].valueState = data.EMAIL_RESPONSABLE
-                    updateForm[7].valueState = data.DISPOSITIVO_ACTIVO
-                    this.setState({formUpdate: updateForm});
+                    dataJson['id_dispositivo'] = data.ID_DISPOSITIVO;
+                    dataJson['email_responsable'] = data.EMAIL_RESPONSABLE;
+                    dataJson['nombre_microservicio'] = data.NOMBRE_MICROSERVICIO;
+                    dataJson['token'] = data.TOKEN;
+                    dataJson['marca'] = data.MARCA;
+                    dataJson['referencia'] = data.REFERENCIA;
+                    dataJson['latitud'] = data.LATITUD;
+                    dataJson['longitud'] = data.LONGITUD;
 
+                    const el = document.createElement('textarea');
+                    el.value = data.TOKEN;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    
                     this.setState({
-                        showDataEditForm_show: true,
-                        showDataEditForm_title: 'Editar Módulo',
-                        showDataEditForm_schema: schemaModalModulo,
-                        showDataEditForm_fields: this.state.formUpdate,
-                        showDataEditForm_bottonFooter: this.bottonsFooterModalUpdateModulo
-                    })
-
+                        showInformacion: true,
+                        tituloInformacion: 'Token Dispositivo',
+                        cuerpoInformacion: `El Token del dispositivo con ID: ${data.ID_DISPOSITIVO} ha sido copiado en el portapapeles. Si desea puede solicitar el cambio de token.`,
+                        buttonFooterInformacion:[
+                            {
+                                labelButton: "Cambiar Token",
+                                color: "red",
+                                appearance: "subtle",
+                                icon: true,
+                                nameIcon: 'fas fa-exchange-alt',
+                                onClick: () => {
+                                    DispositivosAction_CambiarTokenDispositivo(dataJson).then(() => {
+                                        Notify('success','Token actualizada',`El token para el dispositivo con ID: ${data.ID_DISPOSITIVO} ha sido actualizado exitosamente y ha sido envíado al correo del responsable.`)
+                                        this.setState({dataActualizada: true})
+                                        this.setState({showInformacion: false});
+                                    }).catch((err) => {
+                                        Notify('error','Token no actualizada',`${err.response.data.return}`)
+                                    })
+                                },
+                            },
+                        ]
+                    }) 
                 },
             }
         ]
@@ -967,7 +990,7 @@ export class Dispositivos extends Component {
             color: "yellow",
             appearance: "subtle",
             icon: true,
-            nameIcon: 'fas fa-key',
+            nameIcon: 'fas fa-exchange-alt',
             onClick: () => {
                 
                 let dataJson = {};
@@ -987,7 +1010,11 @@ export class Dispositivos extends Component {
                 if(nullFields.length > 0){
                     Notify('warning','Problema actualizando contraseña',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
-                        DispositivosAction_ActualizarDispositivos(dataJson).then(() => {
+
+                    if (updatePass[4].valueState != updatePass[5].valueState){
+                        Notify('warning','Problema actualizando contraseña',`La Contraseña Nueva con la Confirmación de la Contraseña Nueva no coinciden.`)
+                    }else{
+                        DispositivosAction_CambiarContrasenaDispositivo(dataJson).then(() => {
                             Notify('success','Contraseña actualizada',`La contraseña para el dispositivo con ID: ${updatePass[0].valueState} ha sido actualizada existosamente`)
                             this.setState({dataActualizada: true})
                             updatePass.forEach(x => {
@@ -997,9 +1024,39 @@ export class Dispositivos extends Component {
                         }).catch((err) => {
                             Notify('error','Contraseña no actualizada',`${err.response.data.return}`)
                         })
+                    }   
                 }
             },
-        }
+        },
+        {
+            labelButton: "Solicitar Contraseña",
+            color: "yellow",
+            appearance: "subtle",
+            icon: true,
+            nameIcon: 'fas fa-key',
+            onClick: () => {
+                
+                let dataJson = {};
+                
+                let updatePass = this.state.formPassword;
+
+                updatePass.forEach(x => {
+                    dataJson[`${x.name.toLowerCase()}`] = x.valueState
+                })
+            
+                DispositivosAction_SolicitarCambioContrasena(dataJson).then(() => {
+                    Notify('success','Contraseña solicitada enviada',`La contraseña para el dispositivo con ID: ${updatePass[0].valueState} ha enviada al correo del responsable: ${updatePass[1].valueState}`)
+                    this.setState({dataActualizada: true})
+                    updatePass.forEach(x => {
+                        x.valueState = ''
+                    })
+                    this.setState({showDataEditForm_show: false});
+                }).catch((err) => {
+                    Notify('error','Contraseña solicitada no enviada',`${err.response.data.return}`)
+                })  
+
+            },
+        },
     ]
 
     componentDidMount = () => {
@@ -1071,8 +1128,15 @@ export class Dispositivos extends Component {
                         show={this.state.showConfirmacion}
                         titulo={this.state.tituloConfirmacion} 
                         cuerpo={this.state.cuerpoConfirmacion}  
-                        handleClose={() => this.setState({showConfirmacion:false}) }
+                        handleClose={() => this.setState({showConfirmacion: false}) }
                         handleAceptar={this.state.handleAceptarConfirmacion}
+                    />
+                    <ShowInformation
+                        show={this.state.showInformacion}
+                        titulo={this.state.tituloInformacion} 
+                        cuerpo={this.state.cuerpoInformacion}  
+                        handleClose={() => this.setState({showInformacion: false}) }
+                        footer={this.state.buttonFooterInformacion}
                     />
             </div>
         )
