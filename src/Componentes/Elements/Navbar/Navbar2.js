@@ -60,12 +60,12 @@ function Navbar() {
                     {   
                         click ?
                             <Link to='/Home' className='navbar-mobile-active' onClick={closeMobileMenu}>
-                                RC
+                                RCC
                                 <i className="fas fa-city"></i>
                             </Link>
                         :
                             <Link to='/Home' className='navbar-logo' onClick={closeMobileMenu}>
-                                RC
+                                RCC
                                 <i className="fas fa-city"></i>
                             </Link>
                     }
@@ -77,7 +77,7 @@ function Navbar() {
 
                     {/*Las opciones del navbar aparece vertical solo cuando la pantalla es pequeña entonce se habilita el menu hamburguesa y si está es nav-menu active, de lo contrario es  nav-menu*/}
                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                        <li className='nav-item'>
+                        {/* <li className='nav-item'>
                             <Link to='/Home' className='nav-links' onClick={closeMobileMenu}>
                                 Home
                             </Link>
@@ -91,7 +91,7 @@ function Navbar() {
                             <Link to='/Platforms' className='nav-links'  onClick={closeMobileMenu}>
                                 Nuestras plataformas
                             </Link>
-                        </li>
+                        </li> */}
                         <li>
                             {
                                 cookies.get('token') ? <Link to='/Administrator'><button className='nav-links-mobile'>Dashboard</button></Link> : <button className='nav-links-mobile' onClick={showModalLogin}>Iniciar sesión</button>
