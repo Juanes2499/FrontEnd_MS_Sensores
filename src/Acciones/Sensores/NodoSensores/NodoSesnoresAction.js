@@ -1,208 +1,210 @@
-// import { createAxiosInstance } from '../../../Shared/helper';
-// import history from '../../../Shared/createHistory';
 
-// export const NodosSensoresAction_ConsultarDispositivos = (json) => {
+/*
+import { createAxiosInstance } from '../../../Shared/helper';
+import history from '../../../Shared/createHistory';
 
-//     let data = {
-//         "microservicio_interes": window.MICROSERVICIO_INTERES,
-//         "modulo_interes": window.MODULO_ITERES,
-//         "seleccionar":"",
-//         "condicion": json ? json : {},
-//         "agrupar":"",
-//         "ordenar":""
-//     }
+export const NodosSensoresAction_ConsultarDispositivos = (json) => {
 
-//     const endpoint = '/api/dispositivos/get'
+    let data = {
+        "microservicio_interes": window.MICROSERVICIO_INTERES,
+        "modulo_interes": window.MODULO_ITERES,
+        "seleccionar":"",
+        "condicion": json ? json : {},
+        "agrupar":"",
+        "ordenar":""
+    }
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     console.log(err.response)
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos/get'
 
-// export const NodosSensoresAction_ConsultarMicrosevicios = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    console.log(err.response)
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     let data = {
-//         "microservicio_interes":  window.MICROSERVICIO_INTERES,
-//         "modulo_interes": window.MODULO_ITERES,
-//         "seleccionar":"DISTINCT NOMBRE_MICROSERVICIO AS value, ALIAS_MICROSERIVICIO AS label",
-//         "condicion":{},
-//         "agrupar":"",
-//         "ordenar":""
-//     }
+export const NodosSensoresAction_ConsultarMicrosevicios = () => {
 
-//     const endpoint = '/api/dispositivos/microservicios/get'
+    let data = {
+        "microservicio_interes":  window.MICROSERVICIO_INTERES,
+        "modulo_interes": window.MODULO_ITERES,
+        "seleccionar":"DISTINCT NOMBRE_MICROSERVICIO AS value, ALIAS_MICROSERIVICIO AS label",
+        "condicion":{},
+        "agrupar":"",
+        "ordenar":""
+    }
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos/microservicios/get'
 
-// export const NodosSensoresAction_CrearDispositivos = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     data.microservicio_interes =   window.MICROSERVICIO_INTERES;
-//     data.modulo_interes =  window.MODULO_ITERES;
+export const NodosSensoresAction_CrearDispositivos = (data) => {
 
-//     const endpoint = '/api/dispositivos'
+    data.microservicio_interes =   window.MICROSERVICIO_INTERES;
+    data.modulo_interes =  window.MODULO_ITERES;
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos'
 
-// export const NodosSensoresAction_ActualizarDispositivos = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     data.microservicio_interes =   window.MICROSERVICIO_INTERES;
-//     data.modulo_interes =  window.MODULO_ITERES;
+export const NodosSensoresAction_ActualizarDispositivos = (data) => {
 
-//     const endpoint = '/api/dispositivos'
+    data.microservicio_interes =   window.MICROSERVICIO_INTERES;
+    data.modulo_interes =  window.MODULO_ITERES;
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().put(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos'
 
-// export const NodosSensoresAction_EliminarDispositivos = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().put(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     data.microservicio_interes =   window.MICROSERVICIO_INTERES;
-//     data.modulo_interes =  window.MODULO_ITERES;
+export const NodosSensoresAction_EliminarDispositivos = (data) => {
 
-//     const endpoint = '/api/dispositivos/delete'
+    data.microservicio_interes =   window.MICROSERVICIO_INTERES;
+    data.modulo_interes =  window.MODULO_ITERES;
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos/delete'
 
-// export const NodosSensoresAction_EstadoContrasenaDispositivo = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     data.microservicio_interes =   window.MICROSERVICIO_INTERES;
-//     data.modulo_interes =  window.MODULO_ITERES;
+export const NodosSensoresAction_EstadoContrasenaDispositivo = (data) => {
 
-//     const endpoint = '/api/dispositivos/validarEstadoContrasena'
+    data.microservicio_interes =   window.MICROSERVICIO_INTERES;
+    data.modulo_interes =  window.MODULO_ITERES;
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos/validarEstadoContrasena'
 
-// export const NodosSensoresAction_SolicitarCambioContrasena = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     data.microservicio_interes =   window.MICROSERVICIO_INTERES;
-//     data.modulo_interes =  window.MODULO_ITERES;
+export const NodosSensoresAction_SolicitarCambioContrasena = (data) => {
 
-//     const endpoint = '/api/dispositivos/solicitarCambioContrasena'
+    data.microservicio_interes =   window.MICROSERVICIO_INTERES;
+    data.modulo_interes =  window.MODULO_ITERES;
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos/solicitarCambioContrasena'
 
-// export const NodosSensoresAction_CambiarContrasenaDispositivo = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     data.microservicio_interes =   window.MICROSERVICIO_INTERES;
-//     data.modulo_interes =  window.MODULO_ITERES;
+export const NodosSensoresAction_CambiarContrasenaDispositivo = (data) => {
 
-//     const endpoint = '/api/dispositivos/actualizarContrasena'
+    data.microservicio_interes =   window.MICROSERVICIO_INTERES;
+    data.modulo_interes =  window.MODULO_ITERES;
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos/actualizarContrasena'
 
-// export const NodosSensoresAction_CambiarTokenDispositivo = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
 
-//     data.microservicio_interes =   window.MICROSERVICIO_INTERES;
-//     data.modulo_interes =  window.MODULO_ITERES;
+export const NodosSensoresAction_CambiarTokenDispositivo = (data) => {
 
-//     const endpoint = '/api/dispositivos/actualizarTokenDispositivo'
+    data.microservicio_interes =   window.MICROSERVICIO_INTERES;
+    data.modulo_interes =  window.MODULO_ITERES;
 
-//     return new Promise((resolve, reject) => {
-//         try {
-//             createAxiosInstance().post(endpoint, data)
-//                 .then(Response => {
-//                     return resolve(Response.data)
-//                 }).catch(err => {
-//                     return reject(err)
-//                 })
-//         }catch{
-//             history.push('/Home');
-//         }
-//     })
-// }
+    const endpoint = '/api/dispositivos/actualizarTokenDispositivo'
 
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstance().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
+*/
 
 import { createAxiosInstanceSensores } from '../../../Shared/helper';
 import history from '../../../Shared/createHistory';
@@ -275,6 +277,24 @@ export const NodoSensoresAction_EliminarNodo = (data) => {
     return new Promise((resolve, reject) => {
         try {
             createAxiosInstanceSensores().post(endpoint, data)
+                .then(Response => {
+                    return resolve(Response.data)
+                }).catch(err => {
+                    return reject(err)
+                })
+        }catch{
+            history.push('/Home');
+        }
+    })
+}
+
+export const NodosSensoresAction_CambiarTokenDispositivo = (data) => {
+
+    const endpoint = '/api/nodoSensor/actualizarTokenNodoSensor'
+
+    return new Promise((resolve, reject) => {
+        try {
+            createAxiosInstanceSensores().put(endpoint, data)
                 .then(Response => {
                     return resolve(Response.data)
                 }).catch(err => {
