@@ -6,7 +6,7 @@ import '../global.css'
 import {configTable} from '../global';
 
 //Elementos
-import { DataTableColAction } from '../../../Elements/DataTable/DataTable';
+import { DataTable } from '../../../Elements/DataTable/DataTable';
 import Filter from '../../../Elements/Filter/Filter';
 import { Notify } from '../../../Elements/Notify/Notify';
 import { Confirmation } from '../../../Elements/Confirmation/Confirmation';
@@ -615,33 +615,9 @@ export class Dispositivos extends Component {
             resizable: true,
         },
         {
-            key: "PASSWORD_ACTIVA",
-            text: "Password Activa",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
             key: "DISPOSITIVO_ACTIVO",
             text: "Dispositivo Activo",
             width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "FECHA_ACTUALIZACION_PASSWORD",
-            text: "Fecha Actulización Password",
-            width: 300,
-            align: "left",
-            fixed: false,
-            resizable: true,
-        },
-        {
-            key: "HORA_ACTUALIZACION_PASSWORD",
-            text: "Hora Actualización Password",
-            width: 150,
             align: "left",
             fixed: false,
             resizable: true,
@@ -678,6 +654,30 @@ export class Dispositivos extends Component {
             fixed: false,
             resizable: true,
         },
+        // {
+        //     key: "PASSWORD_ACTIVA",
+        //     text: "Password Activa",
+        //     width: 200,
+        //     align: "left",
+        //     fixed: false,
+        //     resizable: true,
+        // },
+        // {
+        //     key: "FECHA_ACTUALIZACION_PASSWORD",
+        //     text: "Fecha Actulización Password",
+        //     width: 300,
+        //     align: "left",
+        //     fixed: false,
+        //     resizable: true,
+        // },
+        // {
+        //     key: "HORA_ACTUALIZACION_PASSWORD",
+        //     text: "Hora Actualización Password",
+        //     width: 150,
+        //     align: "left",
+        //     fixed: false,
+        //     resizable: true,
+        // },
     ]
 
     //Arreglo de las acciones de los botones de la tabla
@@ -821,22 +821,22 @@ export class Dispositivos extends Component {
 
     //Arreglo de los botones de las acciones del header del filtro
     bottonsHeaderFilter = [
-        {
-            labelButton: "",
-            color: "green",
-            appearance: "subtle",
-            icon: true,
-            nameIcon: 'fas fa-plus',
-            onClick: () => {
-                this.setState({
-                    showDataEditForm_show: true,
-                    showDataEditForm_title: 'Nuevo Dispositivo',
-                    showDataEditForm_schema: schemaModalModulo,
-                    showDataEditForm_fields: this.state.formNew,
-                    showDataEditForm_bottonFooter: this.bottonsFooterModalNewModulo
-                })
-            }
-        },
+        // {
+        //     labelButton: "",
+        //     color: "green",
+        //     appearance: "subtle",
+        //     icon: true,
+        //     nameIcon: 'fas fa-plus',
+        //     onClick: () => {
+        //         this.setState({
+        //             showDataEditForm_show: true,
+        //             showDataEditForm_title: 'Nuevo Dispositivo',
+        //             showDataEditForm_schema: schemaModalModulo,
+        //             showDataEditForm_fields: this.state.formNew,
+        //             showDataEditForm_bottonFooter: this.bottonsFooterModalNewModulo
+        //         })
+        //     }
+        // },
     ]
 
     //Arreglo de los botones de las acciones del footer del filtro
@@ -1067,17 +1067,17 @@ export class Dispositivos extends Component {
                 Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
             })
 
-        DispositivosAction_ConsultarMicrosevicios()
-            .then((response) => {
-                let newFrom = this.state.formNew;
-                newFrom[4].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
-                this.setState({formNew: newFrom})
-                let updateForm = this.state.formUpdate;
-                updateForm[5].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
-                this.setState({formUpdate: updateForm})
-            }).catch((err) => {
-                Notify('error','Error consultado Microservicios',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
-            })
+        // DispositivosAction_ConsultarMicrosevicios()
+        //     .then((response) => {
+        //         let newFrom = this.state.formNew;
+        //         newFrom[4].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
+        //         this.setState({formNew: newFrom})
+        //         let updateForm = this.state.formUpdate;
+        //         updateForm[5].dataPicker = response.data.map((a, indice) => ({ ...a, id: indice + 1 }))
+        //         this.setState({formUpdate: updateForm})
+        //     }).catch((err) => {
+        //         Notify('error','Error consultado Microservicios',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
+        //     })
     }
 
     componentDidUpdate = () => {
@@ -1106,7 +1106,7 @@ export class Dispositivos extends Component {
                             actions={this.bottonsFooterFilter}
                         />
                         <br/>
-                        <DataTableColAction 
+                        <DataTable 
                             key={this.state.dataModulo.id} 
                             configuration={configTable} 
                             data={this.state.dataModulo} 
