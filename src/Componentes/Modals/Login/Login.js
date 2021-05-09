@@ -108,7 +108,6 @@ const Login = ({isActivate, handleClose, ...props}) => {
                 }
             });
         }
-
     }
 
     //Función para actualizar la contraseña
