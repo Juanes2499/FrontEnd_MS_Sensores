@@ -14,8 +14,9 @@ function Maps({data, configuration}) {
                 />
                 {
                     data.map((item,index) => {
+                        console.log(item)
                         return (
-                            <MarkersPopup lat={item.lat} lon={item.lon}/>
+                            <MarkersPopup id={item.id} lat={item.lat} lon={item.lon}/>
                         )
                     })
                 }

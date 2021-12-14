@@ -2049,6 +2049,7 @@ export class NodoSensores extends Component {
                 let dataMapArray = [];
                 this.state.data.forEach(x => {
                     dataMapArray.push({
+                        id: x.ID_NODO_SENSOR,
                         lat: x.LATITUD,
                         lon: x.LONGITUD,
                     })

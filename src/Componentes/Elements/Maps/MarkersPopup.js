@@ -3,12 +3,12 @@ import { Marker, Popup, Tooltip } from "react-leaflet";
 import {IconLocation} from "./IconLocation";
 
 
-const MarkersPopup = ({lat,lon}) => {
+const MarkersPopup = ({id,lat,lon}) => {
     return (
         <div>
             <Marker position={[lat,lon]} icon={IconLocation}>
-                <Popup>Popup for Marker</Popup>
-                <Tooltip>Tooltip for Marker</Tooltip>
+                <Tooltip>Nodo Sensor: {id}</Tooltip>
+                <Popup>Nodo Sensor: {id}, Lat: {lat}, Lon: {lon}</Popup>
             </Marker>
         </div>
     )
